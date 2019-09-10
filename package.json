@@ -8,8 +8,21 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "add": "^2.0.6",
+    "native-base": "^2.13.7",
     "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "react-native-country-picker-modal": "^0.8.0",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-easy-grid": "^0.2.2",
+    "react-native-elements": "^1.2.0",
+    "react-native-gesture-handler": "^1.4.1",
+    "react-native-instagram-login": "^1.1.2",
+    "react-native-reanimated": "^1.2.0",
+    "react-native-screens": "^1.0.0-alpha.23",
+    "react-native-webview": "^7.0.4",
+    "react-navigation": "git+https://github.com/react-community/react-navigation.git",
+    "react-navigation-stack": "^1.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

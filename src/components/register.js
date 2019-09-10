@@ -1,0 +1,150 @@
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text } from 'react-native';
+import DatePicker from 'react-native-datepicker'
+import { Input } from 'react-native-elements';
+import { Button } from 'native-base';
+
+export default class register extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = { date: "2016-05-15" }
+    }
+
+    _selectInterests = () => {
+        this.props.navigation.navigate('SelectInterests')
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.nameZone}>
+                    <Text style={styles.name}>
+                        Lionel Messi
+                    </Text>
+                </View>
+
+                <View style={styles.imageZone}>
+                    <Image
+                        style={styles.image}
+                        source={require('../../assets/image/messi.jpg')}
+                    />
+                </View>
+
+                <View style={styles.inputGroup}>
+                    <Text style={styles.nacimiento}>
+                        Nacimiento:
+                        </Text>
+                    <DatePicker
+                        date={this.state.date}
+                        mode="date"
+                        style={{ alignSelf: 'center' }}
+                        format="YYYY-MM-DD"
+                        minDate="2016-05-01"
+                        maxDate="2016-06-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateInput: {
+                                borderColor: 'white',
+                                borderBottomColor: 'grey'
+                            }
+                        }}
+                        onDateChange={(date) => { this.setState({ date: date }) }}
+                    />
+                </View>
+
+                <View style={styles.inputGroup}>
+                    <View style={styles.textZone}>
+                        <Text style={styles.text}>
+                            País:
+                        </Text>
+                    </View>
+                    <View style={styles.inputZone}>
+                        <Input />
+                    </View>
+                </View>
+
+                <View style={styles.inputGroup}>
+                    <View style={styles.textZone}>
+                        <Text style={styles.text}>
+                            Sexo:
+                        </Text>
+                    </View>
+                    <View style={styles.inputZone}>
+                        <Input />
+                    </View>
+                </View>
+
+                <View style={styles.buttonZone}>
+                    <Button full onPress={this._selectInterests}>
+                        <Text>Siguiente ></Text>
+                    </Button>
+                </View>
+            </View>
+        );
+    }
+}
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    nameZone: {
+        flex: 0.75,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 5
+    },
+    name: {
+        fontSize: 35,
+        alignSelf: 'flex-end',
+    },
+    imageZone: {
+        flex: 2,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    image: {
+        width: '50%',
+        height: 'auto',
+        borderRadius: 15
+    },
+    inputGroup: {
+        flex: 0.75,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    textZone: {
+        flex: 0.50,
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    text: {
+        alignSelf: 'flex-end',
+        fontFamily: 'sans-serif',
+        fontSize: 20,
+    },
+    nacimiento: {
+        alignSelf: 'center',
+        fontFamily: 'sans-serif',
+        fontSize: 20,
+    },
+    inputZone: {
+        flex: 1,
+        flexDirection: 'column',
+        marginRight: '15%'
+    },
+    datePicker: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    buttonZone: {
+        flex: 0.50
+    }
+});
