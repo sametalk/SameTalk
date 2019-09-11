@@ -40,12 +40,36 @@ export default class selectInterests extends Component {
 
     state = {
         interests: [list],
-        selectedInterestsId: []
+        selectedInterestsId: [],
+        data: []
     };
 
-    _perfil = () => {
-        this.props.navigation.navigate('Perfil')
+    componentDidMount() {
+        let objeto = this.props.navigation.state.params;
+        this.setState({ data: objeto.data });
     }
+
+
+    _perfil = () => {
+        const data = {
+            id: this.state.data.id,
+            username: this.state.data.username,
+            full_name: this.state.data.full_name,
+            profile_picture: this.state.data.profile_picture,
+            bio: this.state.data.bio,
+            follows: this.state.data.counts.follows,
+            followed_by: this.state.data.counts.followed_by
+          };
+          fetch("https://sametalk-backend.herokuapp.com/api/users/", {
+            method: "POST", 
+            body: JSON.stringify(data), 
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+        this.props.navigation.navigate('Perfil');
+    }
+
 
     onCheckBoxPress(id) {
         let tmp = this.state.selectedInterestsId;

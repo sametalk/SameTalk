@@ -18,7 +18,7 @@ export default class register extends Component {
     }
 
     _selectInterests = () => {
-        this.props.navigation.navigate('SelectInterests')
+        this.props.navigation.navigate('SelectInterests', {data: this.state.data})
     }
 
     //guardo token ni bien llego a esta pagina
@@ -29,7 +29,6 @@ export default class register extends Component {
             `https://api.instagram.com/v1/users/self/?access_token=${objeto.token}`
         );
         const ar = await response.json();
-        console.log(ar);
         this.setState({ data: ar.data})
     }
 
