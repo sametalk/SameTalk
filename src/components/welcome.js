@@ -5,9 +5,8 @@ import { StyleSheet, ImageBackground, View, TouchableOpacity } from 'react-nativ
 import InstagramLogin from 'react-native-instagram-login'
 
 export default class Welcome extends Component {
-
+    //agregue un comentario
     _register = () => {
-        
         this.props.navigation.navigate('Register', { codigo: this.state.token })
     }
 
