@@ -2,32 +2,51 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import { Input } from 'react-native-elements';
-import { Button } from 'native-base';
+import { Button, Content } from 'native-base';
+import { thisExpression } from '@babel/types';
+import Ins from "react-native-instagram-login";
 
 export default class register extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { date: "2016-05-15" }
+        this.state = {
+            date: "2016-05-15",
+            token: '',
+            data: []
+        }
     }
 
     _selectInterests = () => {
         this.props.navigation.navigate('SelectInterests')
     }
 
+    //guardo token ni bien llego a esta pagina
+    async componentDidMount() {
+        let objeto = this.props.navigation.state.params;
+        this.setState({ token: objeto.token });
+        const response = await fetch(
+            `https://api.instagram.com/v1/users/self/?access_token=${objeto.token}`
+        );
+        const ar = await response.json();
+        console.log(ar);
+        this.setState({ data: ar.data})
+    }
+
     render() {
+        console.log(this.state.data);
         return (
             <View style={styles.container}>
                 <View style={styles.nameZone}>
                     <Text style={styles.name}>
-                        Lionel Messi
+                        {this.state.data.full_name}
                     </Text>
                 </View>
 
                 <View style={styles.imageZone}>
                     <Image
                         style={styles.image}
-                        source={require('../../assets/image/messi.jpg')}
+                        source={{uri: this.state.data.profile_picture}}
                     />
                 </View>
 
@@ -82,7 +101,7 @@ export default class register extends Component {
                     </Button>
                 </View>
             </View>
-        );
+        )
     }
 }
 
