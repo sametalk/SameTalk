@@ -40,7 +40,7 @@ export default class perfil extends Component {
 
     componentDidMount() {
         let objeto = this.props.navigation.state.params;
-        this.setState({ data: objeto.data, date: objeto.dete, country: objeto.country });
+        this.setState({ data: objeto.data, date: objeto.date, country: objeto.country });
     }
 
     state = {
@@ -50,9 +50,10 @@ export default class perfil extends Component {
     };
 
     calcularEdad(){
-        
+        console.log(this.state.date);
+
         var hoy = new Date();
-        var cumpleanos = new Date(Date.parse(this.state.date));
+        var cumpleanos = new Date(this.state.date);
         var edad = hoy.getFullYear() - cumpleanos.getFullYear();
         var m = hoy.getMonth() - cumpleanos.getMonth();
     
@@ -80,7 +81,7 @@ export default class perfil extends Component {
                             <Text style={styles.name}>{this.state.data.full_name}</Text>
                         </View>   
                         <View style={styles.textZone}> 
-                            <Text style={styles.age}>24  años</Text>
+                            <Text style={styles.age}>{this.calcularEdad()} años</Text>
                         </View>  
                         <View style={styles.textZone}>  
                             <Text style={styles.country}>Argentina</Text>
