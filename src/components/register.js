@@ -59,7 +59,7 @@ export default class register extends Component {
                         mode="date"
                         style={{ alignSelf: 'center' }}
                         format="YYYY-MM-DD"
-                        minDate="2016-05-01"
+                        minDate="1940-01-01"
                         maxDate="2016-06-01"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
