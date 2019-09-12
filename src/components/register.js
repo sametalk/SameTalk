@@ -13,12 +13,13 @@ export default class register extends Component {
         this.state = {
             date: "2016-05-15",
             token: '',
-            data: []
+            data: [],
+            country: ''
         }
     }
 
     _selectInterests = () => {
-        this.props.navigation.navigate('SelectInterests', {data: this.state.data})
+        this.props.navigation.navigate('SelectInterests', {data: this.state.data, date: this.state.date, country: this.state.country})
     }
 
     //guardo token ni bien llego a esta pagina

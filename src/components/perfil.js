@@ -38,6 +38,30 @@ const list = [
 
 export default class perfil extends Component {
 
+    componentDidMount() {
+        let objeto = this.props.navigation.state.params;
+        this.setState({ data: objeto.data, date: objeto.dete, country: objeto.country });
+    }
+
+    state = {
+        date: '',
+        data: [],
+        country: ''
+    };
+
+    calcularEdad(){
+        
+        var hoy = new Date();
+        var cumpleanos = new Date(Date.parse(this.state.date));
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+    
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+    
+        return edad;
+    }
 
     render() {
         return (
@@ -47,16 +71,16 @@ export default class perfil extends Component {
                         <Avatar
                             rounded
                             size="xlarge"
-                            source={require('../../assets/image/messi.jpg')}
+                            source={{uri: this.state.data.profile_picture}}
                             containerStyle={styles.avatar}
                         />
                     </View>
                     <View style={styles.dateZone}>
                         <View style={styles.textZone}>
-                            <Text style={styles.name}>Lionel Messi</Text>
+                            <Text style={styles.name}>{this.state.data.full_name}</Text>
                         </View>   
                         <View style={styles.textZone}> 
-                            <Text style={styles.age}>24 años</Text>
+                            <Text style={styles.age}>24  años</Text>
                         </View>  
                         <View style={styles.textZone}>  
                             <Text style={styles.country}>Argentina</Text>

@@ -41,12 +41,14 @@ export default class selectInterests extends Component {
     state = {
         interests: [list],
         selectedInterestsId: [],
-        data: []
+        data: [],
+        date: '',
+        country: ''
     };
 
     componentDidMount() {
         let objeto = this.props.navigation.state.params;
-        this.setState({ data: objeto.data });
+        this.setState({ data: objeto.data, date: objeto.date , country: this.state.country});
     }
 
 
@@ -67,7 +69,7 @@ export default class selectInterests extends Component {
               "Content-Type": "application/json"
             }
           });
-        this.props.navigation.navigate('Perfil');
+        this.props.navigation.navigate('Perfil', {data: this.state.data, date: this.state.date, country: this.state.country});
     }
 
 
