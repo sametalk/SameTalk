@@ -13,8 +13,42 @@ export default class Welcome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: ''
-        };
+            token: '',
+            data: [],
+            isReg: []
+        }
+    }
+
+    async _onRegister(token){
+        console.disableYellowBox = true;
+        console.log(token)
+        await fetch(
+            `https://api.instagram.com/v1/users/self/?access_token=${token}`)
+            .then(response => response.json())
+            .then(ar => {this.setState({ data: ar.data })})
+            console.log(this.state.data.id)
+        
+            console.log(this.state.isReg)
+        await fetch(
+            `https://sametalk-backend.herokuapp.com/api/users/instagram/${this.state.data.id}`)
+            .then(response => response.json())
+            .then(res => this.setState({ isReg: res }))
+            console.log(this.state.isReg)
+            console.log(JSON.stringify(this.state.isReg)!=='{}')
+        if (JSON.stringify(this.state.isReg)!=='{}') {
+            this.props.navigation.navigate('Perfil', {
+                token: this.state.isReg.token,
+                data: this.state.isReg.data,
+                country: this.state.isReg.data.countryId,
+                date: this.state.isReg.data.birthDate,
+                sex: this.state.isReg.data.gender
+            })
+        } else {
+            this.props.navigation.navigate('Register', {
+                token: this.state.isReg.token,
+                data: this.state.isReg.data
+            })
+        }
     }
 
     render() {
@@ -33,14 +67,15 @@ export default class Welcome extends Component {
                                         <View>
                                             <Button iconLeft danger full style={styles.button} onPress={() => this.instagramLogin.show()}>
                                                 <Icon type="AntDesign" name='instagram' />
-                                                <Text>Login whit Instagram</Text>
+                                                <Text>Login with Instagram</Text>
                                             </Button>
                                             <InstagramLogin
                                                 ref={ref => this.instagramLogin = ref}
                                                 clientId='c222a1cb5aa94671adc8c085a2d1aaf4'
                                                 redirectUrl='https://google.com'
                                                 scopes={['basic']}
-                                                onLoginSuccess={token => navigation.navigate('Register', {token:token})}
+                                                //onLoginSuccess={token => navigation.navigate('Register', {token:token})}
+                                                onLoginSuccess={token => this._onRegister(token)}
                                                 onLoginFailure={data => this.setState({ failure: data })}
                                                 cacheEnabled={false}
                                                 incognito={true}

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, ImageBackground } from 'react-native';
-import { Container, Footer, FooterTab, Card, CardItem, Text, Button } from 'native-base';
-import storage from '../storage';
+import { Image, ImageBackground, View, StyleSheet, PixelRatio } from 'react-native';
+import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
+import CountryPicker, {
+    getAllCountries
+} from 'react-native-country-picker-modal'
+import DatePicker from 'react-native-datepicker';
 import { CheckBox } from 'react-native-elements';
 
-export default class selectAge extends Component {
-
+export default class CardImageExample extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,44 +16,20 @@ export default class selectAge extends Component {
         }
     }
 
-    componentDidMount() {
-        console.disableYellowBox = true;
-    }
-    async _selectInterests(){
-        
+    _selectInterests = () => {
         //Verifico que haya seleccionado el sexo
         if (this.state.women || this.state.men) {
             let objeto = this.props.navigation.state.params
-            let gender = '';
             if (this.state.women) {
                 //Storage.setItem('sex', {sex: 'Women'})
-                gender = 'F'
                 this.props.navigation.navigate('SelectInterests', { data: objeto.data, date: objeto.date, country: objeto.country, sex: 'Women' })
             } else {
                 //Storage.setItem('sex', {sex: 'Man'})
-                gender = 'M'
                 this.props.navigation.navigate('SelectInterests', { data: objeto.data, date: objeto.date, country: objeto.country, sex: 'Man' })
             }
-            console.disableYellowBox = true;
-            const data = {
-                token: objecto.token,
-                data: objeto.data,
-                birth_date: objeto.date,
-                gender: gender,
-                country_id: objeto.country  
-            };
-            const response = await fetch("https://sametalk-backend.herokuapp.com/api/users/", {
-                method: "POST", 
-                body: JSON.stringify(data), 
-                headers: {
-                "Content-Type": "application/json"
-                }
-            });
-            const ar = await response.json();
-            this.setState({data: ar})
-            console.log(this.data)
-            }
 
+
+        }
     }
 
     //Controla los checkbox para que solo este seleccionada una opcion
@@ -106,13 +84,40 @@ export default class selectAge extends Component {
                     </View>
                     <Footer>
                         <FooterTab>
-                            <Button full onPress={this._selectInterests}>
+                            <Button full onPress={() => this.props.navigation.navigate('SelectAge', { data: this.state.data })}>
                                 <Text>Siguiente ></Text>
                             </Button>
                         </FooterTab>
                     </Footer>
                 </ImageBackground>
             </Container>
-        )
+        );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10
+    },
+    instructions: {
+        fontSize: 12,
+        textAlign: 'center',
+        color: '#888',
+        marginBottom: 5
+    },
+    data: {
+        padding: 15,
+        marginTop: 10,
+        backgroundColor: '#ddd',
+        borderColor: '#888',
+        borderWidth: 1 / PixelRatio.get(),
+        color: '#777'
+    }
+})
