@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import DatePicker from 'react-native-datepicker'
-import { Input } from 'react-native-elements';
-import { Button, Content } from 'native-base';
-import { thisExpression } from '@babel/types';
-import Ins from "react-native-instagram-login";
+import { StyleSheet, View } from 'react-native';
+import { Avatar } from 'react-native-elements';
+import { Button, Container, Footer, FooterTab, Text } from 'native-base';
+import Storage from '../storage';
 
 export default class register extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            date: "2016-05-15",
             token: '',
-            data: [],
-            country: ''
+            data: []
         }
-    }
-
-    _selectInterests = () => {
-        this.props.navigation.navigate('SelectInterests', {data: this.state.data, date: this.state.date, country: this.state.country})
     }
 
     //guardo token ni bien llego a esta pagina
@@ -30,77 +22,51 @@ export default class register extends Component {
             `https://api.instagram.com/v1/users/self/?access_token=${objeto.token}`
         );
         const ar = await response.json();
-        this.setState({ data: ar.data})
+        //Storage.setItem('data', ar.data);
+        this.setState({ data: ar.data })
+        console.log(this.state.token)
     }
 
     render() {
-        console.log(this.state.data);
         return (
-            <View style={styles.container}>
-                <View style={styles.nameZone}>
-                    <Text style={styles.name}>
-                        {this.state.data.full_name}
-                    </Text>
-                </View>
+            <Container>
+                <View style={styles.container}>
+                    <View style={styles.welcome}>
+                        <Text style={styles.title}>
+                            ¡Bienvenido a Same Talk!
+                            </Text>
+                    </View>
 
-                <View style={styles.imageZone}>
-                    <Image
-                        style={styles.image}
-                        source={{uri: this.state.data.profile_picture}}
-                    />
-                </View>
+                    <View style={styles.avatarZone}>
+                        <Avatar
+                            rounded
+                            size="xlarge"
+                            source={{ uri: this.state.data.profile_picture }}
+                            containerStyle={styles.avatar}
+                        />
+                    </View>
 
-                <View style={styles.inputGroup}>
-                    <Text style={styles.nacimiento}>
-                        Nacimiento:
-                        </Text>
-                    <DatePicker
-                        date={this.state.date}
-                        mode="date"
-                        style={{ alignSelf: 'center' }}
-                        format="YYYY-MM-DD"
-                        minDate="1940-01-01"
-                        maxDate="2016-06-01"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateInput: {
-                                borderColor: 'white',
-                                borderBottomColor: 'grey'
-                            }
-                        }}
-                        onDateChange={(date) => { this.setState({ date: date }) }}
-                    />
-                </View>
+                    <View style={styles.nameZone}>
+                        <Text style={styles.name}>
+                            Nicolás Montoya
+                            </Text>
+                    </View>
 
-                <View style={styles.inputGroup}>
                     <View style={styles.textZone}>
                         <Text style={styles.text}>
-                            País:
+                            Complete algunos datos para finalizar su registro...
                         </Text>
                     </View>
-                    <View style={styles.inputZone}>
-                        <Input />
-                    </View>
                 </View>
+                <Footer>
+                    <FooterTab>
+                        <Button full onPress={() => this.props.navigation.navigate('SelectAge',{data: this.state.data})}>
+                            <Text>Siguiente ></Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
+            </Container>
 
-                <View style={styles.inputGroup}>
-                    <View style={styles.textZone}>
-                        <Text style={styles.text}>
-                            Sexo:
-                        </Text>
-                    </View>
-                    <View style={styles.inputZone}>
-                        <Input />
-                    </View>
-                </View>
-
-                <View style={styles.buttonZone}>
-                    <Button full onPress={this._selectInterests}>
-                        <Text>Siguiente ></Text>
-                    </Button>
-                </View>
-            </View>
         )
     }
 }
@@ -112,58 +78,36 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center'
     },
-    nameZone: {
-        flex: 0.75,
+    welcome: {
+        flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 5
+        justifyContent: 'center'
     },
-    name: {
-        fontSize: 35,
-        alignSelf: 'flex-end',
+    title: {
+        fontSize: 20,        
+        alignSelf: "flex-end"
     },
-    imageZone: {
+    avatarZone: {
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    image: {
-        width: '50%',
-        height: 'auto',
-        borderRadius: 15
+    avatar:{
+        alignSelf: 'flex-end'
     },
-    inputGroup: {
-        flex: 0.75,
+    nameZone: {
+        flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 10,
-    },
-    textZone: {
-        flex: 0.50,
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    text: {
-        alignSelf: 'flex-end',
-        fontFamily: 'sans-serif',
-        fontSize: 20,
-    },
-    nacimiento: {
-        alignSelf: 'center',
-        fontFamily: 'sans-serif',
-        fontSize: 20,
-    },
-    inputZone: {
-        flex: 1,
-        flexDirection: 'column',
-        marginRight: '15%'
-    },
-    datePicker: {
-        flex: 1,
-        flexDirection: 'column',
         justifyContent: 'center'
     },
-    buttonZone: {
-        flex: 0.50
+    name: {
+    },
+    textZone: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    text: {
+
     }
 });

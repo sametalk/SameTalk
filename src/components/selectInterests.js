@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ListItem, CheckBox } from 'react-native-elements'
 import { View } from 'react-native';
 import { Container, Content, Footer, Button , Text, FooterTab } from 'native-base';
+import Storage from '../storage';
 
 const list = [
     {
@@ -41,19 +42,10 @@ export default class selectInterests extends Component {
     state = {
         interests: [list],
         selectedInterestsId: [],
-        data: [],
-        date: '',
-        country: ''
     };
 
-    componentDidMount() {
-        let objeto = this.props.navigation.state.params;
-        this.setState({ data: objeto.data, date: objeto.date , country: this.state.country});
-    }
-
-
     _perfil = () => {
-        const data = {
+        /*const data = {
             id: this.state.data.id,
             username: this.state.data.username,
             full_name: this.state.data.full_name,
@@ -68,8 +60,16 @@ export default class selectInterests extends Component {
             headers: {
               "Content-Type": "application/json"
             }
-          });
-        this.props.navigation.navigate('Perfil', {data: this.state.data, date: this.state.date, country: this.state.country});
+          });*/
+        //await Storage.setItem('interests',{interests: this.state.selectedInterestsId}); 
+        let objeto = this.props.navigation.state.params
+        this.props.navigation.navigate('Perfil',{
+            data: objeto.data, 
+            date: objeto.date, 
+            country: objeto.country, 
+            sex: objeto.sex,
+            interests: this.state.selectedInterestsId
+        });
     }
 
 
