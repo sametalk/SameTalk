@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Button, Container, Footer, FooterTab, Text } from 'native-base';
+import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
 import Storage from '../storage';
+import { objectOf } from 'prop-types';
 
 export default class register extends Component {
 
@@ -15,60 +16,67 @@ export default class register extends Component {
     }
 
     //guardo token ni bien llego a esta pagina
-    async componentDidMount() {
+    /* async componentDidMount() {
+         console.disableYellowBox = true;
+         let objeto = this.props.navigation.state.params;
+         this.setState({ token: objeto.token });
+         const response = await fetch(
+             `https://api.instagram.com/v1/users/self/?access_token=${objeto.token}`
+         );
+         const ar = await response.json();
+         //Storage.setItem('data', ar.data);
+         this.setState({ data: ar.data })
+         console.log(this.state.token)
+     }*/
+
+    componentDidMount() {
+        console.disableYellowBox = true;
         let objeto = this.props.navigation.state.params;
-        this.setState({ token: objeto.token });
-        const response = await fetch(
-            `https://api.instagram.com/v1/users/self/?access_token=${objeto.token}`
-        );
-        const ar = await response.json();
-        //Storage.setItem('data', ar.data);
-        this.setState({ data: ar.data })
-        console.log(this.state.token)
+        this.setState({ data: objeto.data })
+        this.setState({ token: objeto.token })
     }
 
     render() {
+        
         return (
             <Container>
-                <View style={styles.container}>
-                    <View style={styles.welcome}>
-                        <Text style={styles.title}>
-                            ¡Bienvenido a Same Talk!
-                            </Text>
-                    </View>
+                <ImageBackground source={require('../../assets/image/fondo7.jpg')} style={{ width: '100%', height: '100%' }}>
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
+                        <View style={{ flex: 0.90, flexDirection: "row", justifyContent: 'center' }}>
+                            <Card style={{ flex: 0.90, flexDirection: "column", alignSelf: 'center' }}>
 
-                    <View style={styles.avatarZone}>
-                        <Avatar
-                            rounded
-                            size="xlarge"
-                            source={{ uri: this.state.data.profile_picture }}
-                            containerStyle={styles.avatar}
-                        />
-                    </View>
+                                <CardItem style={{ flexDirection: "column" }}>
+                                    <Text>Bienvenido a Same Talk</Text>
+                                    <Text note>{this.state.data.full_name}</Text>
+                                </CardItem>
+                                <CardItem cardBody style={{ flex: 0.50, flexDirection: "row", alignSelf: 'center' }}>
+                                    <Avatar
+                                        rounded
+                                        size="xlarge"
+                                        source={{ uri: this.state.data.profile_picture }}
+                                    />
+                                </CardItem>
+                                <CardItem>
+                                    <Body>
+                                        <Button transparent>
+                                            <Text style={{ textAlign: "center" }}>Complete los datos para finalizar su registro</Text>
+                                        </Button>
+                                    </Body>
+                                </CardItem>
 
-                    <View style={styles.nameZone}>
-                        <Text style={styles.name}>
-                            Nicolás Montoya
-                            </Text>
+                            </Card>
+                        </View>
                     </View>
-
-                    <View style={styles.textZone}>
-                        <Text style={styles.text}>
-                            Complete algunos datos para finalizar su registro...
-                        </Text>
-                    </View>
-                </View>
-                <Footer>
-                    <FooterTab>
-                        <Button full onPress={() => this.props.navigation.navigate('SelectAge',{data: this.state.data})}>
-                            <Text>Siguiente ></Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
+                    <Footer>
+                        <FooterTab>
+                            <Button full onPress={() => this.props.navigation.navigate('SelectAge', { data: this.state.data, token: this.state.token })}>
+                                <Text>Siguiente ></Text>
+                            </Button>
+                        </FooterTab>
+                    </Footer>
+                </ImageBackground>
             </Container>
-
-        )
-    }
+        )}
 }
 
 
@@ -84,7 +92,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     title: {
-        fontSize: 20,        
+        fontSize: 20,
         alignSelf: "flex-end"
     },
     avatarZone: {
@@ -92,7 +100,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    avatar:{
+    avatar: {
         alignSelf: 'flex-end'
     },
     nameZone: {

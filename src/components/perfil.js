@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { Avatar } from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { ListItem , Avatar} from 'react-native-elements';
+import { Text, Button} from 'native-base';
 import Storage from '../storage';
 
 const list = [
@@ -40,16 +40,18 @@ const list = [
 export default class perfil extends Component {
 
     componentDidMount() {
+        console.disableYellowBox = true;
         let objeto = this.props.navigation.state.params
+        console.log(objeto.data)
         this.setState({ data: objeto.data });
         this.setState({ date: objeto.date });
         this.setState({ country: objeto.country });
         this.setState({ sex: objeto.sex });
-        this._armalista(objeto.interests);
+        //this._armalista(objeto.interests);
     }
 
     state = {
-        date: '',
+        date: '2016-05-15',
         data: [],
         country: '',
         interests: []
@@ -57,13 +59,14 @@ export default class perfil extends Component {
 
     _armalista(tmp) {
         let listNew = [];
-        list.forEach(function(i){
-            if (tmp.includes(i.id)) {
+        console.log(tmp);
+        list.forEach(function (i) {
+            if (tmp.includes(i.id - 1)) {
                 listNew.push(i);
             }
         })
         console.log(listNew)
-        this.setState({interests: listNew})
+        this.setState({ interests: listNew })
     }
 
     calcularEdad() {
@@ -106,7 +109,9 @@ export default class perfil extends Component {
                     </View>
                 </View>
                 <View style={styles.interestZone}>
-                    <Text style={styles.label}>Tus intereses seleccionados son:</Text>
+                    <Button transparent>
+                        <Text style={{ textAlign: "center" }}>Sus intereses seleccionados son:</Text>
+                    </Button>
                     {this.state.interests.map((l, i) => (
                         <ListItem
                             key={i}
@@ -151,10 +156,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     name: {
-        fontSize: 30
+        fontSize: 25
     },
     age: {
-        fontSize: 25,
+        fontSize: 20,
         color: 'green'
     },
     country: {

@@ -44,7 +44,12 @@ export default class selectInterests extends Component {
         selectedInterestsId: [],
     };
 
+    componentDidMount() {
+        console.disableYellowBox = true;
+    }
+    
     _perfil = () => {
+
         /*const data = {
             id: this.state.data.id,
             username: this.state.data.username,
@@ -83,7 +88,7 @@ export default class selectInterests extends Component {
         }
 
         this.setState({
-            selectInterests: tmp
+            selectedInterestsId: tmp
         });
     }
 

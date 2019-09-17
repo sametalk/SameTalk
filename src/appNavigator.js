@@ -7,6 +7,7 @@ import Perfil from './components/perfil'
 import SelectCountry from './components/selectCountry'
 import SelectAge from './components/selectAge' 
 import SelectSex from './components/selectSex'
+import Prueba from './components/prueba'
 
 const AppNavigator = createStackNavigator({
   Welcome: {
@@ -16,7 +17,13 @@ const AppNavigator = createStackNavigator({
     }),
   },
   Register: {
-    screen: Register
+    screen: Register,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  Prueba:{
+    screen: Prueba
   },
   SelectAge:{
     screen: SelectAge,
