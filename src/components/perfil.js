@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-import { ListItem } from 'react-native-elements'
-import { Avatar } from 'react-native-elements'
+import { ListItem } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
+import Storage from '../storage';
 
 const list = [
     {
@@ -39,28 +40,44 @@ const list = [
 export default class perfil extends Component {
 
     componentDidMount() {
-        let objeto = this.props.navigation.state.params;
-        this.setState({ data: objeto.data, date: objeto.date, country: objeto.country });
+        let objeto = this.props.navigation.state.params
+        this.setState({ data: objeto.data });
+        this.setState({ date: objeto.date });
+        this.setState({ country: objeto.country });
+        this.setState({ sex: objeto.sex });
+        this._armalista(objeto.interests);
     }
 
     state = {
         date: '',
         data: [],
-        country: ''
+        country: '',
+        interests: []
     };
 
-    calcularEdad(){
-        console.log(this.state.date);
+    _armalista(tmp) {
+        let listNew = [];
+        list.forEach(function(i){
+            if (tmp.includes(i.id)) {
+                listNew.push(i);
+            }
+        })
+        console.log(listNew)
+        this.setState({interests: listNew})
+    }
 
+    calcularEdad() {
         var hoy = new Date();
-        var cumpleanos = new Date(this.state.date);
+        //let fecha = storage._retrieveData('date');
+        let fecha = this.state.date;
+        var cumpleanos = new Date(fecha);
         var edad = hoy.getFullYear() - cumpleanos.getFullYear();
         var m = hoy.getMonth() - cumpleanos.getMonth();
-    
+
         if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
             edad--;
         }
-    
+
         return edad;
     }
 
@@ -72,25 +89,25 @@ export default class perfil extends Component {
                         <Avatar
                             rounded
                             size="xlarge"
-                            source={{uri: this.state.data.profile_picture}}
+                            source={{ uri: this.state.data.profile_picture }}
                             containerStyle={styles.avatar}
                         />
                     </View>
                     <View style={styles.dateZone}>
                         <View style={styles.textZone}>
                             <Text style={styles.name}>{this.state.data.full_name}</Text>
-                        </View>   
-                        <View style={styles.textZone}> 
+                        </View>
+                        <View style={styles.textZone}>
                             <Text style={styles.age}>{this.calcularEdad()} años</Text>
-                        </View>  
-                        <View style={styles.textZone}>  
-                            <Text style={styles.country}>Argentina</Text>
-                        </View>    
+                        </View>
+                        <View style={styles.textZone}>
+                            <Text style={styles.country}>{this.state.country}</Text>
+                        </View>
                     </View>
                 </View>
                 <View style={styles.interestZone}>
                     <Text style={styles.label}>Tus intereses seleccionados son:</Text>
-                    {list.map((l, i) => (
+                    {this.state.interests.map((l, i) => (
                         <ListItem
                             key={i}
                             leftAvatar={{ source: l.avatar_url }}
@@ -140,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'green'
     },
-    country:{
+    country: {
         fontSize: 20
     },
     avatar: {
