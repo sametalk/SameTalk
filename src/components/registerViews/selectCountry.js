@@ -9,16 +9,16 @@ import CountryPicker, {
   getAllCountries
 } from 'react-native-country-picker-modal'
 import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
-export default class selectCountry extends Component {
+class selectCountry extends Component {
   constructor(props) {
     super(props)
     const userCountryData = getAllCountries()
-    let callingCode = userCountryData.callingCode
-    let cca2 = 'US'
     this.state = {
-      cca2,
-      callingCode
+      cca2: 'US',
+      callingCode: userCountryData.callingCode
     }
   }
 
@@ -26,10 +26,15 @@ export default class selectCountry extends Component {
     console.disableYellowBox = true;
   }
 
+  /*
+        Obtengo los datos del usuario y le agrego el pais
+        Navego a Seleccionar Genero
+  */
   _selectSex = () => {
-    //Storage.setItem('country', {country: this.state.cca2} )
-    let objeto = this.props.navigation.state.params
-    this.props.navigation.navigate('SelectSex', { data: objeto.data, date: objeto.date, country: this.state.cca2, token: objeto.token  })
+    const user = this.props.userData
+    user.country = this.state.cca2
+    this.props.userSetData(user)
+    this.props.navigation.navigate('SelectSex')
   }
 
   render() {
@@ -73,6 +78,12 @@ export default class selectCountry extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {userData: state.userData}
+}
+
+export default connect(mapStateToProps, actions)(selectCountry)
 
 const styles = StyleSheet.create({
   container: {

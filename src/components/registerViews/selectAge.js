@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button } from 'native-base';
 import DatePicker from 'react-native-datepicker';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
-export default class selectAge extends Component {
+class selectAge extends Component {
 
     constructor(props) {
         super(props)
@@ -16,10 +18,15 @@ export default class selectAge extends Component {
         console.disableYellowBox = true;
     }
 
+    /*
+        Obtengo los datos del usuario y le agrego la fecha de nacimiento
+        Navego a Seleccionar Pais
+    */
     _selectCountry = () => {
-        //Storage.setItem('date', '2016')
-        let objeto = this.props.navigation.state.params
-        this.props.navigation.navigate('SelectCountry', { data: objeto.data, date: this.state.date, token: objeto.token })
+        const user = this.props.userData
+        user.date = this.state.date
+        this.props.userSetData(user)
+        this.props.navigation.navigate('SelectCountry')
     }
 
     render() {
@@ -66,3 +73,9 @@ export default class selectAge extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {userData: state.userData}
+}
+
+export default connect(mapStateToProps, actions)(selectAge)

@@ -4,3 +4,10 @@ export const selectedInterests = (interest) => {
         interest: interest
     }
 }
+
+export const userSetData = (user) => {
+    return {
+        type: 'userSetData',
+        user: user
+    }
+}

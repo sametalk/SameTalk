@@ -30,7 +30,7 @@ class profile extends Component {
                         <Avatar
                             rounded
                             size="xlarge"
-                            source={userData.profile_picture}
+                            source={{ uri: userData.profile_picture }}
                             containerStyle={styles.avatar}
                         />
                     </View>

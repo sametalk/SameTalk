@@ -3,12 +3,10 @@ import { Container, Icon, Button, Text } from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { StyleSheet, ImageBackground, View, TouchableOpacity } from 'react-native';
 import InstagramLogin from 'react-native-instagram-login'
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-export default class Welcome extends Component {
-    //agregue un comentario
-    _register = () => {
-        this.props.navigation.navigate('Register', { codigo: this.state.token })
-    }
+class welcome extends Component {
 
     constructor(props) {
         super(props);
@@ -52,14 +50,20 @@ export default class Welcome extends Component {
     }*/
 
     async _onRegister(token){
-        await fetch(
-            `https://api.instagram.com/v1/users/self/?access_token=${token}`)
-            .then(response => response.json())
-            .then(ar => {this.setState({ data: ar.data })})
-
-        this.props.navigation.navigate('Register', {
-            data: this.state.data
-        })
+        const response = await fetch(`https://api.instagram.com/v1/users/self/?access_token=${token}`)
+        const res = await response.json()
+        const user = {
+            id: res.data.id,
+            username: res.data.username,
+            full_name: res.data.full_name,
+            profile_picture: res.data.profile_picture,
+            date: '',
+            gender: '',
+            country: '',
+            interests: []
+        }
+        this.props.userSetData(user)
+        this.props.navigation.navigate('Register')
     }
 
     render() {
@@ -105,6 +109,8 @@ export default class Welcome extends Component {
         );
     }
 }
+
+export default connect(null, actions)(welcome)
 
 const styles = StyleSheet.create({
     button: {
