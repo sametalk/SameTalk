@@ -8,6 +8,10 @@ import SelectAge from './components/registerViews/selectAge'
 import SelectSex from './components/registerViews/selectSex'
 import TabNavigation from './components/tabNavigation'
 
+/*
+  Navegacion desde la pantalla de Welcome hasta la pantalla del TabBarBottom (TabNavigation)
+  Pasa por todo el proceso de registro
+*/
 const AppNavigator = createStackNavigator({
   Welcome: {
     screen: Welcome,

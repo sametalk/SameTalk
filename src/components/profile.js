@@ -3,42 +3,18 @@ import { StyleSheet, View} from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { Text, Button } from 'native-base';
 import { connect } from 'react-redux';
-import list from '../constant/interests'
 
 class profile extends Component {
-
-    constructor(props){
-        super(props)
-        this.state = {
-            listInterests: []
-        }
-    }
 
     componentDidMount(){
         this.refreshInterests()
     }
 
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.interests !== this.props.interests) {
-            this.refreshInterests()
-        }
-    }
-
-    refreshInterests(){
-        let updateList = []
-        let {interests} = this.props
-        for (let i = 0; i < interests.length; i++) {
-            if (interests.includes(list[i].id)) {
-                updateList.concat(list[i])
-            }
-        }
-        this.setState({
-            listInterests: updateList
-        })
-    }
-
-    calcularEdad(fecha) {
+    /*
+        Calcula la edad a partir de una fecha ingresada
+        Formato: AAAA-MM-DD
+    */
+    calculateAge(fecha) {
         var hoy = new Date();
         var cumpleanos = new Date(fecha);
         var edad = hoy.getFullYear() - cumpleanos.getFullYear();
@@ -67,7 +43,7 @@ class profile extends Component {
                             <Text style={styles.name}>{userData.full_name}</Text>
                         </View>
                         <View style={styles.textZone}>
-                            <Text style={styles.age}>{this.calcularEdad(userData.date)} años</Text>
+                            <Text style={styles.age}>{this.calculateAge(userData.date)} años</Text>
                         </View>
                         <View style={styles.textZone}>
                             <Text style={styles.country}>{userData.country}</Text>

@@ -12,6 +12,10 @@ class selectInterests extends Component {
         console.disableYellowBox = true;
     }
 
+    /*
+        Funcion para refrescar el checkbox del interes
+        Se fija que el id del interes este en el storage de intereses seleccionados
+    */
     refreshCheck(id){
         let flag = false
         this.props.interests.forEach(item => {

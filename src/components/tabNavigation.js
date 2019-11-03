@@ -7,6 +7,9 @@ import Profile from './profile'
 import SelectInterests from './selectInterests'
 import ListProfiles from './listProfiles'
 
+/*
+    En este .js se configura el TabBar que aparece en la parte de abajo
+*/
 const TabNavigator = createBottomTabNavigator({
     ListProfiles: {
         screen: ListProfiles, 

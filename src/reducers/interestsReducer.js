@@ -2,7 +2,10 @@ export default (state = [], action) => {
     
     switch(action.type){
 
-        /* Agrega o Elimina el ID del interes seleccionado a una matriz de intereses seleccionados*/
+        /* 
+            - Primero busco si el ID del interes ya se encuentra en el estado
+            - Despues agrega o Elimina el ID del interes seleccionado a una matriz de objetos
+        */
         case 'selectedInterests':
             let flag = false
             state.forEach(interest => {
