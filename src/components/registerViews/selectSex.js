@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, ImageBackground } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button } from 'native-base';
-import storage from '../../storage';
 import { CheckBox } from 'react-native-elements';
 
 export default class selectAge extends Component {

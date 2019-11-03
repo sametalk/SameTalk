@@ -6,10 +6,6 @@ import { connect } from 'react-redux';
 
 class profile extends Component {
 
-    componentDidMount(){
-        this.refreshInterests()
-    }
-
     /*
         Calcula la edad a partir de una fecha ingresada
         Formato: AAAA-MM-DD

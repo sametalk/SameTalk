@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button } from 'native-base';
 import DatePicker from 'react-native-datepicker';
-import Storage from '../../storage';
 
 export default class selectAge extends Component {
 

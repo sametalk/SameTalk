@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
-import Storage from '../../storage';
-import { objectOf } from 'prop-types';
 
 export default class register extends Component {
 
