@@ -19,7 +19,7 @@ export default class Welcome extends Component {
         }
     }
 
-    async _onRegister(token){
+    /*async _onRegister(token){
         console.disableYellowBox = true;
         console.log(token)
         await fetch(
@@ -49,6 +49,17 @@ export default class Welcome extends Component {
                 data: this.state.isReg.data
             })
         }
+    }*/
+
+    async _onRegister(token){
+        await fetch(
+            `https://api.instagram.com/v1/users/self/?access_token=${token}`)
+            .then(response => response.json())
+            .then(ar => {this.setState({ data: ar.data })})
+
+        this.props.navigation.navigate('Register', {
+            data: this.state.data
+        })
     }
 
     render() {

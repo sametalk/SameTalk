@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'start',
+1 verbose cli   '--no-cache' ]
+2 info using npm@6.7.0
+3 info using node@v11.12.0
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle SameTalk@0.0.1~prestart: SameTalk@0.0.1
+6 info lifecycle SameTalk@0.0.1~start: SameTalk@0.0.1
+7 verbose lifecycle SameTalk@0.0.1~start: unsafe-perm in lifecycle true
+8 verbose lifecycle SameTalk@0.0.1~start: PATH: C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\Nico\Documents\GitHub\SameTalk\node_modules\.bin;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\Users\Nico\AppData\Local\Programs\Python\Python37-32\;C:\Users\Nico\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\apache-maven-3.5.4\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\composer;C:\Apache24\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_201\bin;C:\Users\Nico\AppData\Local\Android\Sdk\platform-tools;C:\Users\Nico\AppData\Local\Android\Sdk\platforms;C:\Program Files\MongoDB\Server\4.0\bin;C:\Minishift;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\Nico\.windows-build-tools\python27\;C:\Users\Nico\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Nico\AppData\Local\Programs\Python\Python37-32\;C:\Users\Nico\AppData\Local\Microsoft\WindowsApps;C:\Users\Nico\AppData\Local\GitHubDesktop\bin;C:\Users\Nico\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\Nmap;C:\Users\Nico\AppData\Roaming\npm;C:\Users\Nico\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Minishift;;C:\Program Files\Docker Toolbox;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+9 verbose lifecycle SameTalk@0.0.1~start: CWD: C:\Users\Nico\Documents\GitHub\SameTalk
+10 silly lifecycle SameTalk@0.0.1~start: Args: [ '/d /s /c', 'react-native start' ]
+11 silly lifecycle SameTalk@0.0.1~start: Returned: code: 1  signal: null
+12 info lifecycle SameTalk@0.0.1~start: Failed to exec start script
+13 verbose stack Error: SameTalk@0.0.1 start: `react-native start`
+13 verbose stack Exit status 1
+13 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\index.js:301:16)
+13 verbose stack     at EventEmitter.emit (events.js:197:13)
+13 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\lib\spawn.js:55:14)
+13 verbose stack     at ChildProcess.emit (events.js:197:13)
+13 verbose stack     at maybeClose (internal/child_process.js:988:16)
+13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:265:5)
+14 verbose pkgid SameTalk@0.0.1
+15 verbose cwd C:\Users\Nico\Documents\GitHub\SameTalk
+16 verbose Windows_NT 10.0.18362
+17 verbose argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start" "--no-cache"
+18 verbose node v11.12.0
+19 verbose npm  v6.7.0
+20 error code ELIFECYCLE
+21 error errno 1
+22 error SameTalk@0.0.1 start: `react-native start`
+22 error Exit status 1
+23 error Failed at the SameTalk@0.0.1 start script.
+23 error This is probably not a problem with npm. There is likely additional logging output above.
+24 verbose exit [ 1, true ]

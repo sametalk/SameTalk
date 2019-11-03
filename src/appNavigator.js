@@ -1,13 +1,12 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import Register from './components/register'
+import Register from './components/registerViews/register'
 import Welcome from './components/welcome'
 import SelectInterests from './components/selectInterests'
-import Perfil from './components/perfil'
-import SelectCountry from './components/selectCountry'
-import SelectAge from './components/selectAge' 
-import SelectSex from './components/selectSex'
-import Prueba from './components/prueba'
+import SelectCountry from './components/registerViews/selectCountry'
+import SelectAge from './components/registerViews/selectAge' 
+import SelectSex from './components/registerViews/selectSex'
+import TabNavigation from './components/tabNavigation'
 
 const AppNavigator = createStackNavigator({
   Welcome: {
@@ -21,9 +20,6 @@ const AppNavigator = createStackNavigator({
     navigationOptions: () => ({
       header: null
     }),
-  },
-  Prueba:{
-    screen: Prueba
   },
   SelectAge:{
     screen: SelectAge,
@@ -49,12 +45,12 @@ const AppNavigator = createStackNavigator({
       title: `Seleccione sus intereses:`
     }),
   },
-  Perfil: {
-    screen: Perfil,
+  TabNavigation: {
+    screen: TabNavigation,
     navigationOptions: () => ({
-      title: `Perfil`
-    }), 
+      header: null
+    })
   }
-}, { initialRouteName: 'Welcome'});
+}, { initialRouteName: 'TabNavigation'});
 
 export default createAppContainer(AppNavigator);
