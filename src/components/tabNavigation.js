@@ -26,7 +26,7 @@ const TabNavigator = createBottomTabNavigator({
             title: ``
         })
     }
-},{
+},{ initialRouteName: 'SelectInterests',
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;

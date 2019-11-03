@@ -25,7 +25,7 @@ export default class selectAge extends Component {
         console.log(this.state.men +"+"+ this.state.women)
         if (this.state.women || this.state.men) {
             let objeto = this.props.navigation.state.params
-            this.props.navigation.navigate('SelectInterests', { data: objeto.data, date: objeto.date, country: objeto.country, sex: this.state.gender })
+            this.props.navigation.navigate('TabNavigation', { data: objeto.data, date: objeto.date, country: objeto.country, sex: this.state.gender })
         }
 
     }

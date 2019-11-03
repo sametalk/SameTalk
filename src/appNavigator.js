@@ -51,6 +51,6 @@ const AppNavigator = createStackNavigator({
       header: null
     })
   }
-}, { initialRouteName: 'TabNavigation'});
+}, { initialRouteName: 'Welcome'});
 
 export default createAppContainer(AppNavigator);
