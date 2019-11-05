@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
+import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon, Body } from 'native-base';
 import { connect } from 'react-redux';
 
 class register extends Component {
@@ -33,57 +33,55 @@ class register extends Component {
     }
 
     render() {
-        const {userData} = this.props
+        const { userData } = this.props
         return (
-            <Container>
-                    <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
-                        <View style={{ flex: 0.90, flexDirection: "row", justifyContent: 'center' }}>
-                            <Card style={{ flex: 0.90, flexDirection: "column", alignSelf: 'center' }}>
+            <Container style={styles.container}>
+                <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+                    <View style={{ flex: 0.90, flexDirection: "row", justifyContent: 'center' }}>
+                        <Card style={{ flex: 0.90, flexDirection: "column", alignSelf: 'center'}}>
+                            <CardItem style={{ flexDirection: "column"}}>
+                                <Text>Bienvenido a Same Talk</Text>
+                                <Text note>{userData.full_name}</Text>
+                            </CardItem>
+                            <CardItem cardBody style={{ flex: 0.50, flexDirection: "row", alignSelf: 'center' }}>
+                                <Avatar
+                                    rounded
+                                    size="xlarge"
+                                    source={{ uri: userData.profile_picture }}
+                                />
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                    <Button transparent>
+                                        <Text style={{ textAlign: "center" }}>Complete los datos para finalizar su registro</Text>
+                                    </Button>
+                                </Body>
+                            </CardItem>
 
-                                <CardItem style={{ flexDirection: "column" }}>
-                                    <Text>Bienvenido a Same Talk</Text>
-                                    <Text note>{userData.full_name}</Text>
-                                </CardItem>
-                                <CardItem cardBody style={{ flex: 0.50, flexDirection: "row", alignSelf: 'center' }}>
-                                    <Avatar
-                                        rounded
-                                        size="xlarge"
-                                        source={{ uri: userData.profile_picture }}
-                                    />
-                                </CardItem>
-                                <CardItem>
-                                    <Body>
-                                        <Button transparent>
-                                            <Text style={{ textAlign: "center" }}>Complete los datos para finalizar su registro</Text>
-                                        </Button>
-                                    </Body>
-                                </CardItem>
-
-                            </Card>
-                        </View>
+                        </Card>
                     </View>
-                    <Footer>
-                        <FooterTab>
-                            <Button full onPress={() => this.props.navigation.navigate('SelectAge')}>
-                                <Text>Siguiente ></Text>
+                </View>
+                <Footer>
+                    <FooterTab>
+                            <Button full danger onPress={() => this.props.navigation.navigate('SelectAge')} >
+                                <Icon type="FontAwesome" name="arrow-circle-right" style={{color: "white"}}/>
                             </Button>
-                        </FooterTab>
-                    </Footer>
+                    </FooterTab>
+                </Footer>
             </Container>
-        )}
+        )
+    }
 }
 
 const mapStateToProps = state => {
-    return {userData: state.userData}
+    return { userData: state.userData }
 }
 
 export default connect(mapStateToProps)(register)
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center'
+        backgroundColor: '#fee9d7'
     },
     welcome: {
         flex: 1,
@@ -107,14 +105,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    name: {
-    },
     textZone: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    text: {
-
+    button: {
+        color: '#34222e'
     }
 });

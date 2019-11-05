@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ListItem, CheckBox } from 'react-native-elements'
-import { View } from 'react-native';
+import { View, StyleSheet} from 'react-native';
 import { Container, Content } from 'native-base';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
@@ -58,3 +58,9 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, actions)(selectInterests)
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fee9d7'
+    }
+})

@@ -23,6 +23,7 @@ class profile extends Component {
 
     render() {
         const { userData, interests } = this.props
+        console.log(interests)
         return (
             <View style={styles.container}>
                 <View style={styles.perfilZone}>
@@ -79,7 +80,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     perfilZone: {
         flex: 1,

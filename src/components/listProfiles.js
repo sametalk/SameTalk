@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text,
     View,
     TouchableOpacity,
     Image,
 } from 'react-native';
 import { connect } from 'react-redux';
-import CardStack, { Card } from 'react-native-card-stack-swiper';
+import { Avatar } from 'react-native-elements';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import CardStack from 'react-native-card-stack-swiper';
 
 class listProfiles extends Component {
     componentDidMount() {
@@ -15,7 +16,8 @@ class listProfiles extends Component {
     }
 
     render() {
-        const { listProfiles } = this.props
+        const { listProfiles, interests } = this.props
+        console.log(interests)
         return (
             <View style={{ flex: 1 }}>
                 <CardStack
@@ -28,7 +30,30 @@ class listProfiles extends Component {
                     onSwipedLeft={() => console.log('onSwipedLeft')}
                 >
                     {listProfiles.map((l) => (
-                        <Card style={styles.card}><Image source={l.profile_picture} style={styles.profile} /></Card>
+                        <Card style={styles.card}>
+                            <CardItem>
+                                <Left>
+                                    <Body>
+                                        <Text>{l.full_name} ({l.age} años)</Text>
+                                        <Text note>{l.country}</Text>
+                                    </Body>
+                                </Left>
+                            </CardItem>
+                            <CardItem cardBody>
+                                <Image source={l.profile_picture} style={styles.profile} />
+                            </CardItem>
+                            <CardItem>
+                                {l.interests.map((x) => (
+                                    <Avatar
+                                        size="small"
+                                        source={x.avatar_url}
+                                        rounded
+                                        activeOpacity={0.5}
+                                        containerStyle={{ marginLeft: 11 }}
+                                    />
+                                ))}
+                            </CardItem>
+                        </Card>
                     ))}
                 </CardStack>
 
@@ -58,7 +83,10 @@ class listProfiles extends Component {
 }
 
 const mapStateToProps = state => {
-    return { listProfiles: state.listProfiles }
+    return {
+        listProfiles: state.listProfiles,
+        interests: state.interests
+    }
 }
 
 export default connect(mapStateToProps)(listProfiles)
@@ -67,17 +95,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#fee9d7'
     },
     content: {
         flex: 5,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#fee9d7'
     },
     card: {
         width: 320,
         height: 470,
-        backgroundColor: 'white',
         borderRadius: 5,
         shadowColor: 'rgba(0,0,0,0.5)',
         shadowOffset: {
@@ -86,24 +114,11 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.5,
     },
-    card1: {
-        backgroundColor: '#FE474C',
-    },
-    card2: {
-        backgroundColor: '#FEB12C',
-    },
-    label: {
-        lineHeight: 400,
-        textAlign: 'center',
-        fontSize: 55,
-        fontFamily: 'System',
-        color: '#ffffff',
-        backgroundColor: 'transparent',
-    },
     footer: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#fee9d7'
     },
     buttonContainer: {
         width: 220,
@@ -117,10 +132,10 @@ const styles = StyleSheet.create({
             height: 1
         },
         shadowOpacity: 0.5,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 0,
+        backgroundColor: 'white'
     },
     orange: {
         width: 55,
@@ -133,7 +148,6 @@ const styles = StyleSheet.create({
     green: {
         width: 75,
         height: 75,
-        backgroundColor: '#fff',
         borderRadius: 75,
         borderWidth: 6,
         borderColor: '#01df8a',
@@ -141,15 +155,11 @@ const styles = StyleSheet.create({
     red: {
         width: 75,
         height: 75,
-        backgroundColor: '#fff',
         borderRadius: 75,
         borderWidth: 6,
         borderColor: '#fd267d',
     },
     profile: {
-        flex: 1,
-        width: null,
-        height: null,
-        resizeMode: 'contain'
+        height: 345, width: null, flex: 1
     }
 });

@@ -8,7 +8,7 @@ import {
 import CountryPicker, {
   getAllCountries
 } from 'react-native-country-picker-modal'
-import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
+import { Container, Footer, FooterTab, Card, CardItem, Thumbnail, Text, Button, Icon, Body } from 'native-base';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
@@ -39,7 +39,7 @@ class selectCountry extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
           <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
             <View style={{ flex: 0.50, flexDirection: "row", justifyContent: 'center' }}>
               <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
@@ -69,8 +69,8 @@ class selectCountry extends Component {
           </View>
           <Footer>
             <FooterTab>
-              <Button full onPress={this._selectSex}>
-                <Text>Siguiente ></Text>
+              <Button full danger onPress={this._selectSex}>
+                <Icon type="FontAwesome" name="arrow-circle-right" style={{color: "white"}}/>
               </Button>
             </FooterTab>
           </Footer>
@@ -87,9 +87,7 @@ export default connect(mapStateToProps, actions)(selectCountry)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: '#fee9d7'
   },
   welcome: {
     fontSize: 20,

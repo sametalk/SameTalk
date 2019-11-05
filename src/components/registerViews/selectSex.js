@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, ImageBackground } from 'react-native';
-import { Container, Footer, FooterTab, Card, CardItem, Text, Button } from 'native-base';
+import { View, StyleSheet } from 'react-native';
+import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from 'native-base';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
@@ -54,7 +54,7 @@ class selectAge extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={styles.container}>
                 <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
                     <View style={{ flex: 0.50, flexDirection: "row", justifyContent: 'center' }}>
                         <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
@@ -92,8 +92,8 @@ class selectAge extends Component {
                 </View>
                 <Footer>
                     <FooterTab>
-                        <Button full onPress={this._selectInterests}>
-                            <Text>Siguiente ></Text>
+                        <Button full danger onPress={this._selectInterests}>
+                            <Icon type="FontAwesome" name="arrow-circle-right" style={{color: "white"}}/>
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -107,3 +107,10 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, actions)(selectAge)
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fee9d7'
+    }
+})
+

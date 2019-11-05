@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {Icon} from 'native-base'
@@ -14,19 +14,19 @@ const TabNavigator = createBottomTabNavigator({
     ListProfiles: {
         screen: ListProfiles, 
         navigationOptions: () => ({
-            title: ``
+            title: `Select`
         })
     },
     SelectInterests: {
       screen: SelectInterests, 
       navigationOptions: () => ({
-          title: ``
+          title: `Interests`
       })
     },
     Profile: {
         screen: Profile, 
         navigationOptions: () => ({
-            title: ``
+            title: `Profile`
         })
     }
 },{ initialRouteName: 'SelectInterests',
@@ -41,9 +41,16 @@ const TabNavigator = createBottomTabNavigator({
         } else if (routeName === 'SelectInterests') {
             iconName='thumbs-up'
         }
-        return <Icon type="FontAwesome" name={iconName} />;
+        return <Icon type="FontAwesome" name={iconName} style={{color: tintColor}}/>;
       },
-    })
+    }),
+    tabBarOptions: {
+        activeTintColor: '#ea5e5e',
+        inactiveTintColor: 'white',
+        style: {
+            backgroundColor: "#34222e"
+        }
+      }
   });
 
 export default createAppContainer(TabNavigator);
