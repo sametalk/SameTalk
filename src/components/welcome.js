@@ -50,20 +50,45 @@ class welcome extends Component {
     }*/
 
     async _onRegister(token){
+
         const response = await fetch(`https://api.instagram.com/v1/users/self/?access_token=${token}`)
         const res = await response.json()
+
+        const response2 = await fetch(`https://sametalk-back.herokuapp.com/api/auth/login`,{
+            method: "POST",
+            body: JSON.stringify({instagram_id: res.data.id}),
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            }
+        })
+        res2 = await response2.json()
+
         const user = {
+            token: '',
             id: res.data.id,
             username: res.data.username,
             full_name: res.data.full_name,
             profile_picture: res.data.profile_picture,
-            date: '',
+            bio: res.data.bio,
+            follows: res.data.follows,
+            followed_by: res.data.followed_by,
+            age: '',
+            coins: 0,
             gender: '',
             country: '',
             interests: []
         }
+
         this.props.userSetData(user)
-        this.props.navigation.navigate('Register')
+
+        if(res2.status === "ok"){
+            const response3 = await fetch(`https://sametalk-back.herokuapp.com/api/users/self?token=${res2.token}`)
+            const res3 = await response3.json()
+            this.props.navigation.navigate('TabNavigation')
+        }else{
+            this.props.navigation.navigate('Register')
+        }
     }
 
     render() {
