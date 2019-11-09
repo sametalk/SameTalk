@@ -6,24 +6,8 @@ import { connect } from 'react-redux';
 
 class profile extends Component {
 
-    /*
-        Calcula la edad a partir de una fecha ingresada
-        Formato: AAAA-MM-DD
-    */
-    calculateAge(fecha) {
-        var hoy = new Date();
-        var cumpleanos = new Date(fecha);
-        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-        var m = hoy.getMonth() - cumpleanos.getMonth();
-        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-            edad--;
-        }
-        return edad;
-    }
-
     render() {
         const { userData, interests } = this.props
-        console.log(interests)
         return (
             <View style={styles.container}>
                 <View style={styles.perfilZone}>
@@ -40,10 +24,10 @@ class profile extends Component {
                             <Text style={styles.name}>{userData.full_name}</Text>
                         </View>
                         <View style={styles.textZone}>
-                            <Text style={styles.age}>{this.calculateAge(userData.date)} años</Text>
+                            <Text style={styles.age}>{userData.age} años</Text>
                         </View>
                         <View style={styles.textZone}>
-                            <Text style={styles.country}>{userData.country}</Text>
+                            <Text style={styles.country}>{userData.country_id.name}</Text>
                         </View>
                     </View>
                 </View>

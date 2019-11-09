@@ -23,13 +23,24 @@ class selectAge extends Component {
     /*
         Verifico que se haya seleccionado un genero
         Obtengo los datos del usuario y le agrego el genero
+        Registro en el servidor el nuevo usuario
         Navego a la vista de usuario registrado
     */
-    _selectInterests = () => {
+    _selectInterests = async () => {
         if (this.state.women || this.state.men) {
             const user = this.props.userData
             user.gender = this.state.gender
-            this.props.userSetData(user)
+            const response = await fetch(`https://sametalk-back.herokuapp.com/api/auth/register`,{
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json"
+                }
+            })
+            res = await response2.json()
+            this.props.userSetData(res)
+
             this.props.navigation.navigate('TabNavigation')
         }
 
@@ -41,13 +52,13 @@ class selectAge extends Component {
             this.setState({
                 women: true,
                 men: false,
-                gender: 'Women'
+                gender: 'W'
             })
         } else {
             this.setState({
                 women: false,
                 men: true,
-                gender: 'Men'
+                gender: 'M'
             })
         }
     }

@@ -8,47 +8,6 @@ import * as actions from '../actions';
 
 class welcome extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            token: '',
-            data: [],
-            isReg: []
-        }
-    }
-
-    /*async _onRegister(token){
-        console.disableYellowBox = true;
-        console.log(token)
-        await fetch(
-            `https://api.instagram.com/v1/users/self/?access_token=${token}`)
-            .then(response => response.json())
-            .then(ar => {this.setState({ data: ar.data })})
-            console.log(this.state.data.id)
-        
-            console.log(this.state.isReg)
-        await fetch(
-            `https://sametalk-backend.herokuapp.com/api/users/instagram/${this.state.data.id}`)
-            .then(response => response.json())
-            .then(res => this.setState({ isReg: res }))
-            console.log(this.state.isReg)
-            console.log(JSON.stringify(this.state.isReg)!=='{}')
-        if (JSON.stringify(this.state.isReg)!=='{}') {
-            this.props.navigation.navigate('Perfil', {
-                token: this.state.isReg.token,
-                data: this.state.isReg.data,
-                country: this.state.isReg.data.countryId,
-                date: this.state.isReg.data.birthDate,
-                sex: this.state.isReg.data.gender
-            })
-        } else {
-            this.props.navigation.navigate('Register', {
-                token: this.state.isReg.token,
-                data: this.state.isReg.data
-            })
-        }
-    }*/
-
     async _onRegister(token){
 
         const response = await fetch(`https://api.instagram.com/v1/users/self/?access_token=${token}`)
@@ -66,27 +25,33 @@ class welcome extends Component {
 
         const user = {
             token: '',
-            id: res.data.id,
+            instagram_id: res.data.id,
             username: res.data.username,
             full_name: res.data.full_name,
             profile_picture: res.data.profile_picture,
             bio: res.data.bio,
-            follows: res.data.follows,
-            followed_by: res.data.followed_by,
+            follows: res.data.counts.follows,
+            followed_by: res.data.counts.followed_by,
             age: '',
             coins: 0,
             gender: '',
-            country: '',
+            country_id: '',
             interests: []
         }
-
-        this.props.userSetData(user)
 
         if(res2.status === "ok"){
             const response3 = await fetch(`https://sametalk-back.herokuapp.com/api/users/self?token=${res2.token}`)
             const res3 = await response3.json()
+            console.log(res3)
+            user.token = res2.token
+            user.age = res3.age
+            user.coins = res3.coins
+            user.gender = res3.gender
+            user.country_id = res3.country
+            this.props.userSetData(user)
             this.props.navigation.navigate('TabNavigation')
         }else{
+            this.props.userSetData(user)
             this.props.navigation.navigate('Register')
         }
     }

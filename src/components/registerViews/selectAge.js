@@ -24,7 +24,7 @@ class selectAge extends Component {
     */
     _selectCountry = () => {
         const user = this.props.userData
-        user.date = this.state.date
+        user.age = this.state.date.substring(0,4)
         this.props.userSetData(user)
         this.props.navigation.navigate('SelectCountry')
     }

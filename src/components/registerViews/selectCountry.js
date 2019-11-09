@@ -32,7 +32,7 @@ class selectCountry extends Component {
   */
   _selectSex = () => {
     const user = this.props.userData
-    user.country = this.state.cca2
+    user.country_id = this.state.cca2
     this.props.userSetData(user)
     this.props.navigation.navigate('SelectSex')
   }
