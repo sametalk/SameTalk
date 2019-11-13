@@ -7,12 +7,14 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Avatar } from 'react-native-elements';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Card, CardItem, Text, Left, Body } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
+import { getListProfiles } from '../actions'
 
 class listProfiles extends Component {
-    componentDidMount() {
+    async componentDidMount() {
         console.disableYellowBox = true;
+        await this.props.getListProfiles()
     }
 
     render() {
@@ -90,7 +92,14 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(listProfiles)
+// Trae de action las funciones definidas en ese archivo
+const mapDispatchToProps = dispatch => {
+    return {
+        getListProfiles: () => dispatch(getListProfiles())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(listProfiles)
 
 const styles = StyleSheet.create({
     container: {

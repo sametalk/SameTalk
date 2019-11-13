@@ -1,5 +1,5 @@
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
-import { instagramGetData , loginSameTalk, sameTalkGetData, registerUser} from '../api'
+import { instagramGetData , loginSameTalk, sameTalkGetData, registerUser,  getProfiles} from '../api'
 
 export const selectedInterests = (interest) => {
     return {
@@ -89,6 +89,15 @@ export const register = (user_IG) => {
     return async (dispatch) => {
         dispatch(getData())
         const user_ST = await registerUser(user_IG)
+        dispatch(userSetData(user_ST))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+export const getListProfiles = () => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listProfiles = await getProfiles()
         dispatch(userSetData(user_ST))
         dispatch(getDataSuccess([]))
     }

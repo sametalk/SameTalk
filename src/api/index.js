@@ -38,3 +38,16 @@ export const registerUser = async (user) => {
             })
     return await response.json()
 }
+
+// Solicita la lista de perfiles
+export const getProfiles = async () => {
+    const response = await fetch(URL + `/auth/register`, {
+                method: "POST",
+                body: JSON.stringify(),
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            })
+    return await response.json()
+}
