@@ -53,9 +53,11 @@ class selectInterests extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto interests
 const mapStateToProps = state => {
-    return {interests: state.interests,
-    data: state.data}
+    return {
+        interests: state.interests
+    }
 }
 
 export default connect(mapStateToProps, actions)(selectInterests)

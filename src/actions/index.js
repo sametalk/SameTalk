@@ -1,5 +1,5 @@
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
-import { apiGetUser } from '../api'
+import { instagramGetData , loginSameTalk, sameTalkGetData, registerUser} from '../api'
 
 export const selectedInterests = (interest) => {
     return {
@@ -21,48 +21,39 @@ export const userSetData = (user) => {
 
 export const getData = () => {
     return {
-        type: "FETCHING_DATA"
+        type: FETCHING_DATA
     }
 }
 
 export const getDataSuccess = (data) => {
     return {
-        type: "FETCHING_DATA_SUCCESS",
+        type: FETCHING_DATA_SUCCESS,
         data
     }
 }
 
 export const getDataFailure = () => {
     return {
-        type: "FETCHING_DATA_FAILURE"
+        type: FETCHING_DATA_FAILURE
     }
 }
 
 export const login = (token) => {
     return async (dispatch) => {
         dispatch(getData())
-        const response = await fetch(`https://api.instagram.com/v1/users/self/?access_token=${token}`)
-        const res = await response.json()
+        const dataInstagram = await instagramGetData(token) //Trae los datos del usuario de Instagram
+        const loginST= await loginSameTalk(dataInstagram.id)  //Loguea al usuario en el servidor de SameTalk
 
-        const response2 = await fetch(`https://sametalk-back.herokuapp.com/api/auth/login`, {
-            method: "POST",
-            body: JSON.stringify({ instagram_id: res.data.id }),
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        })
-        res2 = await response2.json()
-
+        // Defino un nuevo usuario para luego almacenarlo en el Storage Centralizado
         const user = {
             token: '',
-            instagram_id: res.data.id,
-            username: res.data.username,
-            full_name: res.data.full_name,
-            profile_picture: res.data.profile_picture,
-            bio: res.data.bio,
-            follows: res.data.counts.follows,
-            followed_by: res.data.counts.followed_by,
+            instagram_id: dataInstagram.id,
+            username: dataInstagram.username,
+            full_name: dataInstagram.full_name,
+            profile_picture: dataInstagram.profile_picture,
+            bio: dataInstagram.bio,
+            follows: dataInstagram.counts.follows,
+            followed_by: dataInstagram.counts.followed_by,
             age: '',
             coins: 0,
             gender: '',
@@ -70,20 +61,35 @@ export const login = (token) => {
             interests: []
         }
 
-        if (res2.status === "ok") {
-            const response3 = await fetch(`https://sametalk-back.herokuapp.com/api/users/self?token=${res2.token}`)
-            const res3 = await response3.json()
-            user.token = res2.token
-            user.age = res3.age
-            user.coins = res3.coins
-            user.gender = res3.gender
-            user.country_id = res3.country
-            dispatch(userSetData(user))
-            dispatch(getDataSuccess([]))
+        // Pregunto si esta registrado, seteo los datos que me trae del servidor de SameTalk
+        // Si no, tengo que registrarlo
+        if (loginST.status === "ok") {
+            const dataSameTalk = await sameTalkGetData(loginST.token) //Trae los datos del usuario registrado en SameTalk
+            user.token = loginSameTalk.token
+            user.age = dataSameTalk.age
+            user.coins = dataSameTalk.coins
+            user.gender = dataSameTalk.gender
+            user.country_id = dataSameTalk.country
+            dispatch(userSetData(user)) // Almaceno el usuario que se autentico en el storage centralizado
+            dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
-            dispatch(userSetData(user))
-            dispatch(getDataFailure())
+            dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
+            dispatch(getDataFailure()) //Informo que el usuario se logueo pero no esta registrado en la aplicacion
         }
         
+    }
+}
+
+/*
+    Esta funcion envia al servidor un nuevo usuario con los datos seteados
+    El servidor devuelve el usuario registrado con los datos como se almacenaron
+    Se guarda el usuario con los datos devueltos por el servidor de SameTalk
+*/
+export const register = (user_IG) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const user_ST = await registerUser(user_IG)
+        dispatch(userSetData(user_ST))
+        dispatch(getDataSuccess([]))
     }
 }

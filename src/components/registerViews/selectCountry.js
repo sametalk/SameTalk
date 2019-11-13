@@ -17,7 +17,7 @@ class selectCountry extends Component {
     super(props)
     const userCountryData = getAllCountries()
     this.state = {
-      cca2: 'US',
+      cca2: 'AR',
       callingCode: userCountryData.callingCode
     }
   }
@@ -79,6 +79,7 @@ class selectCountry extends Component {
   }
 }
 
+// Trae del Storage Centralizado el objeto userData
 const mapStateToProps = state => {
   return {userData: state.userData}
 }

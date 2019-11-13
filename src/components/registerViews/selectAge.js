@@ -74,6 +74,7 @@ class selectAge extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto userData
 const mapStateToProps = state => {
     return {userData: state.userData}
 }

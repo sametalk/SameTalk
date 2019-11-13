@@ -8,12 +8,16 @@ import { login } from '../actions';
 
 class welcome extends Component {
 
+    /*
+        Una vez que nos logueamos correctamente a traves de instagram
+        Se llama a la funcion login definida en acción y se lo redirige segun el caso
+    */
     async _onRegister(token) {
         await this.props.login(token)
         if (!this.props.data.error) {
-            this.props.navigation.navigate('TabNavigation')
+            this.props.navigation.navigate('TabNavigation')  // Usuario ya registrado
         } else {
-            this.props.navigation.navigate('Register')
+            this.props.navigation.navigate('Register') // Usuario no registrado
         }
     }
 
@@ -71,12 +75,14 @@ class welcome extends Component {
     }
 }
 
+// Trae del storage centralizado el objeto data
 const mapStateToProps = state => {
     return {
         data: state.data
     }
 }
 
+// Trae de action las funciones definidas en ese archivo
 const mapDispatchToProps = dispatch => {
     return {
         login: (token) => dispatch(login(token))

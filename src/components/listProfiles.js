@@ -82,6 +82,7 @@ class listProfiles extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto listProfile e interests
 const mapStateToProps = state => {
     return {
         listProfiles: state.listProfiles,

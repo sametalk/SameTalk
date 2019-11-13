@@ -8,6 +8,7 @@ class profile extends Component {
 
     render() {
         const { userData, interests } = this.props
+        console.log("PROFILE: "  + userData)
         return (
             <View style={styles.container}>
                 <View style={styles.perfilZone}>
@@ -50,6 +51,7 @@ class profile extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto userData e interests
 const mapStateToProps = state => {
     return {
         userData: state.userData,
