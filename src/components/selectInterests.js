@@ -54,7 +54,8 @@ class selectInterests extends Component {
 }
 
 const mapStateToProps = state => {
-    return {interests: state.interests}
+    return {interests: state.interests,
+    data: state.data}
 }
 
 export default connect(mapStateToProps, actions)(selectInterests)
