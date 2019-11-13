@@ -57,6 +57,7 @@ export const login = (token) => {
             age: '',
             coins: 0,
             gender: '',
+            country: '',
             country_id: '',
             interests: []
         }
@@ -69,7 +70,7 @@ export const login = (token) => {
             user.age = dataSameTalk.age
             user.coins = dataSameTalk.coins
             user.gender = dataSameTalk.gender
-            user.country_id = dataSameTalk.country
+            user.country = dataSameTalk.country
             dispatch(userSetData(user)) // Almaceno el usuario que se autentico en el storage centralizado
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {

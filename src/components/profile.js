@@ -8,7 +8,6 @@ class profile extends Component {
 
     render() {
         const { userData, interests } = this.props
-        console.log("PROFILE: "  + userData)
         return (
             <View style={styles.container}>
                 <View style={styles.perfilZone}>
@@ -28,7 +27,7 @@ class profile extends Component {
                             <Text style={styles.age}>{userData.age} años</Text>
                         </View>
                         <View style={styles.textZone}>
-                            <Text style={styles.country}>{userData.country_id.name}</Text>
+                            <Text style={styles.country}>{userData.country.name}</Text>
                         </View>
                     </View>
                 </View>
