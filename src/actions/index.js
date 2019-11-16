@@ -1,5 +1,5 @@
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
-import { instagramGetData , loginSameTalk, sameTalkGetData, registerUser,  getProfiles} from '../api'
+import { instagramGetData , loginSameTalk, sameTalkGetData, registerUser,  getProfiles, getInterests} from '../api'
 
 export const selectedInterests = (interest) => {
     return {
@@ -12,6 +12,13 @@ export const userSetData = (user) => {
     return {
         type: 'userSetData',
         user: user
+    }
+}
+
+export const setListInterests = (listInterests) => {
+    return {
+        type: 'setListInterests',
+        listInterests: listInterests
     }
 }
 
@@ -66,7 +73,7 @@ export const login = (token) => {
         // Si no, tengo que registrarlo
         if (loginST.status === "ok") {
             const dataSameTalk = await sameTalkGetData(loginST.token) //Trae los datos del usuario registrado en SameTalk
-            user.token = loginSameTalk.token
+            user.token = loginST.token
             user.age = dataSameTalk.age
             user.coins = dataSameTalk.coins
             user.gender = dataSameTalk.gender
@@ -95,11 +102,26 @@ export const register = (user_IG) => {
     }
 }
 
+
+//INCOMPLETOOOOOO HAY QUE CAMBIAR TODO
 export const getListProfiles = () => {
     return async (dispatch) => {
         dispatch(getData())
         const listProfiles = await getProfiles()
         dispatch(userSetData(user_ST))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+/*
+    Funcion que solicita la lista de intereses
+*/
+export const getListInterests = (token_ST) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listInterests = await getInterests(token_ST)
+        console.log(JSON.stringify(listInterests))
+        dispatch(setListInterests(listInterests))
         dispatch(getDataSuccess([]))
     }
 }

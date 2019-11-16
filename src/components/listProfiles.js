@@ -7,18 +7,17 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Avatar } from 'react-native-elements';
-import { Card, CardItem, Text, Left, Body } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
-import { getListProfiles } from '../actions'
+import interests from '../constant/interests'
 
 class listProfiles extends Component {
-    async componentDidMount() {
+    componentDidMount() {
         console.disableYellowBox = true;
-        await this.props.getListProfiles()
     }
 
     render() {
-        const { listProfiles, interests } = this.props
+        const { listProfiles } = this.props
         console.log(interests)
         return (
             <View style={{ flex: 1 }}>
@@ -45,7 +44,7 @@ class listProfiles extends Component {
                                 <Image source={l.profile_picture} style={styles.profile} />
                             </CardItem>
                             <CardItem>
-                                {l.interests.map((x) => (
+                                {interests.map((x) => (
                                     <Avatar
                                         size="small"
                                         source={x.avatar_url}
@@ -84,22 +83,13 @@ class listProfiles extends Component {
     }
 }
 
-// Trae del Storage Centralizado el objeto listProfile e interests
 const mapStateToProps = state => {
     return {
-        listProfiles: state.listProfiles,
-        interests: state.interests
+        listProfiles: state.listProfiles
     }
 }
 
-// Trae de action las funciones definidas en ese archivo
-const mapDispatchToProps = dispatch => {
-    return {
-        getListProfiles: () => dispatch(getListProfiles())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(listProfiles)
+export default connect(mapStateToProps)(listProfiles)
 
 const styles = StyleSheet.create({
     container: {

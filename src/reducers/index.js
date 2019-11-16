@@ -1,15 +1,17 @@
 import {combineReducers} from 'redux'
-import user from './userReducer'
+import userData from './userReducer'
 import interests from './interestsReducer'
+import selectedInterests from './selectedInterestsReducer'
 import listProfiles from './listProfilesReducer'
-import data from './dataReducer'
+import fetchData from './fetchDataReducer'
 
 /*
     Aca se definen los estados y se le pasa la funcion reductora
 */
 export default combineReducers({
-    data: data,
-    userData: user,
-    interests: interests,
-    listProfiles: listProfiles
+    fetchData,
+    userData,
+    interests,
+    selectedInterests,
+    listProfiles
 })

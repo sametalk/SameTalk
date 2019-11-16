@@ -14,7 +14,7 @@ class welcome extends Component {
     */
     async _onRegister(token) {
         await this.props.login(token)
-        if (!this.props.data.error) {
+        if (!this.props.fetchData.error) {
             this.props.navigation.navigate('TabNavigation')  // Usuario ya registrado
         } else {
             this.props.navigation.navigate('Register') // Usuario no registrado
@@ -33,7 +33,7 @@ class welcome extends Component {
                             <Col size={1} />
                             <Col size={3.5}>
 
-                                {!this.props.data.isFetching ? (
+                                {!this.props.fetchData.isFetching ? (
                                     <View>
                                         <View>
                                             <Button iconLeft danger full style={styles.button} onPress={() => this.instagramLogin.show()}>
@@ -78,7 +78,7 @@ class welcome extends Component {
 // Trae del storage centralizado el objeto data
 const mapStateToProps = state => {
     return {
-        data: state.data
+        fetchData: state.fetchData
     }
 }
 
