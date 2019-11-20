@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { getListInterests, selectedInterests } from '../../actions'
 //import interests from '../../constant/interestsTests'
@@ -16,7 +16,8 @@ class selectInterests extends Component {
             level: 1,
             count: 0,
             interests: [],
-            backInterests: []
+            backInterests: [],
+            ids: []
         }
     }
 
@@ -29,27 +30,15 @@ class selectInterests extends Component {
         })
     }
 
-    /*
-        Funcion para refrescar el checkbox del interes
-        Se fija que el id del interes este en el storage de intereses seleccionados
-    */
-    refreshCheck(id) {
-        let flag = false
-        this.props.interests.forEach(item => {
-            if (item.id === id) {
-                flag = true
-            }
-        });
-        return flag
-    }
-
-    onClickAvatar = (item) => {
+    onClickInterests = (item) => {
         if (this.state.level < 3) {
             this.setState({
                 interests: item.children,
                 backInterests: this.state.interests,
-                level: this.state.level + 1
+                level: this.state.level + 1,
             })
+        } else {
+            console.log(item.id)
         }
     }
 
@@ -75,7 +64,7 @@ class selectInterests extends Component {
             return <View style={[styles.item, styles.itemInvisible]} />;
         }
         return (
-            <TouchableOpacity onPress={() => this.onClickAvatar(item)} style={[styles.item, { backgroundColor: violetDegradation[colorCalculation] }]}>
+            <TouchableOpacity onPress={() => this.onClickInterests(item)} style={[styles.item, { backgroundColor: violetDegradation[colorCalculation] }]}>
                 <View style={styles.item}>
                     <Text style={styles.itemText}>{item.name}</Text>
                 </View>
