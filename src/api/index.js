@@ -84,3 +84,30 @@ export const getInterests = async (token_ST) => {
         console.log(error)
     }
 }
+
+// Guarda un interes seleccionado por el usuario en el servidor
+export const setInt = async (interest, token_ST) => {
+    try {
+        const response = await fetch(URL + `/interests?token=${token_ST}`, {
+            method: "POST",
+            body: JSON.stringify([{cat_id: String(interest.id)}]),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// Solicita la lista de intereses que fueron solicitados por el usuario autenticado
+export const getSelectedInt = async (token_ST) => {
+    try {
+        const response = await fetch(URL + `/interests?token=${token_ST}`)
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}

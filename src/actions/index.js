@@ -1,5 +1,13 @@
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
-import { instagramGetData , loginSameTalk, sameTalkGetData, registerUser,  getProfiles, getInterests} from '../api'
+import { 
+    instagramGetData , 
+    loginSameTalk, 
+    sameTalkGetData, 
+    registerUser,  
+    getProfiles, 
+    getInterests, 
+    setInt, 
+    getSelectedInt} from '../api'
 
 export const selectedInterests = (interest) => {
     return {
@@ -79,6 +87,7 @@ export const login = (token) => {
             user.gender = dataSameTalk.gender
             user.country = dataSameTalk.country
             dispatch(userSetData(user)) // Almaceno el usuario que se autentico en el storage centralizado
+            dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
             dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
@@ -120,8 +129,46 @@ export const getListInterests = (token_ST) => {
     return async (dispatch) => {
         dispatch(getData())
         const listInterests = await getInterests(token_ST)
-        console.log(JSON.stringify(listInterests))
         dispatch(setListInterests(listInterests))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+/*
+    Funcion que guarda un interes en el servidor
+*/
+export const setInterest = (interest, token_ST) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const response = await setInt(interest, token_ST)
+        if (response.status !== "error"){
+            dispatch(selectedInterests(interest))
+        }
+        dispatch(getDataSuccess([]))
+    }
+}
+
+/*
+    Funcion que trae los intereses de un usuario
+*/
+export const getSelectedInterest = ( token_ST ) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const interests = await getSelectedInt(token_ST)
+
+        // Hago esto para pasar al formato y que sea compatible cuando agrego un interes al dar click
+        let newArray = []
+        interests.map(i => {
+            let obj = {
+                id: i.category.id,
+                name: i.category.name,
+                children: []
+            }
+            newArray.push(obj)
+        });
+        // --------------------
+
+        dispatch(selectedInterests(newArray))
         dispatch(getDataSuccess([]))
     }
 }

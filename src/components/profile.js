@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 class profile extends Component {
 
     render() {
-        const { userData, interests } = this.props
+        const { userData, selectedInterests } = this.props
+        console.log(selectedInterests)
         return (
             <View style={styles.container}>
                 <View style={styles.perfilZone}>
@@ -35,7 +36,7 @@ class profile extends Component {
                     <Button transparent>
                         <Text style={{ textAlign: "center" }}>Sus intereses seleccionados son:</Text>
                     </Button>
-                    {interests.map((l, i) => (
+                    {selectedInterests.map((l, i) => (
                         <ListItem
                             key={i}
                             leftAvatar={{ source: l.avatar_url }}
@@ -54,7 +55,7 @@ class profile extends Component {
 const mapStateToProps = state => {
     return {
         userData: state.userData,
-        interests: state.interests
+        selectedInterests: state.selectedInterests
     }
 }
 

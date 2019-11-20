@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
-import { getListInterests, selectedInterests } from '../../actions'
+import { getListInterests, selectedInterests, setInterest } from '../../actions'
 //import interests from '../../constant/interestsTests'
 import { Container, Header, Left, Body, Text, Button, Icon, Item, Input } from 'native-base';
 import { violetDegradation } from '../../constant/colors'
@@ -16,8 +16,7 @@ class selectInterests extends Component {
             level: 1,
             count: 0,
             interests: [],
-            backInterests: [],
-            ids: []
+            backInterests: []
         }
     }
 
@@ -38,7 +37,7 @@ class selectInterests extends Component {
                 level: this.state.level + 1,
             })
         } else {
-            console.log(item.id)
+            this.props.setInterest(item, this.props.userData.token)
         }
     }
 
@@ -114,7 +113,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getListInterests: (token) => dispatch(getListInterests(token)),
-        selectedInterests: (interest) => dispatch(selectedInterests(interest))
+        selectedInterests: (interest) => dispatch(selectedInterests(interest)),
+        setInterest: (interest, token ) => dispatch(setInterest(interest, token))
     }
 }
 

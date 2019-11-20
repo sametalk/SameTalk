@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
         height: 300,
         width: 300,
         borderRadius: 20,
-        opacity: 0.9,
+        borderColor: "black",
+        opacity: 0.95,
         backgroundColor: "white",
         justifyContent: "center",
         alignSelf: "center"
