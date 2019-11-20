@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-import { getListInterests, selectedInterests } from '../../actions'
-//import interests from '../../constant/interestsTests'
-import { Container, Header, Left, Body, Text, Button, Icon, Item, Input } from 'native-base';
-import { violetDegradation } from '../../constant/colors'
+import { Text } from 'native-base';
+import interests from '../constant/interestsTests'
+import { Container, Header, Left, Body, Right, Button, Icon, Item, Input } from 'native-base';
+import { violetDegradation } from '../constant/colors'
 
 const numColumns = 2;
 
@@ -15,17 +14,15 @@ class selectInterests extends Component {
         this.state = {
             level: 1,
             count: 0,
-            interests: [],
-            backInterests: []
+            interests: []
         }
     }
 
     async componentDidMount() {
         console.disableYellowBox = true;
-        const { getListInterests, userData } = this.props
-        await getListInterests(userData.token)
         this.setState({
-            interests: this.props.interests
+            interests: interests,
+            backInterests: []
         })
     }
 
@@ -56,14 +53,14 @@ class selectInterests extends Component {
     back() {
         if (this.state.level == 2) {
             this.setState({
-                interests: this.props.interests,
+                interests: interests,
                 backInterests: [],
                 level: 1
             })
         } else if (this.state.level == 3) {
             this.setState({
                 interests: this.state.backInterests,
-                backInterests: this.props.interests,
+                backInterests: interests,
                 level: 2
             })
         }
@@ -71,6 +68,7 @@ class selectInterests extends Component {
 
     renderItem = ({ item, index }) => {
         let colorCalculation = (index + 1) % this.state.interests.length
+        console.log(colorCalculation)
         if (item.empty === true) {
             return <View style={[styles.item, styles.itemInvisible]} />;
         }
@@ -113,23 +111,7 @@ class selectInterests extends Component {
     }
 }
 
-// Trae del Storage Centralizado el objeto interests
-const mapStateToProps = state => {
-    return {
-        userData: state.userData,
-        interests: state.interests
-    }
-}
-
-// Trae de action las funciones definidas en ese archivo
-const mapDispatchToProps = dispatch => {
-    return {
-        getListInterests: (token) => dispatch(getListInterests(token)),
-        selectedInterests: (interest) => dispatch(selectedInterests(interest))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(selectInterests)
+export default selectInterests
 
 const styles = StyleSheet.create({
     container: {

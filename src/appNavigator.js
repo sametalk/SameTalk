@@ -6,6 +6,7 @@ import SelectCountry from './components/registerViews/selectCountry'
 import SelectAge from './components/registerViews/selectAge' 
 import SelectSex from './components/registerViews/selectSex'
 import TabNavigation from './components/tabNavigation'
+import Prueba from './components/prueba'
 
 /*
   Navegacion desde la pantalla de Welcome hasta la pantalla del TabBarBottom (TabNavigation)
@@ -44,6 +45,12 @@ const AppNavigator = createStackNavigator({
   },
   TabNavigation: {
     screen: TabNavigation,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  Prueba: {
+    screen: Prueba,
     navigationOptions: () => ({
       header: null
     })

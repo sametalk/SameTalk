@@ -667,6 +667,11 @@
   resolved "https://registry.yarnpkg.com/@eva-design/dss/-/dss-1.2.0.tgz#a7043fb0c7042fddabe46affd10faa0bcbb601eb"
   integrity sha512-iBmaj33uniTENTvt54lrgU+qxkURh1oAGZeG11tuEOV4muhqFKOUeH7LvvgGeOVPfNOkOmPZR2hpJD77v+iiaw==
 
+"@eva-design/eva@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@eva-design/eva/-/eva-1.2.0.tgz#dc7714f31b7abfd928a8a3cefc28726a506afc60"
+  integrity sha512-6yXXCTaYUozHJmn1ksi/JBFCt2JFd1glgKuimT8BRcocaXNGHcmYPyPLpIDpcP0VZ+LyQr5cMMC0hzf3OXUlqQ==
+
 "@eva-design/processor@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@eva-design/processor/-/processor-1.2.0.tgz#8a064d41061810b8da3d7a813ae5b4da7c996ff0"
@@ -940,6 +945,11 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
+"@react-native-community/status-bar@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@react-native-community/status-bar/-/status-bar-1.0.3.tgz#e90ba515adb97dcffd956f90e965d5e7e2de95b8"
+  integrity sha512-5gwhG1gBTXqgSi/e9DbraBQBCtUtTCSrI9kuwEpwLOCa/pKLIyxQG/HM96ZjvytbZOTZXeaTiKtqLFvYNYSx3A==
+
 "@react-navigation/core@^3.5.1":
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.5.1.tgz#7a2339fca3496979305fb3a8ab88c2ca8d8c214d"
@@ -1105,6 +1115,13 @@
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"
+
+"@ui-kitten/eva-icons@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@ui-kitten/eva-icons/-/eva-icons-4.2.0.tgz#208e39d89e7a7d99d93a1d4b17184e78ec7f26d9"
+  integrity sha512-RpbCp+eVOn564iMgSOsPUpTAztkZY4xTwIb6L8LrQNbEORFati+u4tUPhoQ4JAVuN9GBHSriB+EeSeMdabLyxA==
+  dependencies:
+    react-native-eva-icons "1.1.0"
 
 abab@^2.0.0:
   version "2.0.2"
@@ -5583,6 +5600,11 @@ react-native-drawer@2.5.1:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
+react-native-dynamic-vector-icons@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-dynamic-vector-icons/-/react-native-dynamic-vector-icons-0.2.1.tgz#6859d0aac7e00f831a30de612c905bd4d08da555"
+  integrity sha512-C5BZ3rxkRAkzCOIwZSlZReNPfco8smWHicnKc5Z60nr7ibyaV/6EugDmf/eUuHAl4qdsYnRdSm7q1Ag627ZARQ==
+
 react-native-easy-grid@0.2.2, react-native-easy-grid@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/react-native-easy-grid/-/react-native-easy-grid-0.2.2.tgz#f0be33620be1ebe2d2295918eb58b0a27e8272ab"
@@ -5604,6 +5626,11 @@ react-native-elements@^1.2.0:
     react-native-ratings "^6.3.0"
     react-native-status-bar-height "^2.2.0"
 
+react-native-eva-icons@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-eva-icons/-/react-native-eva-icons-1.1.0.tgz#323e55d759187edc216d049e7c0012a27383e0ed"
+  integrity sha512-0k6sbiKoHxmmbCgAZTHj6llcdcwtbyZJ1E2AK0my7QU0WRaWwqWMep5AUlMbrIiuYE9mkMZiabEXYcfn3ir2PA==
+
 react-native-gesture-handler@^1.4.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.5.0.tgz#df7dc5285c152e0656db70f55200fa632c4f45af"
@@ -5613,6 +5640,11 @@ react-native-gesture-handler@^1.4.1:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-gradient-header@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-gradient-header/-/react-native-gradient-header-0.2.0.tgz#f6d8636e76af8cc52369b93848947fde3fb79dd5"
+  integrity sha512-Dy3msQCORQ2brypib7XCjOnnmWTXffMYj258gZMo453DgVn/U1RPHiBJgD/V/XG45oxXZ6TSB1ROx9MRu3U1/Q==
 
 react-native-instagram-login@^1.1.2:
   version "1.1.2"
@@ -5634,6 +5666,11 @@ react-native-keyboard-aware-scroll-view@0.9.1:
   dependencies:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
+
+react-native-linear-gradient@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
+  integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
 react-native-ratings@^6.3.0:
   version "6.5.0"

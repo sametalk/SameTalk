@@ -8,6 +8,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@eva-design/eva": "^1.2.0",
+    "@react-native-community/status-bar": "^1.0.3",
+    "@ui-kitten/eva-icons": "^4.2.0",
     "add": "^2.0.6",
     "native-base": "^2.13.7",
     "react": "16.8.6",
@@ -16,10 +19,13 @@
     "react-native-country-picker-modal": "^0.8.0",
     "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^3.0.0",
+    "react-native-dynamic-vector-icons": "^0.2.1",
     "react-native-easy-grid": "^0.2.2",
     "react-native-elements": "^1.2.0",
     "react-native-gesture-handler": "^1.4.1",
+    "react-native-gradient-header": "^0.2.0",
     "react-native-instagram-login": "^1.1.2",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-reanimated": "^1.2.0",
     "react-native-screens": "^1.0.0-alpha.23",
     "react-native-ui-kitten": "^4.2.0",

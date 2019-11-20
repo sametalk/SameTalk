@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { Text, Button } from 'native-base';
 import { connect } from 'react-redux';
@@ -103,3 +103,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     }
 });
+
+/*
+    
+*/
