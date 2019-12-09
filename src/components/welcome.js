@@ -4,7 +4,6 @@ import { StyleSheet, ImageBackground, View, Image } from 'react-native';
 import InstagramLogin from 'react-native-instagram-login'
 import { connect } from 'react-redux';
 import { login } from '../actions';
-import { blue } from 'ansi-colors';
 
 class welcome extends Component {
 

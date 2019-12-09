@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackHandler } from 'react-native'
-import AppNavigator from './src/appNavigator';
+import AppNavigator from './src/navigation/appNavigator';
 import { Provider } from 'react-redux'
 import configureStore from './src/configureStore'
 

@@ -30,6 +30,13 @@ export const setListInterests = (listInterests) => {
     }
 }
 
+export const setListProfiles = (listProfiles) => {
+    return {
+        type: 'setListProfiles',
+        listProfiles: listProfiles
+    }
+}
+
 /*
     Manejadores de estados para las peticiones a API's
 */
@@ -88,6 +95,8 @@ export const login = (token) => {
             user.country = dataSameTalk.country
             dispatch(userSetData(user)) // Almaceno el usuario que se autentico en el storage centralizado
             dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
+            console.log(loginST.token)
+            dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
             dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
@@ -111,13 +120,14 @@ export const register = (user_IG) => {
     }
 }
 
-
-//INCOMPLETOOOOOO HAY QUE CAMBIAR TODO
-export const getListProfiles = () => {
+/*
+    Funcion que solicita la lista de los perfiles compatibles con el usuario registrado
+*/
+export const getListProfiles = (token_ST) => {
     return async (dispatch) => {
         dispatch(getData())
-        const listProfiles = await getProfiles()
-        dispatch(userSetData(user_ST))
+        const listProfiles = await getProfiles(token_ST)
+        dispatch(setListProfiles(listProfiles))
         dispatch(getDataSuccess([]))
     }
 }

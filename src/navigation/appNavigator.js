@@ -1,12 +1,12 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import Register from './components/registerViews/register'
-import Welcome from './components/welcome'
-import SelectCountry from './components/registerViews/selectCountry'
-import SelectAge from './components/registerViews/selectAge' 
-import SelectSex from './components/registerViews/selectSex'
-import TabNavigation from './components/tabNavigation'
-import Prueba from './components/prueba'
+import Register from '../components/registerViews/register'
+import Welcome from '../components/welcome'
+import SelectCountry from '../components/registerViews/selectCountry'
+import SelectAge from '../components/registerViews/selectAge' 
+import SelectSex from '../components/registerViews/selectSex'
+import TabNavigation from './tabNavigation'
+import Prueba from '../components/prueba'
 
 /*
   Navegacion desde la pantalla de Welcome hasta la pantalla del TabBarBottom (TabNavigation)

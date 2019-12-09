@@ -2,9 +2,10 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {Icon} from 'native-base'
-import Profile from './profile'
-import SelectInterests from './selectInterests/selectInterests'
-import ListProfiles from './listProfiles'
+import SelectInterests from '../components/selectInterests/selectInterests'
+import ListProfiles from '../components/listProfiles'
+import ProfileStack from './profileNavigation'
+
 
 /*
     En este .js se configura el TabBar que aparece en la parte de abajo
@@ -23,7 +24,7 @@ const TabNavigator = createBottomTabNavigator({
       })
     },
     Profile: {
-        screen: Profile, 
+        screen: ProfileStack, 
         navigationOptions: () => ({
             title: `Profile`
         })

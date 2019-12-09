@@ -59,16 +59,9 @@ export const registerUser = async (user) => {
 }
 
 // Solicita la lista de perfiles INCOMPLETOO HAY QUE CAMBIAR TODO
-export const getProfiles = async () => {
+export const getProfiles = async (token_ST) => {
     try {
-        const response = await fetch(URL + `/auth/register`, {
-            method: "POST",
-            body: JSON.stringify(),
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        })
+        const response = await fetch(URL + `/interests/predictions?token=${token_ST}`)
         return await response.json()
     } catch (error) {
         console.log(error)
