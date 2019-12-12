@@ -11,14 +11,22 @@ import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Ic
 import CardStack from 'react-native-card-stack-swiper';
 import interests from '../constant/interests'
 
-class listProfiles extends Component {
+class ListProfiles extends Component {
     componentDidMount() {
         console.disableYellowBox = true;
     }
 
+    setNoLike(id){
+        console.log(id + "Recibio like")
+    }
+
+    setLike(id) {
+        console.log(id + "Recibio nolike")
+    }
+
     render() {
         const { listProfiles } = this.props
-        console.log(interests)
+        console.log(listProfiles)
         return (
             <View style={{ flex: 1 }}>
                 <CardStack
@@ -27,21 +35,20 @@ class listProfiles extends Component {
                     ref={swiper => {
                         this.swiper = swiper
                     }}
-                    onSwiped={() => console.log('onSwiped')}
-                    onSwipedLeft={() => console.log('onSwipedLeft')}
+
                 >
                     {listProfiles.map((l) => (
-                        <Card style={styles.card}>
+                        <Card style={styles.card} onSwipedLeft={() => this.setLike(l.id)} onSwipedRight={() => this.setNoLike(l.id)}>
                             <CardItem>
                                 <Left>
                                     <Body>
                                         <Text>{l.full_name} ({l.age} años)</Text>
-                                        <Text note>{l.country}</Text>
+                                        <Text note>{l.country.name}</Text>
                                     </Body>
                                 </Left>
                             </CardItem>
                             <CardItem cardBody>
-                                <Image source={l.profile_picture} style={styles.profile} />
+                                <Image source={{ uri: l.profile_picture }} style={styles.profile} />
                             </CardItem>
                             <CardItem>
                                 {interests.map((x) => (
@@ -60,23 +67,16 @@ class listProfiles extends Component {
 
                 <View style={styles.footer}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={[styles.button, styles.red]} onPress={() => {
-                            this.swiper.swipeLeft();
-                        }}>
+                        <TouchableOpacity style={[styles.button, styles.red]} onPress={() => this.swiper.swipeLeft()}>
                             <Image source={require('../../assets/image/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => {
-                            this.swiper.goBackFromLeft();
-                        }}>
+                        <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => this.swiper.goBackFromLeft()}>
                             <Image source={require('../../assets/image/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, styles.green]} onPress={() => {
-                            this.swiper.swipeRight();
-                        }}>
+                        <TouchableOpacity style={[styles.button, styles.green]} onPress={() => this.swiper.swipeRight()}>
                             <Image source={require('../../assets/image/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
                         </TouchableOpacity>
                     </View>
-
                 </View>
             </View>
         );
@@ -89,19 +89,19 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(listProfiles)
+export default connect(mapStateToProps)(ListProfiles)
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#fee9d7'
+        backgroundColor: 'white'
     },
     content: {
         flex: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fee9d7'
+        backgroundColor: 'white'
     },
     card: {
         width: 320,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fee9d7'
+        backgroundColor: 'white'
     },
     buttonContainer: {
         width: 220,

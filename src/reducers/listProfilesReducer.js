@@ -4,8 +4,8 @@
 export default listProfiles = (state = [], action) => {
     switch (action.type) {
         case 'setListProfiles':
-            console.log(action.profiles)
-            return action.profiles
+            console.log(action.listProfiles)
+            return action.listProfiles
         default:
             return state
     }

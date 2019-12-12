@@ -62,7 +62,9 @@ export const registerUser = async (user) => {
 export const getProfiles = async (token_ST) => {
     try {
         const response = await fetch(URL + `/interests/predictions?token=${token_ST}`)
-        return await response.json()
+        const res = await response.json()
+        console.log(res.message)
+        return res.message
     } catch (error) {
         console.log(error)
     }
