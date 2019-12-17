@@ -106,3 +106,57 @@ export const getSelectedInt = async (token_ST) => {
         console.log(error)
     }
 }
+
+// Envia un Like a otro usuario
+export const setLike = async (token_ST, id) => {
+    try{
+        console.log("llega a api")
+        const response = await fetch(URL + `/matches/like`, {
+            method: "POST",
+            body: JSON.stringify({
+                token: token_ST,
+                to_id: String(id)
+            }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        console.log(response.json())
+        return await response.json()
+    }catch{
+        console.log(error)
+    }
+}
+
+// Envia un No Like a otro usuario
+export const setDontLike = async (token_ST, id) => {
+    try{
+        console.log("llega a api")
+        const response = await fetch(URL + `/matches/dontlike`, {
+            method: "POST",
+            body: JSON.stringify({
+                token: token_ST,
+                to_id: String(id)
+            }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        console.log(response.json())
+        return await response.json()
+    }catch{
+        console.log(error)
+    }
+}
+
+// Consulta lista de matchs
+export const getMatchs = async (token_ST) => {
+    try{
+        const response = await fetch(URL + `/matches?token=${token_ST}`)
+        return await response.json()
+    }catch{
+        console.log(error)
+    }
+}

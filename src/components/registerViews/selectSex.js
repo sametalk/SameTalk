@@ -26,7 +26,7 @@ class selectAge extends Component {
         Registro en el servidor el nuevo usuario
         Navego a la vista de usuario registrado
     */
-    async _selectInterests(){
+    async _selectInterests() {
         if (this.state.women || this.state.men) {
             const user = this.props.userData
             user.gender = this.state.gender
@@ -61,6 +61,7 @@ class selectAge extends Component {
                         <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
 
                             <CardItem cardBody style={{ flex: 0.50, flexDirection: "column", justifyContent: 'center' }}>
+
                                 <Button transparent>
                                     <Text style={{ textAlign: "center" }}>Seleccione su Sexo:</Text>
                                 </Button>

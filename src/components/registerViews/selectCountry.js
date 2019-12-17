@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  PixelRatio,
-  ImageBackground
+  PixelRatio
 } from 'react-native'
 import CountryPicker, {
   getAllCountries

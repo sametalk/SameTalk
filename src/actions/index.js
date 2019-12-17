@@ -7,7 +7,9 @@ import {
     getProfiles, 
     getInterests, 
     setInt, 
-    getSelectedInt} from '../api'
+    getSelectedInt,
+    getMatchs
+} from '../api'
 
 export const selectedInterests = (interest) => {
     return {
@@ -34,6 +36,13 @@ export const setListProfiles = (listProfiles) => {
     return {
         type: 'setListProfiles',
         listProfiles: listProfiles
+    }
+}
+
+export const setListMatchs = (listMatchs) => {
+    return {
+        type: 'setListMatchs',
+        listMatchs: listMatchs
     }
 }
 
@@ -97,6 +106,7 @@ export const login = (token) => {
             dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
             console.log(loginST.token)
             dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
+            dispatch(getListMatchs(loginST.token)) //Trae los matchs del servidor
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
             dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
@@ -179,6 +189,16 @@ export const getSelectedInterest = ( token_ST ) => {
         // --------------------
 
         dispatch(selectedInterests(newArray))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Trae la lista de matchs
+export const getListMatchs = ( token_ST ) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const matchs = await getMatchs(token_ST)
+        dispatch(setListMatchs(matchs))
         dispatch(getDataSuccess([]))
     }
 }

@@ -4,6 +4,7 @@ import interests from './interestsReducer'
 import selectedInterests from './selectedInterestsReducer'
 import listProfiles from './listProfilesReducer'
 import fetchData from './fetchDataReducer'
+import listMatchs from './listMatchsReducer'
 
 /*
     Aca se definen los estados y se le pasa la funcion reductora
@@ -13,5 +14,6 @@ export default combineReducers({
     userData,
     interests,
     selectedInterests,
-    listProfiles
+    listProfiles,
+    listMatchs
 })

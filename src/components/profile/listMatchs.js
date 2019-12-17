@@ -1,15 +1,33 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { Component } from 'react';
+import { Text, List, ListItem, Content, Container } from 'native-base';
+import { connect } from 'react-redux';
 
-class ListMatchs extends React.Component {
-    //Profile Screen to show from Open profile button
+class ListMatchs extends Component {
+
     render() {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>List Matchs!</Text>
-        </View>
-      );
+        const { listMatchs } = this.props
+        console.log(listMatchs)
+        return (
+            <Container>
+                <Content>
+                    <List>
+                        {listMatchs.map((l) => (
+                            <ListItem>
+                                <Text>{l.to.full_name}</Text>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Content>
+            </Container>
+        );
     }
-  }
+}
 
-export default ListMatchs
+// Trae del Storage Centralizado el objeto userData e interests
+const mapStateToProps = state => {
+    return {
+        listMatchs: state.listMatchs
+    }
+}
+
+export default connect(mapStateToProps)(ListMatchs)

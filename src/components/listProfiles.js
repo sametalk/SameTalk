@@ -7,21 +7,26 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Avatar } from 'react-native-elements';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Card, CardItem, Text, Left, Body } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import interests from '../constant/interests'
+import { setLike, setDontLike } from '../api'
 
 class ListProfiles extends Component {
     componentDidMount() {
         console.disableYellowBox = true;
     }
 
-    setNoLike(id){
-        console.log(id + "Recibio like")
+    async onNoLike(id){
+        console.log(id + "Recibio nolike")
+        const response = await setDontLike(this.props.userData.token , id)     
+        console.log(response) 
     }
 
-    setLike(id) {
-        console.log(id + "Recibio nolike")
+    async onLike(id) {
+        console.log("Llego funcion")
+        const response = await setLike(this.props.userData.token , id)
+        console.log(response)
     }
 
     render() {
@@ -35,10 +40,9 @@ class ListProfiles extends Component {
                     ref={swiper => {
                         this.swiper = swiper
                     }}
-
                 >
                     {listProfiles.map((l) => (
-                        <Card style={styles.card} onSwipedLeft={() => this.setLike(l.id)} onSwipedRight={() => this.setNoLike(l.id)}>
+                        <Card style={styles.card} onSwipedLeft={() => this.onNoLike(l.id)} onSwipedRight={() => this.onLike(l.id)}>
                             <CardItem>
                                 <Left>
                                     <Body>
@@ -85,7 +89,8 @@ class ListProfiles extends Component {
 
 const mapStateToProps = state => {
     return {
-        listProfiles: state.listProfiles
+        userData: state.userData,
+        listProfiles: state.listProfiles,
     }
 }
 
