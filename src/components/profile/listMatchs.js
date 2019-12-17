@@ -13,7 +13,7 @@ class ListMatchs extends Component {
                     <List>
                         {listMatchs.map((l) => (
                             <ListItem>
-                                <Text>{l.to.full_name}</Text>
+                                <Text>{l.user.full_name}</Text>
                             </ListItem>
                         ))}
                     </List>

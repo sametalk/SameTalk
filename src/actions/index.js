@@ -198,6 +198,7 @@ export const getListMatchs = ( token_ST ) => {
     return async (dispatch) => {
         dispatch(getData())
         const matchs = await getMatchs(token_ST)
+        console.log(matchs)
         dispatch(setListMatchs(matchs))
         dispatch(getDataSuccess([]))
     }

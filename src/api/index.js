@@ -122,7 +122,6 @@ export const setLike = async (token_ST, id) => {
                 "Content-Type": "application/json"
             }
         })
-        console.log(response.json())
         return await response.json()
     }catch{
         console.log(error)

@@ -20,12 +20,8 @@ class Settings extends Component {
       men: false,
       gender: '',
       name: this.props.userData.full_name,
-      age: this.props.userData.age
+      age: this.props.userData.age.toString()
     }
-  }
-
-  setField (e) {
-    this.setState({[e.target.name]: e.target.value})
   }
 
   componentDidMount() {
@@ -43,13 +39,13 @@ class Settings extends Component {
                   <Text style={{ textAlign: "center" }}>Nombre de usuario:</Text>
                 </Button>
                 <Item style={{ width: "80%" }}>
-                  <Input onChange={(e)=>this.setField(e)} name="name"/>
+                  <Input onChangeText={(name) => this.setState({name})} value={this.state.name}/>
                 </Item>
                 <Button transparent>
                   <Text style={{ textAlign: "center" }}>Ingrese su edad</Text>
                 </Button>
                 <Item style={{ width: "80%" }}>
-                  <Input keyboardType="numeric" onChange={(e)=>this.setField(e)} name="age"/>
+                  <Input onChangeText={(age) => this.setState({age})} value={this.state.age}/>
                 </Item>
                 <Button transparent>
                   <Text style={{ textAlign: "center" }}>Seleccione su País de residencia:</Text>
@@ -75,7 +71,7 @@ class Settings extends Component {
         </View>
         <Footer>
           <FooterTab>
-            <Button full danger onPress={() => console.log(this.state)}>
+            <Button full danger>
               <Text>Confirmar </Text>
               <Icon type="FontAwesome" name="check-circle" style={{ color: "white" }} />
             </Button>
