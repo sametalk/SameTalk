@@ -86,7 +86,7 @@ class selectInterests extends Component {
                     }
                     <Body style={{ flex: 10 }}>
                         <Item rounded>
-                            <Input placeholder='Search...' />
+                            <Input placeholder='Buscar...' />
                             <Icon name='search' style={styles.color} />
                         </Item>
                     </Body>

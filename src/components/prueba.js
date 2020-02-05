@@ -68,7 +68,6 @@ class selectInterests extends Component {
 
     renderItem = ({ item, index }) => {
         let colorCalculation = (index + 1) % this.state.interests.length
-        console.log(colorCalculation)
         if (item.empty === true) {
             return <View style={[styles.item, styles.itemInvisible]} />;
         }

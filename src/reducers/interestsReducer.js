@@ -6,7 +6,6 @@ export default (state = [], action) => {
             - Seteo los intereses con la lista que obtengo de la api
         */
         case 'setListInterests':
-            console.log(action.listInterests)
             return action.listInterests
 
         default:

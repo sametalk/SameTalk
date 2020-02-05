@@ -6,7 +6,6 @@ class ListMatchs extends Component {
 
     render() {
         const { listMatchs } = this.props
-        console.log(listMatchs)
         return (
             <Container>
                 <Content>

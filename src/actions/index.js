@@ -8,7 +8,8 @@ import {
     getInterests, 
     setInt, 
     getSelectedInt,
-    getMatchs
+    getMatchs,
+    updateDataUser
 } from '../api'
 
 export const selectedInterests = (interest) => {
@@ -21,6 +22,13 @@ export const selectedInterests = (interest) => {
 export const userSetData = (user) => {
     return {
         type: 'userSetData',
+        user: user
+    }
+}
+
+export const userUpdateData = (user) => {
+    return {
+        type: 'userUpdateData',
         user: user
     }
 }
@@ -98,13 +106,13 @@ export const login = (token) => {
         if (loginST.status === "ok") {
             const dataSameTalk = await sameTalkGetData(loginST.token) //Trae los datos del usuario registrado en SameTalk
             user.token = loginST.token
+            user.full_name = dataSameTalk.full_name
             user.age = dataSameTalk.age
             user.coins = dataSameTalk.coins
             user.gender = dataSameTalk.gender
             user.country = dataSameTalk.country
             dispatch(userSetData(user)) // Almaceno el usuario que se autentico en el storage centralizado
             dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
-            console.log(loginST.token)
             dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
             dispatch(getListMatchs(loginST.token)) //Trae los matchs del servidor
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
@@ -126,6 +134,18 @@ export const register = (user_IG) => {
         dispatch(getData())
         const user_ST = await registerUser(user_IG)
         dispatch(userSetData(user_ST))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+/*
+    Esta funcion envia al servidor un usuario con los datos editados
+*/
+export const updateUser = (user) => {
+    return (dispatch) => {
+        dispatch(getData())
+        updateDataUser(user)
+        dispatch(userUpdateData(user))
         dispatch(getDataSuccess([]))
     }
 }
@@ -198,7 +218,6 @@ export const getListMatchs = ( token_ST ) => {
     return async (dispatch) => {
         dispatch(getData())
         const matchs = await getMatchs(token_ST)
-        console.log(matchs)
         dispatch(setListMatchs(matchs))
         dispatch(getDataSuccess([]))
     }

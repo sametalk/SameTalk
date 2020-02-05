@@ -32,7 +32,7 @@ class welcome extends Component {
                             <View style={styles.buttonZone}>
                                 <Button iconLeft danger full style={styles.button} onPress={() => this.instagramLogin.show()}>
                                     <Icon type="AntDesign" name='instagram' />
-                                    <Text>Login with Instagram</Text>
+                                    <Text style={styles.text}>Conectarse con Instagram</Text>
                                 </Button>
                                 <InstagramLogin
                                     ref={ref => this.instagramLogin = ref}
@@ -54,7 +54,7 @@ class welcome extends Component {
                             <View style={styles.loading}>
                                 <View style={styles.loadingItem}>
                                     <Spinner color='red' style={{ textAlign: "center" }} />
-                                    <Text style={{ textAlign: "center", color: "red" }} >Loading...</Text>
+                                    <Text style={{ textAlign: "center", color: "red" }} >Cargando...</Text>
                                 </View>
                             </View>
                         )}
@@ -97,6 +97,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 10
     },
+    text: {
+        fontSize: 12.5
+    },  
     image: {
         alignSelf: "center",
         width: 400,

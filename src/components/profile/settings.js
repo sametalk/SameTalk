@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, PixelRatio } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon, Item, Input } from 'native-base';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import { updateUser } from '../../actions';
 import CountryPicker, {
   getAllCountries
 } from 'react-native-country-picker-modal'
@@ -13,12 +13,8 @@ class Settings extends Component {
     super(props)
     const userCountryData = getAllCountries()
     this.state = {
-      date: "2016-05-15",
       cca2: 'AR',
       callingCode: userCountryData.callingCode,
-      women: false,
-      men: false,
-      gender: '',
       name: this.props.userData.full_name,
       age: this.props.userData.age.toString()
     }
@@ -26,6 +22,15 @@ class Settings extends Component {
 
   componentDidMount() {
     console.disableYellowBox = true;
+  }
+
+  editProfile() {
+    const { userData, updateUser } = this.props;
+    userData.age = this.state.age;
+    userData.country = this.state.cca2;
+    userData.full_name = this.state.name;
+    updateUser(userData);
+    this.props.navigation.navigate('Profile');
   }
 
   render() {
@@ -45,7 +50,7 @@ class Settings extends Component {
                   <Text style={{ textAlign: "center" }}>Ingrese su edad</Text>
                 </Button>
                 <Item style={{ width: "80%" }}>
-                  <Input onChangeText={(age) => this.setState({age})} value={this.state.age}/>
+                  <Input keyboardType="numeric" onChangeText={(age) => this.setState({age})} value={this.state.age}/>
                 </Item>
                 <Button transparent>
                   <Text style={{ textAlign: "center" }}>Seleccione su País de residencia:</Text>
@@ -71,7 +76,7 @@ class Settings extends Component {
         </View>
         <Footer>
           <FooterTab>
-            <Button full danger>
+            <Button full danger onPress={ () => this.editProfile() }>
               <Text>Confirmar </Text>
               <Icon type="FontAwesome" name="check-circle" style={{ color: "white" }} />
             </Button>
@@ -87,7 +92,14 @@ const mapStateToProps = state => {
   return { userData: state.userData }
 }
 
-export default connect(mapStateToProps, actions)(Settings)
+// Trae de action las funciones definidas en ese archivo
+const mapDispatchToProps = dispatch => {
+  return {
+    updateUser: (user) => dispatch(updateUser(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)
 
 const styles = StyleSheet.create({
   container: {

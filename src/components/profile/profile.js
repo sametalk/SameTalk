@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 class profile extends Component {
 
     render() {
-        const { userData, selectedInterests } = this.props
-        console.log(selectedInterests)
+        const { userData } = this.props
+        console.log(userData.age)
         return (
             <Container>
                 <Content>

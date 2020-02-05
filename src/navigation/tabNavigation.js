@@ -14,19 +14,19 @@ const TabNavigator = createBottomTabNavigator({
     ListProfiles: {
         screen: ListProfiles, 
         navigationOptions: () => ({
-            title: `Select`
+            title: `Personas`
         })
     },
     SelectInterests: {
       screen: SelectInterests, 
       navigationOptions: () => ({
-          title: `Interests`
+          title: `Intereses`
       })
     },
     Profile: {
         screen: ProfileStack, 
         navigationOptions: () => ({
-            title: `Profile`
+            title: `Perfil`
         })
     }
 },{ initialRouteName: 'SelectInterests',

@@ -7,7 +7,7 @@ export const instagramGetData = async (token_IG) => {
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
 const URL = "https://sametalk-back.herokuapp.com/api"
@@ -23,7 +23,7 @@ export const loginSameTalk = async (instagram_id) => {
                 "Content-Type": "application/json"
             }
         })
-    return await response.json()
+        return await response.json()
     } catch (error) {
         console.log(error)
     }
@@ -33,11 +33,11 @@ export const loginSameTalk = async (instagram_id) => {
 export const sameTalkGetData = async (token_ST) => {
     try {
         const response = await fetch(URL + `/users/self?token=${token_ST}`)
-        return await response.json()    
+        return await response.json()
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
 // Registra un nuevo usuario en el servidor de SameTalk
@@ -51,11 +51,11 @@ export const registerUser = async (user) => {
                 "Content-Type": "application/json"
             }
         })
-        return await response.json()    
+        return await response.json()
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
 // Solicita la lista de perfiles INCOMPLETOO HAY QUE CAMBIAR TODO
@@ -63,7 +63,6 @@ export const getProfiles = async (token_ST) => {
     try {
         const response = await fetch(URL + `/interests/predictions?token=${token_ST}`)
         const res = await response.json()
-        console.log(res.message)
         return res.message
     } catch (error) {
         console.log(error)
@@ -85,7 +84,7 @@ export const setInt = async (interest, token_ST) => {
     try {
         const response = await fetch(URL + `/interests?token=${token_ST}`, {
             method: "POST",
-            body: JSON.stringify([{cat_id: String(interest.id)}]),
+            body: JSON.stringify([{ cat_id: String(interest.id) }]),
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -109,8 +108,7 @@ export const getSelectedInt = async (token_ST) => {
 
 // Envia un Like a otro usuario
 export const setLike = async (token_ST, id) => {
-    try{
-        console.log("llega a api")
+    try {
         const response = await fetch(URL + `/matches/like`, {
             method: "POST",
             body: JSON.stringify({
@@ -123,15 +121,14 @@ export const setLike = async (token_ST, id) => {
             }
         })
         return await response.json()
-    }catch{
+    } catch{
         console.log(error)
     }
 }
 
 // Envia un No Like a otro usuario
 export const setDontLike = async (token_ST, id) => {
-    try{
-        console.log("llega a api")
+    try {
         const response = await fetch(URL + `/matches/dontlike`, {
             method: "POST",
             body: JSON.stringify({
@@ -143,19 +140,37 @@ export const setDontLike = async (token_ST, id) => {
                 "Content-Type": "application/json"
             }
         })
-        console.log(response.json())
         return await response.json()
-    }catch{
+    } catch{
         console.log(error)
     }
 }
 
 // Consulta lista de matchs
 export const getMatchs = async (token_ST) => {
-    try{
+    try {
         const response = await fetch(URL + `/matches?token=${token_ST}`)
         return await response.json()
-    }catch{
+    } catch{
         console.log(error)
     }
+}
+
+// Actualizo perfil del usuario
+export const updateDataUser = async (user) => {
+    try {
+        const response = await fetch(URL + `/users/self?token=${user.token}`, {
+            method: "PUT",
+            body: JSON.stringify({
+                age: user.age,
+                full_name: user.full_name,
+                country: user.country
+            }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }})
+}catch{
+    console.log(error)
+}
 }

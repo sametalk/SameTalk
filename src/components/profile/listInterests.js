@@ -6,7 +6,6 @@ class ListInterests extends Component {
 
     render() {
         const { selectedInterests } = this.props
-        console.log(selectedInterests)
         return (
             <Container>
                 <Content>
