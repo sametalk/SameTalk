@@ -9,7 +9,8 @@ import {
     setInt, 
     getSelectedInt,
     getMatchs,
-    updateDataUser
+    updateDataUser,
+    getCountries
 } from '../api'
 
 export const selectedInterests = (interest) => {
@@ -23,6 +24,13 @@ export const userSetData = (user) => {
     return {
         type: 'userSetData',
         user: user
+    }
+}
+
+export const userSetCountry = (country) => {
+    return {
+        type: 'userSetCountry',
+        country: country
     }
 }
 
@@ -51,6 +59,13 @@ export const setListMatchs = (listMatchs) => {
     return {
         type: 'setListMatchs',
         listMatchs: listMatchs
+    }
+}
+
+export const setCountries = (countries) => {
+    return {
+        type: 'setCountries',
+        countries: countries
     }
 }
 
@@ -101,6 +116,8 @@ export const login = (token) => {
             interests: []
         }
 
+        dispatch(getCountriesList())
+        
         // Pregunto si esta registrado, seteo los datos que me trae del servidor de SameTalk
         // Si no, tengo que registrarlo
         if (loginST.status === "ok") {
@@ -142,10 +159,10 @@ export const register = (user_IG) => {
     Esta funcion envia al servidor un usuario con los datos editados
 */
 export const updateUser = (user) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(getData())
-        updateDataUser(user)
-        dispatch(userUpdateData(user))
+        const userUpdate = await updateDataUser(user)
+        dispatch(userUpdateData(userUpdate[0]))
         dispatch(getDataSuccess([]))
     }
 }
@@ -219,6 +236,16 @@ export const getListMatchs = ( token_ST ) => {
         dispatch(getData())
         const matchs = await getMatchs(token_ST)
         dispatch(setListMatchs(matchs))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Trae la lista de paises
+export const getCountriesList = () => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const countries = await getCountries()
+        dispatch(setCountries(countries))
         dispatch(getDataSuccess([]))
     }
 }

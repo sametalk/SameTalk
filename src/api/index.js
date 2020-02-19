@@ -164,13 +164,25 @@ export const updateDataUser = async (user) => {
             body: JSON.stringify({
                 age: user.age,
                 full_name: user.full_name,
-                country: user.country
+                country_id: user.country.code
             }),
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
-            }})
-}catch{
-    console.log(error)
+            }
+        })
+        return await response.json();
+    } catch{
+        console.log(error)
+    }
 }
+
+// Consulta lista de matchs
+export const getCountries = async () => {
+    try {
+        const response = await fetch(URL + `/countries`)
+        return await response.json()
+    } catch{
+        console.log(error)
+    }
 }

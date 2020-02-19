@@ -2,8 +2,8 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {Icon} from 'native-base'
-import SelectInterests from '../components/selectInterests/selectInterests'
-import ListProfiles from '../components/listProfiles'
+import SelectInterests from '../views/selectInterests/selectInterests'
+import ListProfiles from '../views/listProfiles'
 import ProfileStack from './profileNavigation'
 
 

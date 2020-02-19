@@ -8,7 +8,7 @@ class profile extends Component {
 
     render() {
         const { userData } = this.props
-        console.log(userData.age)
+        console.log(userData)
         return (
             <Container>
                 <Content>
@@ -21,7 +21,7 @@ class profile extends Component {
                             containerStyle={styles.avatar}
                         />
                         <Text style={[styles.text, { color:"#5cb85c", fontSize:20}]}>{userData.age} años</Text>
-                        <Text style={[styles.text, { color:"#292b2c", fontSize:20}]}>{userData.country.name}</Text>
+                        <Text style={[styles.text, { color:"#292b2c", fontSize:20}]}>{userData.country.name} </Text>
                     </View>
                     <View style={styles.statistics}>
                         <View style={styles.iconZone}>
@@ -106,18 +106,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
-
-
-/*
-    <View>
-                    <Text style={styles.text}>{userData.full_name}</Text>
-                    <Avatar
-                        rounded
-                        size="xlarge"
-                        source={{ uri: userData.profile_picture }}
-                        containerStyle={styles.avatar}
-                    />
-                    <Text style={styles.text}>{userData.age} años</Text>
-                    <Text style={styles.text}>{userData.country.name}</Text>
-                </View>
-*/

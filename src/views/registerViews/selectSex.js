@@ -26,7 +26,7 @@ class selectAge extends Component {
         Registro en el servidor el nuevo usuario
         Navego a la vista de usuario registrado
     */
-    async _selectInterests() {
+    async nextStep() {
         if (this.state.women || this.state.men) {
             const user = this.props.userData
             user.gender = this.state.gender
@@ -94,7 +94,7 @@ class selectAge extends Component {
                 </View>
                 <Footer>
                     <FooterTab>
-                        <Button full danger onPress={() => this._selectInterests()}>
+                        <Button full danger onPress={() => this.nextStep()}>
                             <Icon type="FontAwesome" name="arrow-circle-right" style={{ color: "white" }} />
                         </Button>
                     </FooterTab>

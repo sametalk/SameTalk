@@ -2,10 +2,11 @@ import { Platform, StatusBar } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Profile from '../components/profile/profile'
-import ListInterests from '../components/profile/listInterests'
-import Settings from '../components/profile/settings'
-import ListMatchs from '../components/profile/listMatchs'
+import Profile from '../views/profile/profile'
+import ListInterests from '../views/profile/listInterests'
+import Settings from '../views/profile/settings'
+import ListMatchs from '../views/profile/listMatchs'
+import SelectCountry from '../views/profile/selectCountry'
 
 /*
   Navegación interna dentro de la pantalla de perfil
@@ -35,7 +36,13 @@ const ProfileStack = createStackNavigator(
             navigationOptions: () => ({
                 title: `Configuración:`
             }),
-        }
+        },
+        SelectCountry: {
+          screen: SelectCountry,
+          navigationOptions: () => ({
+              title: `Selecciona tu país:`
+          }),
+      }
     },
     { 
         initialRouteName: 'Profile',
