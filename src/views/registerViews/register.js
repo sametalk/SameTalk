@@ -6,28 +6,6 @@ import { connect } from 'react-redux';
 
 class register extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            token: '',
-            data: []
-        }
-    }
-
-    //guardo token ni bien llego a esta pagina
-    /* async componentDidMount() {
-         console.disableYellowBox = true;
-         let objeto = this.props.navigation.state.params;
-         this.setState({ token: objeto.token });
-         const response = await fetch(
-             `https://api.instagram.com/v1/users/self/?access_token=${objeto.token}`
-         );
-         const ar = await response.json();
-         //Storage.setItem('data', ar.data);
-         this.setState({ data: ar.data })
-         console.log(this.state.token)
-     }*/
-
     componentDidMount() {
         console.disableYellowBox = true;
     }
@@ -73,6 +51,7 @@ class register extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto userData
 const mapStateToProps = state => {
     return { userData: state.userData }
 }

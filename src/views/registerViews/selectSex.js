@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from 'native-base';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import { register } from '../../actions';
 
 class selectAge extends Component {
 
@@ -26,21 +26,11 @@ class selectAge extends Component {
         Registro en el servidor el nuevo usuario
         Navego a la vista de usuario registrado
     */
-    _selectInterests = async () => {
+    async nextStep() {
         if (this.state.women || this.state.men) {
             const user = this.props.userData
             user.gender = this.state.gender
-            const response = await fetch(`https://sametalk-back.herokuapp.com/api/auth/register`,{
-                method: "POST",
-                body: JSON.stringify(user),
-                headers: {
-                  "Accept": "application/json",
-                  "Content-Type": "application/json"
-                }
-            })
-            res = await response2.json()
-            this.props.userSetData(res)
-
+            await this.props.register(user)
             this.props.navigation.navigate('TabNavigation')
         }
 
@@ -71,6 +61,7 @@ class selectAge extends Component {
                         <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
 
                             <CardItem cardBody style={{ flex: 0.50, flexDirection: "column", justifyContent: 'center' }}>
+
                                 <Button transparent>
                                     <Text style={{ textAlign: "center" }}>Seleccione su Sexo:</Text>
                                 </Button>
@@ -103,8 +94,8 @@ class selectAge extends Component {
                 </View>
                 <Footer>
                     <FooterTab>
-                        <Button full danger onPress={this._selectInterests}>
-                            <Icon type="FontAwesome" name="arrow-circle-right" style={{color: "white"}}/>
+                        <Button full danger onPress={() => this.nextStep()}>
+                            <Icon type="FontAwesome" name="arrow-circle-right" style={{ color: "white" }} />
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -113,11 +104,19 @@ class selectAge extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto userData
 const mapStateToProps = state => {
     return { userData: state.userData }
 }
 
-export default connect(mapStateToProps, actions)(selectAge)
+// Trae de action las funciones definidas en ese archivo
+const mapDispatchToProps = dispatch => {
+    return {
+        register: (user) => dispatch(register(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(selectAge)
 
 const styles = StyleSheet.create({
     container: {

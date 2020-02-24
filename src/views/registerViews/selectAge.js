@@ -22,7 +22,7 @@ class selectAge extends Component {
         Obtengo los datos del usuario y le agrego la fecha de nacimiento
         Navego a Seleccionar Pais
     */
-    _selectCountry = () => {
+   nextStep = () => {
         const user = this.props.userData
         user.age = this.state.date.substring(0,4)
         this.props.userSetData(user)
@@ -64,7 +64,7 @@ class selectAge extends Component {
                     </View>
                     <Footer>
                         <FooterTab>
-                            <Button full danger onPress={this._selectCountry}>
+                            <Button full danger onPress={this.nextStep}>
                                 <Icon type="FontAwesome" name="arrow-circle-right" style={{color: "white"}}/>
                             </Button>
                         </FooterTab>
@@ -74,6 +74,7 @@ class selectAge extends Component {
     }
 }
 
+// Trae del Storage Centralizado el objeto userData
 const mapStateToProps = state => {
     return {userData: state.userData}
 }

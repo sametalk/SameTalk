@@ -1,12 +1,12 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import Register from './components/registerViews/register'
-import Welcome from './components/welcome'
-import SelectInterests from './components/selectInterests'
-import SelectCountry from './components/registerViews/selectCountry'
-import SelectAge from './components/registerViews/selectAge' 
-import SelectSex from './components/registerViews/selectSex'
-import TabNavigation from './components/tabNavigation'
+import Register from '../views/registerViews/register'
+import Welcome from '../views/welcome'
+import SelectCountry from '../views/registerViews/selectCountry'
+import SelectAge from '../views/registerViews/selectAge' 
+import SelectSex from '../views/registerViews/selectSex'
+import TabNavigation from './tabNavigation'
+import Prueba from '../views/prueba'
 
 /*
   Navegacion desde la pantalla de Welcome hasta la pantalla del TabBarBottom (TabNavigation)
@@ -43,18 +43,18 @@ const AppNavigator = createStackNavigator({
       title: `Registro:`
     }),
   },
-  SelectInterests: {
-    screen: SelectInterests,
-    navigationOptions: () => ({
-      title: `Seleccione sus intereses:`
-    }),
-  },
   TabNavigation: {
     screen: TabNavigation,
     navigationOptions: () => ({
       header: null
     })
+  },
+  Prueba: {
+    screen: Prueba,
+    navigationOptions: () => ({
+      header: null
+    })
   }
-}, { initialRouteName: 'Welcome'});
+}, { initialRouteName: 'Prueba'});
 
 export default createAppContainer(AppNavigator);
