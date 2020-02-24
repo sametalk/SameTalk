@@ -49,7 +49,7 @@ class ListProfiles extends Component {
                 <View style={{ flex: 1 }}>
                     <CardStack
                         style={styles.content}
-                        renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No more cards :(</Text>}
+                        renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
                         ref={swiper => {
                             this.swiper = swiper
                         }}
@@ -104,7 +104,7 @@ class ListProfiles extends Component {
                         Alert.alert('Modal has been closed.');
                     }}>
                     <View style={styles.container}>
-                        <Card style={[styles.card, styles.modal]} onSwipedLeft={() => this.onNoLike(l)} onSwipedRight={() => this.onLike(l)}>
+                        <Card style={[styles.card, styles.modal]}>
                             <CardItem>
                                 <H1>
                                     <Icon type="FontAwesome" name="gratipay"  style={{color: "#d9534f"}}/>

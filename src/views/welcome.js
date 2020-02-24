@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     text: {
+        fontFamily: 'Roboto',
         fontSize: 12.5
     },  
     image: {

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { getListInterests, selectedInterests, setInterest } from '../../actions'
-//import interests from '../../constant/interestsTests'
-import { Container, Header, Left, Body, Text, Button, Icon, Item, Input } from 'native-base';
+import { Container, Header, Left, Body, Text, Button, Icon, Title } from 'native-base';
 import { violetDegradation } from '../../constant/colors'
 
 const numColumns = 2;
@@ -77,18 +76,13 @@ class selectInterests extends Component {
                 <Header transparent style={styles.header}>
                     {this.state.level !== 1 &&
                         <Left style={{ flex: 1 }}>
-
                             <Button transparent onPress={() => this.back()}>
                                 <Icon name='arrow-back' style={styles.color} />
                             </Button>
-
                         </Left>
                     }
-                    <Body style={{ flex: 10 }}>
-                        <Item rounded>
-                            <Input placeholder='Buscar...' />
-                            <Icon name='search' style={styles.color} />
-                        </Item>
+                    <Body style={{ flex: 10, marginLeft: 10 }}>
+                        <Title style={{ color: '#414241' }}>Selecciona tus intereses:</Title>
                     </Body>
                 </Header>
                 <FlatList

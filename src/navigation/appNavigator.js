@@ -55,6 +55,6 @@ const AppNavigator = createStackNavigator({
       header: null
     })
   }
-}, { initialRouteName: 'Welcome'});
+}, { initialRouteName: 'Prueba'});
 
 export default createAppContainer(AppNavigator);
