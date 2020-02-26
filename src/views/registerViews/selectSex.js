@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from 'native-base';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { register } from '../../actions';
+import { register, changeReferredModalValue} from '../../actions';
 
 class selectAge extends Component {
 
@@ -31,6 +31,7 @@ class selectAge extends Component {
             const user = this.props.userData
             user.gender = this.state.gender
             await this.props.register(user)
+            this.props.changeReferredModalValue()
             this.props.navigation.navigate('TabNavigation')
         }
 
@@ -112,6 +113,7 @@ const mapStateToProps = state => {
 // Trae de action las funciones definidas en ese archivo
 const mapDispatchToProps = dispatch => {
     return {
+        changeReferredModalValue: () => dispatch(changeReferredModalValue()),
         register: (user) => dispatch(register(user))
     }
 }
@@ -120,7 +122,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(selectAge)
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fee9d7'
+        backgroundColor: '#F1F3F5'
     }
 })
 

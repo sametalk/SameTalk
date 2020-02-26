@@ -4,16 +4,13 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    Image,
-    Alert
+    Image
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Avatar } from 'react-native-elements';
-import { Card, CardItem, Text, Left, Body, Button, H1, Icon} from 'native-base';
+import { Card, CardItem, Text, Left, Body, Button, H1, Icon, Thumbnail, Right } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
-import interests from '../constant/interests'
 import { setLike, setDontLike } from '../api'
-import { getListMatchs } from '../actions'
+import { getListProfiles } from '../actions'
 
 class ListProfiles extends Component {
 
@@ -22,17 +19,25 @@ class ListProfiles extends Component {
         profileMatch: this.props.userData,
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         console.disableYellowBox = true;
+        const { getListProfiles, userData } = this.props
+        await getListProfiles(userData.token)
     }
 
     async onNoLike(profile) {
         const response = await setDontLike(this.props.userData.token, profile.id)
     }
 
-    async onLike(profile) {
+    async onLike(profile, type) {
         try {
-            const response = await setLike(this.props.userData.token, profile.id) //Seteo el match
+            const response = null;
+            if (type === "like") {
+                response = await setLike(this.props.userData.token, profile.id) //Seteo el Like
+            } else {
+                response = await setLike(this.props.userData.token, profile.id) //Seteo el superLike
+            }
+            
             if (response.match.status == "accepted") {
                 this.props.getListMatchs(this.props.userData.token);  //Recargo la lista de matchs
                 this.setState({ modalVisible: true, profileMatch: profile }); //Abro el modal
@@ -54,29 +59,24 @@ class ListProfiles extends Component {
                             this.swiper = swiper
                         }}
                     >
-                        {listProfiles.map((l) => (
-                            <Card style={styles.card} onSwipedLeft={() => this.onNoLike(l)} onSwipedRight={() => this.onLike(l)}>
+                        {listProfiles.map((profile) => (
+                            <Card style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
                                 <CardItem>
                                     <Left>
+                                        <Thumbnail small source={{ uri: "data:image/png;base64,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" }} />
                                         <Body>
-                                            <Text>{l.full_name} ({l.age} años)</Text>
-                                            <Text note>{l.country.name}</Text>
+                                            <Text>{profile.full_name}</Text>
+                                            <Text note>{profile.age} Años</Text>
                                         </Body>
                                     </Left>
+                                    <Right>
+                                        <TouchableOpacity  onPress={() => this.onLike(profile, 'super-like')}>
+                                            <Icon type="FontAwesome" name='star' style={{fontSize: 25, color: '#37D7DE'}}/>
+                                        </TouchableOpacity>
+                                    </Right>
                                 </CardItem>
                                 <CardItem cardBody>
-                                    <Image source={{ uri: l.profile_picture }} style={styles.profile} />
-                                </CardItem>
-                                <CardItem>
-                                    {interests.map((x) => (
-                                        <Avatar
-                                            size="small"
-                                            source={x.avatar_url}
-                                            rounded
-                                            activeOpacity={0.5}
-                                            containerStyle={{ marginLeft: 11 }}
-                                        />
-                                    ))}
+                                    <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
                                 </CardItem>
                             </Card>
                         ))}
@@ -99,17 +99,14 @@ class ListProfiles extends Component {
                 <Modal
                     animationType="slide"
                     transparent={false}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                    }}>
+                    visible={this.state.modalVisible}>
                     <View style={styles.container}>
                         <Card style={[styles.card, styles.modal]}>
                             <CardItem>
                                 <H1>
-                                    <Icon type="FontAwesome" name="gratipay"  style={{color: "#d9534f"}}/>
-                                        ¡ Match ! 
-                                    <Icon type="FontAwesome" name="gratipay"  style={{color: "#d9534f"}}/>
+                                    <Icon type="FontAwesome" name="gratipay" style={{ color: "#d9534f" }} />
+                                    ¡ Match !
+                                    <Icon type="FontAwesome" name="gratipay" style={{ color: "#d9534f" }} />
                                 </H1>
                             </CardItem>
                             <CardItem>
@@ -124,22 +121,11 @@ class ListProfiles extends Component {
                                 <Image source={{ uri: this.state.profileMatch.profile_picture }} style={styles.profile} />
                             </CardItem>
                             <CardItem>
-                                {interests.map((x) => (
-                                    <Avatar
-                                        size="small"
-                                        source={x.avatar_url}
-                                        rounded
-                                        activeOpacity={0.5}
-                                        containerStyle={{ marginLeft: 11 }}
-                                    />
-                                ))}
-                            </CardItem>
-                            <CardItem>
                                 <Button rounded success onPress={() => this.setState({ modalVisible: false })}>
-                                    <Text>Seguir <Icon type="FontAwesome" name="forward" style={{color: "white", fontSize: 15}}/></Text>
+                                    <Text>Seguir <Icon type="FontAwesome" name="forward" style={{ color: "white", fontSize: 15 }} /></Text>
                                 </Button>
-                                <Button rounded danger onPress={() => this.setState({ modalVisible: false })} style={{marginLeft: 10}}>
-                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={{color: "white", fontSize: 15}}/></Text>
+                                <Button rounded danger onPress={() => this.setState({ modalVisible: false })} style={{ marginLeft: 10 }}>
+                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={{ color: "white", fontSize: 15 }} /></Text>
                                 </Button>
                             </CardItem>
                         </Card>
@@ -160,7 +146,7 @@ const mapStateToProps = state => {
 // Trae de action las funciones definidas en ese archivo
 const mapDispatchToProps = dispatch => {
     return {
-        getListMatchs: (token) => dispatch(getListMatchs(token)),
+        getListProfiles: (token) => dispatch(getListProfiles(token)),
     }
 }
 
@@ -179,7 +165,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'white'
     },
-    modal:{
+    modal: {
         flex: 0.95,
         alignItems: 'center',
         justifyContent: 'center',

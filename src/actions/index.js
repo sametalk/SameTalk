@@ -10,7 +10,8 @@ import {
     getSelectedInt,
     getMatchs,
     updateDataUser,
-    getCountries
+    getCountries,
+    setReward
 } from '../api'
 
 export const selectedInterests = (interest) => {
@@ -66,6 +67,12 @@ export const setCountries = (countries) => {
     return {
         type: 'setCountries',
         countries: countries
+    }
+}
+
+export const changeReferredModalValue = () => {
+    return {
+        type: 'changeReferredModalValue'
     }
 }
 
@@ -246,6 +253,16 @@ export const getCountriesList = () => {
         dispatch(getData())
         const countries = await getCountries()
         dispatch(setCountries(countries))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Trae la lista de paises
+export const setRewardForRecommendation = (user, token) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const reward = await setReward(user, 10, token)
+        console.log(reward)
         dispatch(getDataSuccess([]))
     }
 }

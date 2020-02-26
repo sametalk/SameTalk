@@ -1,3 +1,4 @@
+
 // Obtiene los datos del usuario de Instagram
 export const instagramGetData = async (token_IG) => {
     try {
@@ -32,7 +33,13 @@ export const loginSameTalk = async (instagram_id) => {
 // Obtiene los datos del usuario de SameTalk
 export const sameTalkGetData = async (token_ST) => {
     try {
-        const response = await fetch(URL + `/users/self?token=${token_ST}`)
+        const response = await fetch(URL + `/users/self`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token_ST
+            }
+        })
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -61,7 +68,11 @@ export const registerUser = async (user) => {
 // Solicita la lista de perfiles INCOMPLETOO HAY QUE CAMBIAR TODO
 export const getProfiles = async (token_ST) => {
     try {
-        const response = await fetch(URL + `/interests/predictions?token=${token_ST}`)
+        const response = await fetch(URL + `/interests/predictions`, {
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
         const res = await response.json()
         return res.message
     } catch (error) {
@@ -72,7 +83,11 @@ export const getProfiles = async (token_ST) => {
 // Solicita la lista de intereses
 export const getInterests = async (token_ST) => {
     try {
-        const response = await fetch(URL + `/categories?token=${token_ST}`)
+        const response = await fetch(URL + `/categories`, {
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -82,12 +97,13 @@ export const getInterests = async (token_ST) => {
 // Guarda un interes seleccionado por el usuario en el servidor
 export const setInt = async (interest, token_ST) => {
     try {
-        const response = await fetch(URL + `/interests?token=${token_ST}`, {
+        const response = await fetch(URL + `/interests`, {
             method: "POST",
             body: JSON.stringify([{ cat_id: String(interest.id) }]),
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token_ST
             }
         })
         return await response.json()
@@ -99,7 +115,11 @@ export const setInt = async (interest, token_ST) => {
 // Solicita la lista de intereses que fueron solicitados por el usuario autenticado
 export const getSelectedInt = async (token_ST) => {
     try {
-        const response = await fetch(URL + `/interests?token=${token_ST}`)
+        const response = await fetch(URL + `/interests`, {
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -112,16 +132,16 @@ export const setLike = async (token_ST, id) => {
         const response = await fetch(URL + `/matches/like`, {
             method: "POST",
             body: JSON.stringify({
-                token: token_ST,
                 to_id: String(id)
             }),
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token_ST
             }
         })
         return await response.json()
-    } catch{
+    } catch (error) {
         console.log(error)
     }
 }
@@ -132,16 +152,16 @@ export const setDontLike = async (token_ST, id) => {
         const response = await fetch(URL + `/matches/dontlike`, {
             method: "POST",
             body: JSON.stringify({
-                token: token_ST,
                 to_id: String(id)
             }),
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token_ST
             }
         })
         return await response.json()
-    } catch{
+    } catch (error) {
         console.log(error)
     }
 }
@@ -149,9 +169,15 @@ export const setDontLike = async (token_ST, id) => {
 // Consulta lista de matchs
 export const getMatchs = async (token_ST) => {
     try {
-        const response = await fetch(URL + `/matches?token=${token_ST}`)
+        const response = await fetch(URL + `/matches`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token_ST
+            }
+        })
         return await response.json()
-    } catch{
+    } catch (error) {
         console.log(error)
     }
 }
@@ -159,7 +185,7 @@ export const getMatchs = async (token_ST) => {
 // Actualizo perfil del usuario
 export const updateDataUser = async (user) => {
     try {
-        const response = await fetch(URL + `/users/self?token=${user.token}`, {
+        const response = await fetch(URL + `/users/self`, {
             method: "PUT",
             body: JSON.stringify({
                 age: user.age,
@@ -168,16 +194,34 @@ export const updateDataUser = async (user) => {
             }),
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.token
             }
         })
         return await response.json();
-    } catch{
+    } catch (error) {
         console.log(error)
     }
 }
 
 // Consulta lista de matchs
+export const setReward = async (user, coins, token) => {
+    try {
+        const response = await fetch(URL + "/users/" + user + "/reward/" + coins, {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// Setea la recompensa
 export const getCountries = async () => {
     try {
         const response = await fetch(URL + `/countries`)
