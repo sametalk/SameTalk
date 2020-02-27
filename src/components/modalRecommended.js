@@ -26,7 +26,7 @@ class ModalRecommended extends Component {
     return (
         <Modal
           animationType="slide"
-          transparent={false}
+          transparent={true}
           visible={this.props.showReferredModal}
           >
           <View style={styles.container}>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
     alignItems: 'center'
   },
   card: {

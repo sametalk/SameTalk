@@ -7,8 +7,9 @@ import {
     Image
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardItem, Text, Left, Body, Button, H1, Icon, Thumbnail, Right } from 'native-base';
+import { Header, Title, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item, Label, Input, Thumbnail, Right } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
+import { CheckBox } from 'react-native-elements';
 import { setLike, setDontLike } from '../api'
 import { getListProfiles } from '../actions'
 
@@ -16,7 +17,12 @@ class ListProfiles extends Component {
 
     state = {
         modalVisible: false,
+        modalFilterVisible: false,
         profileMatch: this.props.userData,
+        modalFilterVisible: false,
+        women: false,
+        men: false,
+        gender: ''
     };
 
     async componentDidMount() {
@@ -37,7 +43,7 @@ class ListProfiles extends Component {
             } else {
                 response = await setLike(this.props.userData.token, profile.id) //Seteo el superLike
             }
-            
+
             if (response.match.status == "accepted") {
                 this.props.getListMatchs(this.props.userData.token);  //Recargo la lista de matchs
                 this.setState({ modalVisible: true, profileMatch: profile }); //Abro el modal
@@ -47,11 +53,38 @@ class ListProfiles extends Component {
         }
     }
 
+    //Controla los checkbox para que solo este seleccionada una opcion
+    _check = (id) => {
+        if (id == 'F') {
+            this.setState({
+                women: true,
+                men: false,
+                gender: 'W'
+            })
+        } else {
+            this.setState({
+                women: false,
+                men: true,
+                gender: 'M'
+            })
+        }
+    }
+
     render() {
         const { listProfiles } = this.props
         return (
             <React.Fragment>
                 <View style={{ flex: 1 }}>
+                    <Header transparent>
+                        <Body style={{ marginLeft: 10 }}>
+                            <Title style={{ color: '#414241' }}>Perfiles compatibles:</Title>
+                        </Body>
+                        <Right>
+                            <Button transparent onPress={() => this.setState({ modalFilterVisible: true })}>
+                                <Icon type="FontAwesome" name='filter' style={{ color: "gray" }} />
+                            </Button>
+                        </Right>
+                    </Header>
                     <CardStack
                         style={styles.content}
                         renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
@@ -70,8 +103,8 @@ class ListProfiles extends Component {
                                         </Body>
                                     </Left>
                                     <Right>
-                                        <TouchableOpacity  onPress={() => this.onLike(profile, 'super-like')}>
-                                            <Icon type="FontAwesome" name='star' style={{fontSize: 25, color: '#37D7DE'}}/>
+                                        <TouchableOpacity onPress={() => this.onLike(profile, 'super-like')}>
+                                            <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
                                         </TouchableOpacity>
                                     </Right>
                                 </CardItem>
@@ -131,6 +164,58 @@ class ListProfiles extends Component {
                         </Card>
                     </View>
                 </Modal>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.modalFilterVisible}
+                >
+                    <View style={styles.containerFilter}>
+                        <Card style={styles.cardFilter}>
+                            <CardItem>
+                                <Text>Ingrese los campos por los que quiere filtrar</Text>
+                            </CardItem>
+                            <CardItem >
+                                <CheckBox
+                                    center
+                                    title='Mujer'
+                                    checkedIcon='dot-circle-o'
+                                    uncheckedIcon='circle-o'
+                                    checkedColor='red'
+                                    checked={this.state.women}
+                                    onPress={() => this._check('F')}
+                                />
+                                <CheckBox
+                                    center
+                                    title='Hombre'
+                                    checkedIcon='dot-circle-o'
+                                    uncheckedIcon='circle-o'
+                                    checkedColor='blue'
+                                    checked={this.state.men}
+                                    onPress={() => this._check('M')}
+                                />
+                            </CardItem>
+                            <CardItem>
+                                <Left>
+                                    <Body>
+                                        <Item stackedLabel>
+                                            <Label>Edad superior a:</Label>
+                                            <Input keyboardType="numeric" onChangeText={(age) => this.setState({ age })} value={this.state.age} />
+                                        </Item>
+                                    </Body>
+                                </Left>
+                            </CardItem>
+                            <CardItem>
+                                <Button rounded danger onPress={() => this.setState({ modalFilterVisible: false })} style={{ marginRight: 10 }}>
+                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
+                                </Button>
+                                <Button rounded success onPress={() => this.setState({ modalVisible: false })}>
+                                    <Text>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
+                                </Button>
+                            </CardItem>
+                        </Card>
+                    </View>
+                </Modal>
             </React.Fragment>
         );
     }
@@ -157,13 +242,16 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'grey',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     content: {
         flex: 5,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white'
+    },
+    header: {
+        backgroundColor: '#F1F3F5'
     },
     modal: {
         flex: 0.95,
@@ -229,5 +317,28 @@ const styles = StyleSheet.create({
     },
     profile: {
         height: 345, width: null, flex: 1
+    },
+
+    /*--------------Modal Filter CSS--------------*/
+    containerFilter: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(52, 52, 52, 0.8)'
+    },
+    cardFilter: {
+        flex: 0.45,
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: 350,
+        minHeight: 350,
+        borderRadius: 20
+    },
+    iconButton: {
+        color: "white",
+        fontSize: 15,
     }
 });
