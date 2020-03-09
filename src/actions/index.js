@@ -1,6 +1,6 @@
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
 import { 
-    instagramGetData , 
+    instagramGetData ,
     loginSameTalk, 
     sameTalkGetData, 
     registerUser,  
@@ -11,7 +11,8 @@ import {
     getMatchs,
     updateDataUser,
     getCountries,
-    setReward
+    setReward, 
+    filter
 } from '../api'
 
 export const selectedInterests = (interest) => {
@@ -257,12 +258,21 @@ export const getCountriesList = () => {
     }
 }
 
-//Trae la lista de paises
+//Setea coins por recomendacion
 export const setRewardForRecommendation = (user, token) => {
     return async (dispatch) => {
         dispatch(getData())
         const reward = await setReward(user, 10, token)
-        console.log(reward)
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Filtra los perfiles compatibles
+export const filterProfiles = (token, data) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listProfiles = await filter(token, data)
+        dispatch(setListProfiles(listProfiles))
         dispatch(getDataSuccess([]))
     }
 }

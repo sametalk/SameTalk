@@ -65,7 +65,7 @@ export const registerUser = async (user) => {
 
 }
 
-// Solicita la lista de perfiles INCOMPLETOO HAY QUE CAMBIAR TODO
+// Solicita la lista de perfiles
 export const getProfiles = async (token_ST) => {
     try {
         const response = await fetch(URL + `/interests/predictions`, {
@@ -74,6 +74,7 @@ export const getProfiles = async (token_ST) => {
             }
         })
         const res = await response.json()
+        console.log(res)
         return res.message
     } catch (error) {
         console.log(error)
@@ -140,6 +141,28 @@ export const setLike = async (token_ST, id) => {
                 "Authorization": "Bearer " + token_ST
             }
         })
+        console.log(response.json())
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// Envia un Like a otro usuario
+export const setSuperLike = async (token_ST, id) => {
+    try {
+        const response = await fetch(URL + `/matches/like`, {
+            method: "POST",
+            body: JSON.stringify({
+                to_id: String(id),
+                type: 'superlike'
+            }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token_ST
+            }
+        })
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -160,6 +183,7 @@ export const setDontLike = async (token_ST, id) => {
                 "Authorization": "Bearer " + token_ST
             }
         })
+        console.log("Envia")
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -226,6 +250,33 @@ export const getCountries = async () => {
     try {
         const response = await fetch(URL + `/countries`)
         return await response.json()
+    } catch{
+        console.log(error)
+    }
+}
+
+// Filtra perfiles compatibles
+export const filter = async (token_ST, data) => {
+    try {
+        let pathFilter = '?';
+        if  (data.age !== null) {
+            pathFilter = pathFilter + 'age_more_than=' + data.age + '&' ;
+        }
+        if  (data.gender !== "") {
+            pathFilter = pathFilter + 'gender=' + data.gender + '&' ;
+        }
+        if  (data.country !== "") {
+            pathFilter = pathFilter + 'country=' + data.country;
+        }
+        console.log(pathFilter)
+        const response = await fetch(URL + `/interests/predictions${pathFilter}`, {
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
+        const res = await response.json()
+        console.log(res)
+        return res.message
     } catch{
         console.log(error)
     }

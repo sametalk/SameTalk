@@ -43,7 +43,7 @@ class selectAge extends Component {
             this.setState({
                 women: true,
                 men: false,
-                gender: 'W'
+                gender: 'F'
             })
         } else {
             this.setState({

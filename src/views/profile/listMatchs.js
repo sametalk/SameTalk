@@ -32,7 +32,8 @@ class ListMatchs extends Component {
                                                 <Body>
                                                     <Text>{l.user.full_name}</Text>
                                                     <Text note numberOfLines={1}>{l.user.username}</Text>
-                                                </Body>                                            <Right>
+                                                </Body>                                            
+                                                <Right>
                                                     <Button
                                                         transparent
                                                         onPress={() => this.props.navigation.navigate('MatchProfile', { profile: l.user })}>

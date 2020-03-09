@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { Header, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item, Label, Input, Thumbnail, Right } from 'native-base';
 import { CheckBox } from 'react-native-elements';
+import SelectCountryComponent from '../../src/components/selectCountry';
 
 class Prueba extends Component {
   async componentDidMount() {
@@ -19,7 +20,10 @@ class Prueba extends Component {
       modalFilterVisible: true,
       women: false,
       men: false,
-      gender: ''
+      gender: '',
+      selectCountryModal: false,
+      age: null,
+      country: null,
     };
   }
 
@@ -40,59 +44,81 @@ class Prueba extends Component {
     }
   }
 
+  setCountry(country) {
+    this.setState({ country: country, selectCountryModal: false });
+    console.log(this.state.country);
+  }
+
   render() {
     return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={this.state.modalFilterVisible}
-      >
-        <View style={styles.containerFilter}>
-          <Card style={styles.cardFilter}>
-            <CardItem>
-              <Text>Ingrese los campos por los que quiere filtrar</Text>
-            </CardItem>
-            <CardItem >
-                <CheckBox
-                  center
-                  title='Mujer'
-                  checkedIcon='dot-circle-o'
-                  uncheckedIcon='circle-o'
-                  checkedColor='red'
-                  checked={this.state.women}
-                  onPress={() => this._check('F')}
-                />
-                <CheckBox
-                  center
-                  title='Hombre'
-                  checkedIcon='dot-circle-o'
-                  uncheckedIcon='circle-o'
-                  checkedColor='blue'
-                  checked={this.state.men}
-                  onPress={() => this._check('M')}
-                />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Body>
-                  <Item stackedLabel>
-                    <Label>Edad superior a:</Label>
-                    <Input keyboardType="numeric" onChangeText={(age) => this.setState({ age })} value={this.state.age} />
-                  </Item>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem>
-              <Button rounded danger onPress={() => this.setState({ modalFilterVisible: false })} style={{ marginRight: 10 }}>
-                <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
-              </Button>
-              <Button rounded success onPress={() => this.setState({ modalVisible: false })}>
-                <Text>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
-              </Button>
-            </CardItem>
-          </Card>
-        </View>
-      </Modal>
+      <React.Fragment>
+        {this.state.selectCountryModal ? (
+          <SelectCountryComponent handleSelect={(country) => this.setCountry(country)}></SelectCountryComponent>
+        ) : (
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalFilterVisible}
+            >
+              <View style={styles.containerFilter}>
+                <Card style={styles.cardFilter}>
+                  <CardItem>
+                    <Text>Ingrese los campos por los que quiere filtrar</Text>
+                  </CardItem>
+                  <CardItem >
+                    <CheckBox
+                      center
+                      title='Mujer'
+                      checkedIcon='dot-circle-o'
+                      uncheckedIcon='circle-o'
+                      checkedColor='red'
+                      checked={this.state.women}
+                      onPress={() => this._check('F')}
+                    />
+                    <CheckBox
+                      center
+                      title='Hombre'
+                      checkedIcon='dot-circle-o'
+                      uncheckedIcon='circle-o'
+                      checkedColor='blue'
+                      checked={this.state.men}
+                      onPress={() => this._check('M')}
+                    />
+                  </CardItem>
+                  <CardItem>
+                    <Left>
+                      <Body>
+                        <Item stackedLabel>
+                          <Label>Edad superior a:</Label>
+                          <Input keyboardType="numeric" onChangeText={(age) => this.setState({ age })} value={this.state.age} />
+                        </Item>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                  <CardItem>
+                    <View style={styles.country}>
+                      <Label> Argentina </Label>
+                      <Thumbnail
+                        small
+                        source={{ uri: "" }} />
+                    </View>
+                    <Button danger style={styles.buttonCountry} onPress={() => this.setState({ selectCountryModal: true })}>
+                      <Text> Elegir </Text>
+                    </Button>
+                  </CardItem>
+                  <CardItem>
+                    <Button rounded danger onPress={() => this.setState({ modalFilterVisible: false })} style={{ marginRight: 10 }}>
+                      <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
+                    </Button>
+                    <Button rounded success onPress={() => this.setState({ modalVisible: false })}>
+                      <Text>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
+                    </Button>
+                  </CardItem>
+                </Card>
+              </View>
+            </Modal>
+          )}
+      </React.Fragment>
     );
   }
 }
@@ -201,5 +227,24 @@ const styles = StyleSheet.create({
   iconButton: {
     color: "white",
     fontSize: 15,
+  },
+  /*---------- Countries ---------*/
+  country: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '70%',
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    marginRight: 5,
+    borderColor: '#cccccc',
+    backgroundColor: '#f5f5f5',
+  },
+  buttonCountry: {
+    borderRadius: 10
   }
 });
