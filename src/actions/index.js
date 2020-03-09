@@ -14,6 +14,7 @@ import {
     setReward, 
     filter
 } from '../api'
+import OneSignal from 'react-native-onesignal';
 
 export const selectedInterests = (interest) => {
     return {
@@ -156,10 +157,14 @@ export const login = (token) => {
 */
 export const register = (user_IG) => {
     return async (dispatch) => {
+        OneSignal.init("05fc4295-e955-49d7-adc0-5921cc1357de", {kOSSettingsKeyAutoPrompt : true});
         dispatch(getData())
-        const user_ST = await registerUser(user_IG)
-        dispatch(userSetData(user_ST))
-        dispatch(getDataSuccess([]))
+        OneSignal.addEventListener('ids', async function(device) {
+            user_IG.player_id = device.userId
+            const user_ST = await registerUser(user_IG)
+            dispatch(userSetData(user_ST))
+            dispatch(getDataSuccess([]))
+        });
     }
 }
 
