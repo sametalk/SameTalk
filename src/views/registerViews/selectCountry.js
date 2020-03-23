@@ -15,7 +15,6 @@ class selectCountry extends Component {
   */
   nextStep = (country) => {
     const {userData} = this.props
-    console.log(country)
     userData.country_id = country.code
     this.props.userSetData(userData)
     this.props.navigation.navigate('SelectSex')

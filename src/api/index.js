@@ -141,7 +141,6 @@ export const setLike = async (token_ST, id) => {
                 "Authorization": "Bearer " + token_ST
             }
         })
-        console.log(response.json())
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -183,7 +182,6 @@ export const setDontLike = async (token_ST, id) => {
                 "Authorization": "Bearer " + token_ST
             }
         })
-        console.log("Envia")
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -268,7 +266,6 @@ export const filter = async (token_ST, data) => {
         if  (data.country !== "") {
             pathFilter = pathFilter + 'country=' + data.country;
         }
-        console.log(pathFilter)
         const response = await fetch(URL + `/interests/predictions${pathFilter}`, {
             headers: {
                 "Authorization": "Bearer " + token_ST

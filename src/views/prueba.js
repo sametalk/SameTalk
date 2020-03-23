@@ -46,7 +46,6 @@ class Prueba extends Component {
 
   setCountry(country) {
     this.setState({ country: country, selectCountryModal: false });
-    console.log(this.state.country);
   }
 
   render() {
