@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {Icon} from 'native-base'
 import SelectInterests from '../views/selectInterests/selectInterests'
-import ListProfiles from '../views/listProfiles'
+import ListProfiles from '../views/listOfCompatibleProfiles/listProfiles'
 import ProfileStack from './profileNavigation'
 
 

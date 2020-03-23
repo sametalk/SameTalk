@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
@@ -24,7 +24,11 @@ class selectAge extends Component {
     */
    nextStep = () => {
         const user = this.props.userData
-        user.age = this.state.date.substring(0,4)
+        let yearOfBirth = this.state.date.substring(0,4)
+        let date = new Date();
+        let currentYear = date.getFullYear()
+        let age = currentYear - yearOfBirth
+        user.age = age
         this.props.userSetData(user)
         this.props.navigation.navigate('SelectCountry')
     }
@@ -83,6 +87,6 @@ export default connect(mapStateToProps, actions)(selectAge)
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fee9d7'
+        backgroundColor: '#F1F3F5'
     }
 })

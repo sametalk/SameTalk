@@ -1,6 +1,6 @@
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
 import { 
-    instagramGetData , 
+    instagramGetData ,
     loginSameTalk, 
     sameTalkGetData, 
     registerUser,  
@@ -10,8 +10,11 @@ import {
     getSelectedInt,
     getMatchs,
     updateDataUser,
-    getCountries
+    getCountries,
+    setReward, 
+    filter
 } from '../api'
+import OneSignal from 'react-native-onesignal';
 
 export const selectedInterests = (interest) => {
     return {
@@ -66,6 +69,12 @@ export const setCountries = (countries) => {
     return {
         type: 'setCountries',
         countries: countries
+    }
+}
+
+export const changeReferredModalValue = () => {
+    return {
+        type: 'changeReferredModalValue'
     }
 }
 
@@ -148,10 +157,14 @@ export const login = (token) => {
 */
 export const register = (user_IG) => {
     return async (dispatch) => {
+        OneSignal.init("05fc4295-e955-49d7-adc0-5921cc1357de", {kOSSettingsKeyAutoPrompt : true});
         dispatch(getData())
-        const user_ST = await registerUser(user_IG)
-        dispatch(userSetData(user_ST))
-        dispatch(getDataSuccess([]))
+        OneSignal.addEventListener('ids', async function(device) {
+            user_IG.player_id = device.userId
+            const user_ST = await registerUser(user_IG)
+            dispatch(userSetData(user_ST))
+            dispatch(getDataSuccess([]))
+        });
     }
 }
 
@@ -246,6 +259,25 @@ export const getCountriesList = () => {
         dispatch(getData())
         const countries = await getCountries()
         dispatch(setCountries(countries))
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Setea coins por recomendacion
+export const setRewardForRecommendation = (user, token) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const reward = await setReward(user, 10, token)
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Filtra los perfiles compatibles
+export const filterProfiles = (token, data) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listProfiles = await filter(token, data)
+        dispatch(setListProfiles(listProfiles))
         dispatch(getDataSuccess([]))
     }
 }

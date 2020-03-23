@@ -6,6 +6,7 @@ import listProfiles from './listProfilesReducer'
 import fetchData from './fetchDataReducer'
 import listMatchs from './listMatchsReducer'
 import countries from './countriesReducer'
+import showReferredModal from './showReferredModalReducer'
 
 /*
     Aca se definen los estados y se le pasa la funcion reductora
@@ -17,5 +18,6 @@ export default combineReducers({
     selectedInterests,
     listProfiles,
     listMatchs,
-    countries
+    countries,
+    showReferredModal
 })

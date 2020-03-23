@@ -1,10 +1,8 @@
-//import listProfiles from '../constant/profiles'
-//export default () => listProfiles
-
 export default listProfiles = (state = [], action) => {
     switch (action.type) {
         case 'setListProfiles':
-            return action.listProfiles
+            console.log(action.listProfiles)
+            return Object.keys(action.listProfiles).map((k) => action.listProfiles[k])
         default:
             return state
     }

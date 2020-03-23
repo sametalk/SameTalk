@@ -60,7 +60,7 @@ export default connect(mapStateToProps)(register)
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fee9d7'
+        backgroundColor: '#F1F3F5'
     },
     welcome: {
         flex: 1,

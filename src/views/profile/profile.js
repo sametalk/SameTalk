@@ -7,50 +7,49 @@ import { connect } from 'react-redux';
 class profile extends Component {
 
     render() {
-        const { userData } = this.props
-        console.log(userData)
+        const { userData, listMatchs, selectedInterests } = this.props
         return (
             <Container>
                 <Content>
                     <View style={styles.profile}>
-                        <Text style={[styles.text, { color:"#292b2c" ,fontSize:30}]}>{userData.full_name}</Text>
+                        <Text style={[styles.text, { color: "#292b2c", fontSize: 30 }]}>{userData.full_name}</Text>
                         <Avatar
                             rounded
                             size="xlarge"
                             source={{ uri: userData.profile_picture }}
                             containerStyle={styles.avatar}
                         />
-                        <Text style={[styles.text, { color:"#5cb85c", fontSize:20}]}>{userData.age} años</Text>
-                        <Text style={[styles.text, { color:"#292b2c", fontSize:20}]}>{userData.country.name} </Text>
+                        <Text style={[styles.text, { color: "#5cb85c", fontSize: 20 }]}>{userData.age} años</Text>
+                        <Text style={[styles.text, { color: "#292b2c", fontSize: 20 }]}>{userData.country.name} </Text>
                     </View>
                     <View style={styles.statistics}>
                         <View style={styles.iconZone}>
                             <Icon type="FontAwesome" name="thumbs-up" color="green" style={[styles.icon, { color: "#5cb85c" }]} />
                             <Badge success style={styles.icon}>
-                                <Text>3</Text>
+                                <Text>{selectedInterests.length}</Text>
                             </Badge>
                         </View>
                         <View style={styles.iconZone}>
                             <Icon type="FontAwesome" name="gg-circle" color="yellow" style={[styles.icon, { color: "#f0ad4e" }]} />
                             <Badge warning style={styles.icon}>
-                                <Text>15</Text>
+                                <Text>{userData.coins}</Text>
                             </Badge>
                         </View>
                         <View style={styles.iconZone}>
                             <Icon type="FontAwesome" name="heart" style={[styles.icon, { color: "#d9534f" }]} />
                             <Badge danger style={styles.icon}>
-                                <Text>4</Text>
+                                <Text>{listMatchs.length}</Text>
                             </Badge>
                         </View>
                     </View>
                     <View>
-                        <Button rounded danger style={styles.button} onPress={ () => this.props.navigation.navigate('ListInterests') }>
+                        <Button rounded danger style={styles.button} onPress={() => this.props.navigation.navigate('ListInterests')}>
                             <Text>Ver intereses seleccionados</Text>
                         </Button>
-                        <Button rounded danger style={styles.button} onPress={ () => this.props.navigation.navigate('ListMatchs') }>
+                        <Button rounded danger style={styles.button} onPress={() => this.props.navigation.navigate('ListMatchs')}>
                             <Text>Ver lista de matchs</Text>
                         </Button>
-                        <Button rounded danger style={styles.button} onPress={ () => this.props.navigation.navigate('Settings') }>
+                        <Button rounded danger style={styles.button} onPress={() => this.props.navigation.navigate('Settings')}>
                             <Text>Configurar Perfil</Text>
                         </Button>
                     </View>
@@ -63,7 +62,9 @@ class profile extends Component {
 // Trae del Storage Centralizado el objeto userData e interests
 const mapStateToProps = state => {
     return {
-        userData: state.userData
+        userData: state.userData,
+        listMatchs: state.listMatchs,
+        selectedInterests: state.selectedInterests
     }
 }
 
@@ -71,7 +72,7 @@ export default connect(mapStateToProps)(profile)
 
 
 const styles = StyleSheet.create({
-    profile:{
+    profile: {
         marginTop: 10
     },
     text: {

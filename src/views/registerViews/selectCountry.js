@@ -22,7 +22,7 @@ class selectCountry extends Component {
 
   render() {
     return (
-        <SelectCountryComponent handleSelect={this.nextStep(contry)}></SelectCountryComponent>
+        <SelectCountryComponent handleSelect={(country) => this.nextStep(country)}></SelectCountryComponent>
     );
   }
 }
