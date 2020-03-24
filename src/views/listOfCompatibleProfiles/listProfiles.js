@@ -4,7 +4,8 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    Image
+    Image,
+    ImageBackground
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Header, Title, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item, Label, Input, Thumbnail, Right } from 'native-base';
@@ -115,65 +116,67 @@ class ListProfiles extends Component {
                         ) : (
                             <React.Fragment>
                                 <View style={{ flex: 1 }}>
-                                    <Header transparent>
-                                        <Body style={{ marginLeft: 10 }}>
-                                            <Title style={{ color: '#414241' }}>Perfiles compatibles:</Title>
-                                        </Body>
-                                        <Right>
-                                            <Button transparent onPress={() => this.setState({ modalFilterVisible: true })}>
-                                                <Icon type="FontAwesome" name='filter' style={{ color: "gray" }} />
-                                            </Button>
-                                        </Right>
-                                    </Header>
-                                    <CardStack
-                                        style={styles.content}
-                                        renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
-                                        ref={swiper => {
-                                            this.swiper = swiper
-                                        }}
-                                    >
-                                        {listProfiles.map((profile) => (
-                                            <Card style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
-                                                <CardItem>
-                                                    <Left>
-                                                        <Thumbnail small source={{ uri: profile.country.flag }} />
+                                    <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
+                                        <Header style={{backgroundColor: "white"}}>
+                                            <Body style={{ marginLeft: 10 }}>
+                                                <Title style={{ color: '#414241' }}>Perfiles compatibles:</Title>
+                                            </Body>
+                                            <Right>
+                                                <Button transparent onPress={() => this.setState({ modalFilterVisible: true })}>
+                                                    <Icon type="FontAwesome" name='filter' style={{ color: "gray" }} />
+                                                </Button>
+                                            </Right>
+                                        </Header>
+                                        <CardStack
+                                            style={styles.content}
+                                            renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
+                                            ref={swiper => {
+                                                this.swiper = swiper
+                                            }}
+                                        >
+                                            {listProfiles.map((profile) => (
+                                                <Card style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                                                    <CardItem>
+                                                        <Left>
+                                                            <Thumbnail small source={{ uri: profile.country.flag }} />
+                                                            <Body>
+                                                                <Text style={{ color: '#212121' }}>{profile.full_name}</Text>
+                                                                <Text note>{profile.age} Años</Text>
+                                                            </Body>
+                                                        </Left>
+                                                        <Right>
+                                                            <TouchableOpacity onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
+                                                                <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                                                            </TouchableOpacity>
+                                                        </Right>
+                                                    </CardItem>
+                                                    <CardItem cardBody>
+                                                        <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
+                                                    </CardItem>
+                                                    <CardItem>
                                                         <Body>
-                                                            <Text style={{color: '#212121'}}>{profile.full_name}</Text>
-                                                            <Text note>{profile.age} Años</Text>
+                                                            <Body>
+                                                                <Text style={{ color: '#4B515D', fontSize: 20, fontWeight: '600' }}>Compatibilidad: {profile.compatibility}</Text>
+                                                            </Body>
                                                         </Body>
-                                                    </Left>
-                                                    <Right>
-                                                        <TouchableOpacity onPress={() => {this.onLike(profile, 'super-like'), this.swiper.swipeBottom()}}>
-                                                            <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
-                                                        </TouchableOpacity>
-                                                    </Right>
-                                                </CardItem>
-                                                <CardItem cardBody>
-                                                    <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
-                                                </CardItem>
-                                                <CardItem>
-                                                    <Body>
-                                                        <Body>
-                                                            <Text style={{color: '#4B515D', fontSize: 20, fontWeight: '600'}}>Compatibilidad: {profile.compatibility}</Text>
-                                                        </Body>
-                                                    </Body>
-                                                </CardItem>
-                                            </Card>
-                                        ))}
-                                    </CardStack>
-                                    <View style={styles.footer}>
-                                        <View style={styles.buttonContainer}>
-                                            <TouchableOpacity style={[styles.button, styles.red]} onPress={() => this.swiper.swipeLeft()}>
-                                                <Image source={require('../../../assets/image/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => this.swiper.goBackFromLeft()}>
-                                                <Image source={require('../../../assets/image/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={[styles.button, styles.green]} onPress={() => this.swiper.swipeRight()}>
-                                                <Image source={require('../../../assets/image/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
-                                            </TouchableOpacity>
+                                                    </CardItem>
+                                                </Card>
+                                            ))}
+                                        </CardStack>
+                                        <View style={styles.footer}>
+                                            <View style={styles.buttonContainer}>
+                                                <TouchableOpacity style={[styles.button, styles.red]} onPress={() => this.swiper.swipeLeft()}>
+                                                    <Image source={require('../../../assets/image/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => this.swiper.goBackFromLeft()}>
+                                                    <Image source={require('../../../assets/image/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={[styles.button, styles.green]} onPress={() => this.swiper.swipeRight()}>
+                                                    <Image source={require('../../../assets/image/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
-                                    </View>
+                                    </ImageBackground>
                                 </View>
 
                                 <Modal
@@ -309,7 +312,7 @@ const styles = StyleSheet.create({
         flex: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'rgba(158, 158, 158, 0.1)'
     },
     header: {
         backgroundColor: '#F1F3F5'
@@ -335,7 +338,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'rgba(158, 158, 158, 0.1)'
     },
     buttonContainer: {
         width: 220,
@@ -377,9 +380,13 @@ const styles = StyleSheet.create({
         borderColor: '#fd267d',
     },
     profile: {
-        height: 300, 
-        width: null, 
+        height: 300,
+        width: null,
         flex: 1
+    },
+    imageBackground: {
+        width: '100%',
+        height: '100%'
     },
 
     /*--------------Modal Filter CSS--------------*/
