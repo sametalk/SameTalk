@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity, ImageBackground} from 'react-native';
 import { connect } from 'react-redux';
 import { getListInterests, selectedInterests, setInterest } from '../../actions';
 import { Container, Header, Left, Body, Text, Button, Icon, Title } from 'native-base';
@@ -75,6 +75,7 @@ class selectInterests extends Component {
         return (
             <React.Fragment>
                 <Container>
+                <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{opacity: 0.3}}>
                     <Header transparent style={styles.header}>
                         {this.state.level !== 1 &&
                             <Left style={{ flex: 1 }}>
@@ -92,6 +93,7 @@ class selectInterests extends Component {
                         renderItem={this.renderItem}
                         numColumns={numColumns}
                     />
+                    </ImageBackground>
                 </Container>
                 <ModalRecommended></ModalRecommended>
             </React.Fragment>
@@ -140,5 +142,9 @@ const styles = StyleSheet.create({
     },
     color: {
         color: '#EE4B3B'
+    },
+    imageBackground: {
+        width: '100%', 
+        height: '100%'
     }
 });
