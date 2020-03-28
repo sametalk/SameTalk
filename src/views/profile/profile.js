@@ -2,8 +2,25 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { Text, Button, Card, CardItem, Thumbnail, Left, Body, Header, Icon, Right, Badge, Title } from 'native-base';
 import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 class profile extends Component {
+
+    resetTo(route) {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: route })],
+        });
+        this.props.navigation.dispatch(resetAction);
+    }
+
+    logoutUser = async () => {
+        try {
+            await AsyncStorage.removeItem("@token");
+        } catch(e) {}
+        this.resetTo('Welcome');
+    }
 
     render() {
         const { userData, listMatchs, selectedInterests } = this.props
@@ -61,6 +78,14 @@ class profile extends Component {
                                             </Badge>
                                         </TouchableOpacity>
                                     </View>
+                                    <View style={[styles.iconZone, styles.red]}>
+                                        <TouchableOpacity onPress={() => this.logoutUser()}>
+                                            <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Cerrar sesión</Text>
+                                            <Icon type="FontAwesome" name="heart" style={[styles.icon, styles.margin, { color: "white" }]} />
+                                            <Badge danger style={[styles.icon, styles.margin]}>
+                                            </Badge>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </CardItem>
                         </Card>
@@ -79,6 +104,7 @@ const mapStateToProps = state => {
         selectedInterests: state.selectedInterests
     }
 }
+
 
 export default connect(mapStateToProps)(profile)
 
