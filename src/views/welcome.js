@@ -3,28 +3,63 @@ import { Container, Icon, Button, Text, Spinner } from 'native-base';
 import { StyleSheet, ImageBackground, View, Image } from 'react-native';
 import InstagramLogin from 'react-native-instagram-login'
 import { connect } from 'react-redux';
-import { login } from '../actions';
+import { login, logout } from '../actions';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class welcome extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {loadingToken: true};
+    }
+
+    componentDidMount() {
+        //Recuperar token del almacenamiento
+        getData = async () => {
+            try {
+                const token = await AsyncStorage.getItem('@token')
+                if(token !== null) {
+                    await this.props.login(token);
+                    if (!this.props.fetchData.error) {
+                        this.props.navigation.navigate('TabNavigation')  // Usuario ya logeado
+                    }
+                } else {
+                    this.setState({loadingToken: false}); // Usuario no logeado
+                    await this.props.logout();
+                }
+            } catch(e) {
+            }
+        }
+        getData();
+    }
 
     /*
         Una vez que nos logueamos correctamente a traves de instagram
         Se llama a la funcion login definida en acción y se lo redirige segun el caso
     */
     async _onRegister(token) {
+        this.setState({loadingToken: true});
+        storeData = async () => {
+            try {
+              await AsyncStorage.setItem('@token', token)
+            } catch (e) {
+            }
+          }
+        storeData();
         await this.props.login(token)
         if (!this.props.fetchData.error) {
             this.props.navigation.navigate('TabNavigation')  // Usuario ya registrado
         } else {
             this.props.navigation.navigate('Register') // Usuario no registrado
         }
+        this.setState({loadingToken: false});
     }
 
     render() {
         return (
             <Container style={styles.container}>
                 <ImageBackground source={require('../../assets/image/fondoWelcome.png')} style={{ width: '100%', height: '100%' }}>
-                    {!this.props.fetchData.isFetching ? (
+                    {!this.state.loadingToken ? (
                         <React.Fragment>
                             <View style={styles.logo}>
                                 <Image source={require('../../assets/image/logoWelcome.png')} style={styles.image} resizeMode='contain' />
@@ -73,7 +108,8 @@ const mapStateToProps = state => {
 // Trae de action las funciones definidas en ese archivo
 const mapDispatchToProps = dispatch => {
     return {
-        login: (token) => dispatch(login(token))
+        login: (token) => dispatch(login(token)),
+        logout: () => dispatch(logout())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(welcome)

@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
-import { Text, Button, Card, CardItem, Thumbnail, Left, Body, Header, Icon, Right, Badge, Title } from 'native-base';
+import { Text, Button, Card, CardItem, Thumbnail, Left, Body, Header, Icon, Right, Title } from 'native-base';
 import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 class profile extends Component {
+
+    resetTo(route) {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: route })],
+        });
+        this.props.navigation.dispatch(resetAction);
+    }
+
+    logoutUser = async () => {
+        try {
+            await AsyncStorage.removeItem("@token");
+        } catch (e) { }
+        this.resetTo('Welcome');
+    }
 
     render() {
         const { userData, listMatchs, selectedInterests } = this.props
@@ -15,9 +32,9 @@ class profile extends Component {
                             <Title style={{ color: '#414241' }}>Same Talk</Title>
                         </Body>
                         <Right>
-                            <Button transparent onPress={() => this.props.navigation.navigate('Settings')}>
-                                <Icon type="FontAwesome" name='cogs' style={{ color: "gray" }} />
-                            </Button>
+                            <TouchableOpacity onPress={() => this.logoutUser()}>
+                                <Icon type="FontAwesome" name="window-close" style={{ color: "grey" }} />
+                            </TouchableOpacity>
                         </Right>
                     </Header>
                     <View style={styles.content}>
@@ -30,36 +47,35 @@ class profile extends Component {
                                         <Text note>{userData.age} Años</Text>
                                     </Body>
                                 </Left>
+                                <Right>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
+                                        <Icon type="FontAwesome" name='cogs' style={{ color: "gray" }} />
+                                    </TouchableOpacity>
+                                </Right>
                             </CardItem>
                             <CardItem cardBody>
                                 <Image source={{ uri: userData.profile_picture }} style={styles.profile} />
                             </CardItem>
                             <CardItem>
                                 <View style={styles.statistics}>
-                                    <View style={[styles.iconZone, styles.green]}>
+                                    <View style={[styles.cardButton, styles.green]}>
                                         <TouchableOpacity onPress={() => this.props.navigation.navigate('ListInterests')}>
                                             <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Intereses</Text>
                                             <Icon type="FontAwesome" name="thumbs-up" color="green" style={[styles.icon, styles.margin, { color: "white" }]} />
-                                            <Badge success style={[styles.icon, styles.margin]}>
-                                                <Text>{selectedInterests.length}</Text>
-                                            </Badge>
+                                            <Text style={[styles.count, styles.margin]}>{selectedInterests.length}</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <View style={[styles.iconZone, styles.yellow]}>
-                                        <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Monedas</Text>
-                                        <Icon type="FontAwesome" name="gg-circle" color="yellow" style={[styles.icon, styles.margin, { color: "white" }]} />
-                                        <Badge warning style={[styles.icon, styles.margin]}>
-                                            <Text>{userData.coins}</Text>
-                                        </Badge>
-                                    </View>
-                                    <View style={[styles.iconZone, styles.red]}>
+                                    <View style={[styles.cardButton, styles.red]}>
                                         <TouchableOpacity onPress={() => this.props.navigation.navigate('ListMatchs')}>
                                             <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Matchs</Text>
                                             <Icon type="FontAwesome" name="heart" style={[styles.icon, styles.margin, { color: "white" }]} />
-                                            <Badge danger style={[styles.icon, styles.margin]}>
-                                                <Text>{listMatchs.length}</Text>
-                                            </Badge>
+                                            <Text style={[styles.count, styles.margin]}>{listMatchs.length}</Text>
                                         </TouchableOpacity>
+                                    </View>
+                                    <View style={[styles.cardButton, styles.blue]}>
+                                        <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Etiquetas</Text>
+                                        <Icon type="FontAwesome" name="tags" color="yellow" style={[styles.icon, styles.margin, { color: "white" }]} />
+                                        <Text style={[styles.count, styles.margin]}>{userData.coins}</Text>
                                     </View>
                                 </View>
                             </CardItem>
@@ -80,6 +96,7 @@ const mapStateToProps = state => {
     }
 }
 
+
 export default connect(mapStateToProps)(profile)
 
 
@@ -96,7 +113,7 @@ const styles = StyleSheet.create({
     card: {
         width: 320,
         paddingBottom: 10,
-        borderRadius: 5,
+        borderRadius: 10,
         shadowColor: 'rgba(0,0,0,0.5)',
         shadowOffset: {
             width: 0,
@@ -118,22 +135,22 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         height: 100,
     },
-    iconZone: {
+    cardButton: {
         flex: 1,
         alignSelf: "flex-end",
         justifyContent: "center",
         borderRadius: 10
     },
     green: {
-        backgroundColor: '#5cb85c',
+        backgroundColor: '#6FC95E',
         marginRight: 5
     },
     red: {
         backgroundColor: '#d9534f',
-        marginLeft: 5
     },
-    yellow: {
-        backgroundColor: "#f0ad4e" 
+    blue: {
+        backgroundColor: "#4B62A5",
+        marginLeft: 5
     },
     icon: {
         alignSelf: "center",
@@ -141,6 +158,11 @@ const styles = StyleSheet.create({
     },
     margin: {
         marginTop: 5
+    },
+    count: {
+        alignSelf: "center",
+        color: "white",
+        marginBottom: 5
     },
     imageBackground: {
         width: '100%',

@@ -7,11 +7,13 @@ import fetchData from './fetchDataReducer'
 import listMatchs from './listMatchsReducer'
 import countries from './countriesReducer'
 import showReferredModal from './showReferredModalReducer'
+import { RESET_STORE } from '../constant'
 
 /*
     Aca se definen los estados y se le pasa la funcion reductora
 */
-export default combineReducers({
+
+const appReducer = combineReducers({
     fetchData,
     userData,
     interests,
@@ -21,3 +23,10 @@ export default combineReducers({
     countries,
     showReferredModal
 })
+  
+export default rootReducer = (state, action) => {
+    if (action.type === RESET_STORE) {
+        state = undefined
+    }
+    return appReducer(state, action)
+}
