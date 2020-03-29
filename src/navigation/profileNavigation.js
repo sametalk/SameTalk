@@ -47,7 +47,7 @@ const ProfileStack = createStackNavigator(
     MatchProfile: {
       screen: MatchProfile,
       navigationOptions: () => ({
-        title: ``
+        title: `Datos del usuario:`
       }),
     }
   },
