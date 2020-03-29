@@ -1,4 +1,4 @@
-import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constant'
+import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE, RESET_STORE } from '../constant'
 import { 
     instagramGetData ,
     loginSameTalk, 
@@ -98,6 +98,12 @@ export const getDataSuccess = (data) => {
 export const getDataFailure = () => {
     return {
         type: FETCHING_DATA_FAILURE
+    }
+}
+
+export const resetStore = () => {
+    return {
+        type: RESET_STORE
     }
 }
 
@@ -279,5 +285,13 @@ export const filterProfiles = (token, data) => {
         const listProfiles = await filter(token, data)
         dispatch(setListProfiles(listProfiles))
         dispatch(getDataSuccess([]))
+    }
+}
+
+
+// Logout
+export const logout = () => {
+    return dispatch => {
+        dispatch(resetStore())
     }
 }

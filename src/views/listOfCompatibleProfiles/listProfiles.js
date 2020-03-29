@@ -4,7 +4,9 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    Image
+    Image,
+    ImageBackground,
+    Linking
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Header, Title, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item, Label, Input, Thumbnail, Right } from 'native-base';
@@ -19,7 +21,7 @@ class ListProfiles extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            modalVisible: false,
+            modalMatchVisible: false,
             modalFilterVisible: false,
             profileMatch: this.props.userData,
             listProfiles: this.props.listProfiles,
@@ -56,7 +58,7 @@ class ListProfiles extends Component {
             }
             console.log(response)
             if (response.match.status == "accepted") {
-                this.setState({ modalVisible: true, profileMatch: profile }); //Abro el modal
+                this.setState({ modalMatchVisible: true, profileMatch: profile }); //Abro el modal
             }
         } catch (error) {
             console.log(error)
@@ -97,8 +99,14 @@ class ListProfiles extends Component {
         });
     }
 
+    goToInstagram() {
+        this.setState({ modalMatchVisible: false });
+        Linking.openURL("https://www.instagram.com/" + this.state.profileMatch.username);
+    }
+
     render() {
         const { listProfiles } = this.props
+        console.log(listProfiles)
         return (
             <React.Fragment>
                 {
@@ -115,85 +123,86 @@ class ListProfiles extends Component {
                         ) : (
                             <React.Fragment>
                                 <View style={{ flex: 1 }}>
-                                    <Header transparent>
-                                        <Body style={{ marginLeft: 10 }}>
-                                            <Title style={{ color: '#414241' }}>Perfiles compatibles:</Title>
-                                        </Body>
-                                        <Right>
-                                            <Button transparent onPress={() => this.setState({ modalFilterVisible: true })}>
-                                                <Icon type="FontAwesome" name='filter' style={{ color: "gray" }} />
-                                            </Button>
-                                        </Right>
-                                    </Header>
-                                    <CardStack
-                                        style={styles.content}
-                                        renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
-                                        ref={swiper => {
-                                            this.swiper = swiper
-                                        }}
-                                    >
-                                        {listProfiles.map((profile) => (
-                                            <Card style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
-                                                <CardItem>
-                                                    <Left>
-                                                        <Thumbnail small source={{ uri: profile.country.flag }} />
+                                    <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
+                                        <Header style={{ backgroundColor: "white" }}>
+                                            <Body style={{ marginLeft: 10 }}>
+                                                <Title style={{ color: '#414241' }}>Perfiles compatibles:</Title>
+                                            </Body>
+                                            <Right>
+                                                <Button transparent onPress={() => this.setState({ modalFilterVisible: true })}>
+                                                    <Icon type="FontAwesome" name='filter' style={{ color: "gray" }} />
+                                                </Button>
+                                            </Right>
+                                        </Header>
+                                        <CardStack
+                                            style={styles.content}
+                                            renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
+                                            ref={swiper => {
+                                                this.swiper = swiper
+                                            }}
+                                        >
+                                            {listProfiles.map((profile) => (
+                                                <Card style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                                                    <CardItem>
+                                                        <Left>
+                                                            <Thumbnail small source={{ uri: profile.country.flag }} />
+                                                            <Body>
+                                                                <Text style={{ color: '#212121' }}>{profile.full_name}</Text>
+                                                                <Text note>{profile.age} Años</Text>
+                                                            </Body>
+                                                        </Left>
+                                                        <Right>
+                                                            <TouchableOpacity onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
+                                                                <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                                                            </TouchableOpacity>
+                                                        </Right>
+                                                    </CardItem>
+                                                    <CardItem cardBody>
+                                                        <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
+                                                    </CardItem>
+                                                    <CardItem>
                                                         <Body>
-                                                            <Text style={{color: '#212121'}}>{profile.full_name}</Text>
-                                                            <Text note>{profile.age} Años</Text>
+                                                            <Body>
+                                                                <Text style={{ color: '#4B515D', fontSize: 20, fontWeight: '600' }}>Compatibilidad: {profile.compatibility}</Text>
+                                                            </Body>
                                                         </Body>
-                                                    </Left>
-                                                    <Right>
-                                                        <TouchableOpacity onPress={() => {this.onLike(profile, 'super-like'), this.swiper.swipeBottom()}}>
-                                                            <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
-                                                        </TouchableOpacity>
-                                                    </Right>
-                                                </CardItem>
-                                                <CardItem cardBody>
-                                                    <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
-                                                </CardItem>
-                                                <CardItem>
-                                                    <Body>
-                                                        <Body>
-                                                            <Text style={{color: '#4B515D', fontSize: 20, fontWeight: '600'}}>Compatibilidad: {profile.compatibility}</Text>
-                                                        </Body>
-                                                    </Body>
-                                                </CardItem>
-                                            </Card>
-                                        ))}
-                                    </CardStack>
-                                    <View style={styles.footer}>
-                                        <View style={styles.buttonContainer}>
-                                            <TouchableOpacity style={[styles.button, styles.red]} onPress={() => this.swiper.swipeLeft()}>
-                                                <Image source={require('../../../assets/image/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => this.swiper.goBackFromLeft()}>
-                                                <Image source={require('../../../assets/image/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={[styles.button, styles.green]} onPress={() => this.swiper.swipeRight()}>
-                                                <Image source={require('../../../assets/image/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
-                                            </TouchableOpacity>
+                                                    </CardItem>
+                                                </Card>
+                                            ))}
+                                        </CardStack>
+                                        <View style={styles.footer}>
+                                            <View style={styles.buttonContainer}>
+                                                <TouchableOpacity style={[styles.button, styles.red]} onPress={() => this.swiper.swipeLeft()}>
+                                                    <Image source={require('../../../assets/image/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => this.swiper.goBackFromLeft()}>
+                                                    <Image source={require('../../../assets/image/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={[styles.button, styles.green]} onPress={() => this.swiper.swipeRight()}>
+                                                    <Image source={require('../../../assets/image/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
-                                    </View>
+                                    </ImageBackground>
                                 </View>
 
                                 <Modal
                                     animationType="slide"
-                                    transparent={false}
-                                    visible={this.state.modalVisible}>
-                                    <View style={styles.container}>
-                                        <Card style={[styles.card, styles.modal]}>
-                                            <CardItem>
-                                                <H1>
-                                                    <Icon type="FontAwesome" name="gratipay" style={{ color: "#d9534f" }} />
-                                                    ¡ Match !
-                                    <Icon type="FontAwesome" name="gratipay" style={{ color: "#d9534f" }} />
+                                    transparent={true}
+                                    visible={this.state.modalMatchVisible}>
+                                    <View style={styles.containerMatch}>
+                                        <Card style={styles.modal}>
+                                            <CardItem style={styles.titleView}>
+                                                <H1 style={styles.title}>
+                                                    Tienes un Match
                                                 </H1>
                                             </CardItem>
                                             <CardItem>
                                                 <Left>
+                                                    <Thumbnail small source={{ uri: this.state.profileMatch.country.flag }} />
                                                     <Body>
-                                                        <Text>{this.state.profileMatch.full_name} ({this.state.profileMatch.age} años)</Text>
-                                                        <Text note>{this.state.profileMatch.country.name}</Text>
+                                                        <Text style={{ color: '#212121' }}>{this.state.profileMatch.full_name}</Text>
+                                                        <Text note>{this.state.profileMatch.age} Años</Text>
                                                     </Body>
                                                 </Left>
                                             </CardItem>
@@ -201,11 +210,19 @@ class ListProfiles extends Component {
                                                 <Image source={{ uri: this.state.profileMatch.profile_picture }} style={styles.profile} />
                                             </CardItem>
                                             <CardItem>
-                                                <Button rounded success onPress={() => this.setState({ modalVisible: false })}>
-                                                    <Text>Seguir <Icon type="FontAwesome" name="forward" style={{ color: "white", fontSize: 15 }} /></Text>
+                                                <Button
+                                                    rounded
+                                                    danger
+                                                    onPress={() => this.setState({ modalMatchVisible: false })}
+                                                    style={styles.buttonModal}>
+                                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
                                                 </Button>
-                                                <Button rounded danger onPress={() => this.setState({ modalVisible: false })} style={{ marginLeft: 10 }}>
-                                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={{ color: "white", fontSize: 15 }} /></Text>
+                                                <Button
+                                                    rounded
+                                                    success
+                                                    onPress={() => this.goToInstagram()}
+                                                    style={[styles.buttonModal, { marginLeft: 10, backgroundColor:"#4B62A5" }]}>
+                                                    <Text>Seguir <Icon type="FontAwesome" name="instagram" style={styles.iconButton} /></Text>
                                                 </Button>
                                             </CardItem>
                                         </Card>
@@ -265,10 +282,10 @@ class ListProfiles extends Component {
                                             </CardItem>
                                             <CardItem>
                                                 <Button rounded danger onPress={() => this.setState({ modalFilterVisible: false })} style={{ marginRight: 10 }}>
-                                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
+                                                    <Text style={styles.textButton}>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
                                                 </Button>
                                                 <Button rounded success onPress={() => this.onFilter()}>
-                                                    <Text>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
+                                                    <Text style={styles.textButton}>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
                                                 </Button>
                                             </CardItem>
                                         </Card>
@@ -299,26 +316,14 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(ListProfiles)
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: 'grey',
-        alignItems: 'center'
-    },
     content: {
         flex: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'rgba(158, 158, 158, 0.1)'
     },
     header: {
         backgroundColor: '#F1F3F5'
-    },
-    modal: {
-        flex: 0.95,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white'
     },
     card: {
         width: 320,
@@ -330,12 +335,6 @@ const styles = StyleSheet.create({
             height: 1
         },
         shadowOpacity: 0.5,
-    },
-    footer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white'
     },
     buttonContainer: {
         width: 220,
@@ -353,6 +352,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         zIndex: 0,
         backgroundColor: 'white'
+    },
+    footer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(158, 158, 158, 0.1)'
     },
     orange: {
         width: 55,
@@ -377,9 +382,53 @@ const styles = StyleSheet.create({
         borderColor: '#fd267d',
     },
     profile: {
-        height: 300, 
-        width: null, 
+        height: 300,
+        width: null,
         flex: 1
+    },
+    imageBackground: {
+        width: '100%',
+        height: '100%'
+    },
+
+    /*--------------Modal Match CSS--------------*/
+    containerMatch: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(52, 52, 52, 0.5)'
+    },
+
+    modal: {
+        flex: 0.70,
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: 350,
+        minHeight: 350,
+        borderRadius: 20
+    },
+
+    titleView: {
+        justifyContent: 'center',
+        backgroundColor: '#D9544E',
+        width: '100%'
+    },
+
+    title: {
+        color: 'white'
+    },
+
+    buttonModal: {
+        width: '45%',
+        borderRadius: 10,
+        justifyContent: 'center'
+    },
+
+    textButton: {
+        fontSize: 20
     },
 
     /*--------------Modal Filter CSS--------------*/
@@ -400,9 +449,10 @@ const styles = StyleSheet.create({
         minHeight: 350,
         borderRadius: 20
     },
+
     iconButton: {
         color: "white",
-        fontSize: 15,
+        fontSize: 20,
     },
 
     /*---------- Countries ---------*/
