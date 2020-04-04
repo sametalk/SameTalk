@@ -8,18 +8,6 @@ let store = configureStore()
 
 export default class App extends React.Component {
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressed);
-  }
-
-  onBackButtonPressed() {
-    return true;
-  }
-
   render() {
     return (
       <Provider store={store}>

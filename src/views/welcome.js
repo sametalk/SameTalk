@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Icon, Button, Text, Spinner } from 'native-base';
-import { StyleSheet, ImageBackground, View, Image } from 'react-native';
+import { StyleSheet, ImageBackground, View, Image, BackHandler } from 'react-native';
 import InstagramLogin from 'react-native-instagram-login'
 import { connect } from 'react-redux';
-import { login, logout } from '../actions';
+import { login, cleanStore } from '../actions';
 import AsyncStorage from '@react-native-community/async-storage';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 class welcome extends Component {
 
@@ -13,19 +14,35 @@ class welcome extends Component {
         this.state = {loadingToken: true};
     }
 
+    resetTo(route) {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: route })],
+        });
+        this.props.navigation.dispatch(resetAction);
+    }
+    
+    handleBackButton = () => {
+        if (!this.props.navigation.goBack(null))
+            return false
+        return true;
+    }
+
     componentDidMount() {
+        //Add general backHandlerListener when screen focused
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         //Recuperar token del almacenamiento
         getData = async () => {
             try {
                 const token = await AsyncStorage.getItem('@token')
+                await this.props.cleanStore();
                 if(token !== null) {
                     await this.props.login(token);
                     if (!this.props.fetchData.error) {
-                        this.props.navigation.navigate('TabNavigation')  // Usuario ya logeado
+                        this.resetTo('TabNavigation'); // Usuario ya logeado
                     }
                 } else {
                     this.setState({loadingToken: false}); // Usuario no logeado
-                    await this.props.logout();
                 }
             } catch(e) {
             }
@@ -48,7 +65,7 @@ class welcome extends Component {
         storeData();
         await this.props.login(token)
         if (!this.props.fetchData.error) {
-            this.props.navigation.navigate('TabNavigation')  // Usuario ya registrado
+            this.resetTo('TabNavigation'); // Usuario ya registrado
         } else {
             this.props.navigation.navigate('Register') // Usuario no registrado
         }
@@ -109,7 +126,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         login: (token) => dispatch(login(token)),
-        logout: () => dispatch(logout())
+        cleanStore: () => dispatch(cleanStore())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(welcome)

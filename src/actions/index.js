@@ -289,8 +289,8 @@ export const filterProfiles = (token, data) => {
 }
 
 
-// Logout
-export const logout = () => {
+// Reset store
+export const cleanStore = () => {
     return dispatch => {
         dispatch(resetStore())
     }

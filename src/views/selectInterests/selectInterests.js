@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity, ImageBackground} from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity, ImageBackground, BackHandler} from 'react-native';
 import { connect } from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { getListInterests, selectedInterests, setInterest } from '../../actions';
 import { Container, Header, Left, Body, Text, Button, Icon, Title } from 'native-base';
 import { violetDegradation } from '../../constant/colors';
@@ -21,6 +22,14 @@ class selectInterests extends Component {
     }
 
     async componentDidMount() {
+        // Add backHandlerListener when screen focused
+        this.props.navigation.addListener('willFocus', () => {
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
+        // Remove backHandlerListener when screen lost focus
+        this.props.navigation.addListener('willBlur', () => {
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        });
         console.disableYellowBox = true;
         const { getListInterests, userData } = this.props
         await getListInterests(userData.token)
@@ -41,7 +50,7 @@ class selectInterests extends Component {
         }
     }
 
-    back() {
+    handleBackButton = () => {
         if (this.state.level == 2) {
             this.setState({
                 interests: this.props.interests,
@@ -54,7 +63,10 @@ class selectInterests extends Component {
                 backInterests: this.props.interests,
                 level: 2
             })
+        } else {
+            return false;
         }
+        return true;
     }
 
     renderItem = ({ item, index }) => {
@@ -63,11 +75,12 @@ class selectInterests extends Component {
             return <View style={[styles.item, styles.itemInvisible]} />;
         }
         return (
-            <TouchableOpacity onPress={() => this.onClickInterests(item)} style={[styles.item, { backgroundColor: violetDegradation[colorCalculation] }]}>
-                <View style={styles.item}>
-                    <Text style={styles.itemText}>{item.name}</Text>
-                </View>
-            </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.onClickInterests(item)} style={styles.item}>
+            <ImageBackground style={styles.itemImage} source={{ uri: item.image }} />
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={styles.itemText}>{item.name}</Text>
+            </View>
+        </TouchableOpacity>
         );
     };
 
@@ -79,7 +92,7 @@ class selectInterests extends Component {
                     <Header transparent style={styles.header}>
                         {this.state.level !== 1 &&
                             <Left style={{ flex: 1 }}>
-                                <Button transparent onPress={() => this.back()}>
+                                <Button transparent onPress={() => this.handleBackButton}>
                                     <Icon name='arrow-back' style={styles.color} />
                                 </Button>
                             </Left>
@@ -125,23 +138,33 @@ const styles = StyleSheet.create({
         flex: 1
     },
     item: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        margin: 1,
-        height: Dimensions.get('window').width / numColumns, // approximate a square
+        backgroundColor: "#fff",
+        width: Dimensions.get('window').width / numColumns,
+        height: 150,
+        position: 'relative',
     },
-    itemInvisible: {
-        backgroundColor: 'transparent',
+    itemImage: {
+        width: Dimensions.get('window').width / numColumns,
+        height: 150,
+        position: 'absolute',
     },
     itemText: {
+        padding: 4,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: 'white',
         color: 'white',
+        fontWeight: 'bold',
+        backgroundColor: 'rgba(238, 75, 59, 0.8)'
     },
     header: {
         backgroundColor: 'white'
     },
     color: {
         color: '#EE4B3B'
+    },
+    itemInvisible: {
+        backgroundColor: 'transparent',
     },
     imageBackground: {
         width: '100%', 

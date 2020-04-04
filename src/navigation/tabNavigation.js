@@ -18,10 +18,10 @@ const TabNavigator = createBottomTabNavigator({
         })
     },
     SelectInterests: {
-      screen: SelectInterests, 
-      navigationOptions: () => ({
-          title: `Intereses`
-      })
+        screen: SelectInterests, 
+        navigationOptions: () => ({
+            title: `Intereses`
+        })
     },
     Profile: {
         screen: ProfileStack, 
@@ -50,7 +50,7 @@ const TabNavigator = createBottomTabNavigator({
                 backgroundColor: "#white"
             }
         },
-        backBehavior: 'none'
-  });
+        backBehavior: 'history',
+});
 
 export default createAppContainer(TabNavigator);

@@ -1,5 +1,4 @@
 import { Platform, StatusBar } from 'react-native';
-import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Profile from '../views/profile/profile'
@@ -8,6 +7,7 @@ import Settings from '../views/profile/settings'
 import ListMatchs from '../views/profile/listMatchs'
 import SelectCountry from '../views/profile/selectCountry'
 import MatchProfile from '../views/profile/matchProfile'
+import Tagger from '../views/profile/tagger'
 
 /*
   Navegación interna dentro de la pantalla de perfil
@@ -49,6 +49,12 @@ const ProfileStack = createStackNavigator(
       navigationOptions: () => ({
         title: `Datos del usuario:`
       }),
+    },
+    Tagger: {
+      screen: Tagger,
+      navigationOptions: () => ({
+        title: `Etiquetar usuario:`
+      }),
     }
   },
   {
@@ -59,4 +65,4 @@ const ProfileStack = createStackNavigator(
   }
 );
 
-export default createAppContainer(ProfileStack);
+export default ProfileStack;

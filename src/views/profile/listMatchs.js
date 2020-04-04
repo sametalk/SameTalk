@@ -24,8 +24,8 @@ class ListMatchs extends Component {
                             <Container>
                                 <Content>
                                     <List>
-                                        {listMatchs.map((l) => (
-                                            <ListItem thumbnail>
+                                        {listMatchs.map((l, index) => (
+                                            <ListItem thumbnail key={index}>
                                                 <Left>
                                                     <Thumbnail square source={{ uri: l.user.profile_picture }} />
                                                 </Left>
