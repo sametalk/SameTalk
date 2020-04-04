@@ -7,6 +7,7 @@ import Settings from '../views/profile/settings'
 import ListMatchs from '../views/profile/listMatchs'
 import SelectCountry from '../views/profile/selectCountry'
 import MatchProfile from '../views/profile/matchProfile'
+import Tagger from '../views/profile/tagger'
 
 /*
   Navegación interna dentro de la pantalla de perfil
@@ -47,6 +48,12 @@ const ProfileStack = createStackNavigator(
       screen: MatchProfile,
       navigationOptions: () => ({
         title: `Datos del usuario:`
+      }),
+    },
+    Tagger: {
+      screen: Tagger,
+      navigationOptions: () => ({
+        title: `Etiquetar usuario:`
       }),
     }
   },

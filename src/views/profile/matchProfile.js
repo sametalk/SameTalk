@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, View, ImageBackground, Linking } from 'react-native';
-import { Card, CardItem, Thumbnail, Text, Left, Body, Button, Icon } from 'native-base';
+import { StyleSheet, Image, View, ImageBackground, Linking, TouchableOpacity } from 'react-native';
+import { Card, CardItem, Thumbnail, Text, Left, Body, Button, Icon, Right } from 'native-base';
 
 class MatchProfile extends Component {
   render() {
@@ -9,7 +9,7 @@ class MatchProfile extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
-          <View style={styles.content}>  
+          <View style={styles.content}>
             <Card style={styles.card}>
               <CardItem>
                 <Left>
@@ -19,6 +19,11 @@ class MatchProfile extends Component {
                     <Text note>{profile.age} Años</Text>
                   </Body>
                 </Left>
+                <Right>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Tagger')}>
+                    <Icon type="FontAwesome" name='tag' style={{ color: "gray" }} />
+                  </TouchableOpacity>
+                </Right>
               </CardItem>
               <CardItem cardBody>
                 <Image source={{ uri: profile.profile_picture }} style={styles.profile} />

@@ -170,14 +170,14 @@ class ListProfiles extends Component {
                                         </CardStack>
                                         <View style={styles.footer}>
                                             <View style={styles.buttonContainer}>
-                                                <TouchableOpacity style={[styles.button, styles.red]} onPress={() => this.swiper.swipeLeft()}>
-                                                    <Image source={require('../../../assets/image/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+                                                <TouchableOpacity onPress={() => this.swiper.swipeLeft()}>
+                                                    <Image source={require('../../../assets/image/buttons/dislike.png')} resizeMode={'contain'} style={styles.dislike} />
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={[styles.button, styles.orange]} onPress={() => this.swiper.goBackFromLeft()}>
-                                                    <Image source={require('../../../assets/image/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
+                                                <TouchableOpacity onPress={() => this.swiper.goBackFromLeft()}>
+                                                    <Image source={require('../../../assets/image/buttons/refresh.png')} resizeMode={'contain'} style={styles.goBack} />
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={[styles.button, styles.green]} onPress={() => this.swiper.swipeRight()}>
-                                                    <Image source={require('../../../assets/image/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+                                                <TouchableOpacity onPress={() => this.swiper.swipeRight()}>
+                                                    <Image source={require('../../../assets/image/buttons/like.png')} resizeMode={'contain'} style={styles.like} />
                                                 </TouchableOpacity>
                                             </View>
                                         </View>
@@ -335,21 +335,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
     },
     buttonContainer: {
-        width: 220,
+        width: '70%',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    button: {
-        shadowColor: 'rgba(0,0,0,0.3)',
-        shadowOffset: {
-            width: 0,
-            height: 1
-        },
-        shadowOpacity: 0.5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 0,
-        backgroundColor: 'white'
+        justifyContent: 'space-evenly',
     },
     footer: {
         flex: 1,
@@ -357,27 +345,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(158, 158, 158, 0.1)'
     },
-    orange: {
-        width: 55,
-        height: 55,
-        borderWidth: 6,
-        borderColor: 'rgb(246,190,66)',
-        borderRadius: 55,
+    dislike: {
+        width: 80,
+        height: 80,
+    },
+    goBack: {
+        width: 70,
+        height: 70,
         marginTop: -15
     },
-    green: {
-        width: 75,
-        height: 75,
-        borderRadius: 75,
-        borderWidth: 6,
-        borderColor: '#01df8a',
-    },
-    red: {
-        width: 75,
-        height: 75,
-        borderRadius: 75,
-        borderWidth: 6,
-        borderColor: '#fd267d',
+    like: {
+        width: 80,
+        height: 80,
     },
     profile: {
         height: 300,

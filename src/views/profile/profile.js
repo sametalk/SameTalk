@@ -39,7 +39,7 @@ class profile extends Component {
                     </Header>
                     <View style={styles.content}>
                         <Card style={styles.card}>
-                            <CardItem>
+                            <CardItem style={{borderRadius: 10}}>
                                 <Left>
                                     <Thumbnail small source={{ uri: userData.country.flag }} />
                                     <Body>
