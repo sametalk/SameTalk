@@ -1,5 +1,4 @@
 import { Platform, StatusBar } from 'react-native';
-import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Profile from '../views/profile/profile'
@@ -59,4 +58,4 @@ const ProfileStack = createStackNavigator(
   }
 );
 
-export default createAppContainer(ProfileStack);
+export default ProfileStack;

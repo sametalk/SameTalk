@@ -56,7 +56,6 @@ class ListProfiles extends Component {
             } else {
                 response = await setSuperLike(this.props.userData.token, profile.id) //Seteo el superLike
             }
-            console.log(response)
             if (response.match.status == "accepted") {
                 this.setState({ modalMatchVisible: true, profileMatch: profile }); //Abro el modal
             }
@@ -106,7 +105,6 @@ class ListProfiles extends Component {
 
     render() {
         const { listProfiles } = this.props
-        console.log(listProfiles)
         return (
             <React.Fragment>
                 {
@@ -142,8 +140,8 @@ class ListProfiles extends Component {
                                             }}
                                         >
                                             {listProfiles.map((profile) => (
-                                                <Card style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
-                                                    <CardItem>
+                                                <Card key={profile} style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                                                    <CardItem key={profile}>
                                                         <Left>
                                                             <Thumbnail small source={{ uri: profile.country.flag }} />
                                                             <Body>

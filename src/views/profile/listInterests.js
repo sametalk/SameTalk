@@ -18,8 +18,8 @@ class ListInterests extends Component {
                         <Container>
                             <Content>
                                 <List>
-                                    {selectedInterests.map((l) => (
-                                        <ListItem>
+                                    {selectedInterests.map((l, index) => (
+                                        <ListItem key={index}>
                                             <Text>{l.name}</Text>
                                         </ListItem>
                                     ))}

@@ -74,7 +74,6 @@ export const getProfiles = async (token_ST) => {
             }
         })
         const res = await response.json()
-        console.log(res)
         return res.message
     } catch (error) {
         console.log(error)
@@ -272,7 +271,6 @@ export const filter = async (token_ST, data) => {
             }
         })
         const res = await response.json()
-        console.log(res)
         return res.message
     } catch{
         console.log(error)

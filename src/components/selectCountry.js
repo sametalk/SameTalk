@@ -19,8 +19,8 @@ class selectCountry extends Component {
         <Container>
             <Content>
                 <List>
-                    {countries.map((country) => (
-                        <TouchableOpacity>
+                    {countries.map((country, index) => (
+                        <TouchableOpacity key={index}>
                             <ListItem thumbnail onPress={() => handleSelect(country)}>
                                 <Left>
                                     <Thumbnail
