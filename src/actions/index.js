@@ -12,7 +12,8 @@ import {
     updateDataUser,
     getCountries,
     setReward, 
-    filter
+    filter,
+    getTags
 } from '../api'
 import OneSignal from 'react-native-onesignal';
 
@@ -78,6 +79,25 @@ export const changeReferredModalValue = () => {
     }
 }
 
+export const setListTags = (listTags) => {
+    return {
+        type: 'setListTags',
+        listTags: listTags
+    }
+}
+
+export const setCountTags = (listTags) => {
+    var countTags = 0;
+    listTags.forEach(tag => {
+        countTags += tag.count
+    });
+
+    return {
+        type: 'setCountTags',
+        countTags: countTags
+    }
+}
+
 /*
     Manejadores de estados para las peticiones a API's
 */
@@ -137,6 +157,7 @@ export const login = (token) => {
         // Si no, tengo que registrarlo
         if (loginST.status === "ok") {
             const dataSameTalk = await sameTalkGetData(loginST.token) //Trae los datos del usuario registrado en SameTalk
+            user.id = dataSameTalk.id
             user.token = loginST.token
             user.full_name = dataSameTalk.full_name
             user.age = dataSameTalk.age
@@ -147,6 +168,7 @@ export const login = (token) => {
             dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
             dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
             dispatch(getListMatchs(loginST.token)) //Trae los matchs del servidor
+            dispatch(getListTags(user.token, user.id)) //Trae las etiquetas
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
             dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
@@ -293,5 +315,17 @@ export const filterProfiles = (token, data) => {
 export const cleanStore = () => {
     return dispatch => {
         dispatch(resetStore())
+    }
+}
+
+// Obtiene las etiquetas que me dieron
+export const getListTags = (token, id) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listTags = await getTags(token, id)
+        console.log(listTags)
+        dispatch(setListTags(listTags))
+        dispatch(setCountTags(listTags))
+        dispatch(getDataSuccess([]))
     }
 }

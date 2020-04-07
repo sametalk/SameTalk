@@ -276,3 +276,34 @@ export const filter = async (token_ST, data) => {
         console.log(error)
     }
 }
+
+//Etiquetar usuario
+export const tagUser = async (token_ST, idTag, idUser) => {
+    try {
+        const response = await fetch(URL + `/tags/${idTag}/user/${idUser}`, {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
+        const res = await response.json()
+        return res.message
+    } catch{
+        console.log(error)
+    }
+}
+
+//Etiquetar usuario
+export const getTags = async (token_ST, idUser) => {
+    try {
+        const response = await fetch(URL + `/tags/user/${idUser}`, {
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
+        console.log(response);
+        return response.json()
+    } catch{
+        console.log(error)
+    }
+}
