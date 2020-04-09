@@ -209,7 +209,7 @@ export const updateDataUser = async (user) => {
         const response = await fetch(URL + `/users/self`, {
             method: "PUT",
             body: JSON.stringify({
-                age: user.age,
+                birthdate: user.birthdate,
                 full_name: user.full_name,
                 country_id: user.country.code
             }),

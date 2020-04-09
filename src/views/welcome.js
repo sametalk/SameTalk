@@ -37,10 +37,12 @@ class welcome extends Component {
             try {
                 const token = await AsyncStorage.getItem('@token')
                 await this.props.cleanStore();
-                if(token !== null) {
+                if(token) {
                     await this.props.login(token);
                     if (!this.props.fetchData.error) {
                         this.resetTo('TabNavigation'); // Usuario ya logeado
+                    } else {
+                        this.setState({loadingToken: false}); // Error al logear
                     }
                 } else {
                     this.setState({loadingToken: false}); // Usuario no logeado
