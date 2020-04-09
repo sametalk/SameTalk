@@ -7,6 +7,7 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 full_name: action.user.full_name,
+                birthdate: action.user.birthdate,
                 age: action.user.age,
                 country: action.user.country
             }

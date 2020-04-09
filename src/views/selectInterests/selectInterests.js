@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity, ImageBackground, BackHandler} from 'react-native';
 import { connect } from 'react-redux';
-import { StackActions, NavigationActions } from 'react-navigation';
 import { getListInterests, selectedInterests, setInterest } from '../../actions';
 import { Container, Header, Left, Body, Text, Button, Icon, Title } from 'native-base';
 import { violetDegradation } from '../../constant/colors';
@@ -92,8 +91,8 @@ class selectInterests extends Component {
                     <Header transparent style={styles.header}>
                         {this.state.level !== 1 &&
                             <Left style={{ flex: 1 }}>
-                                <Button transparent onPress={() => this.handleBackButton}>
-                                    <Icon name='arrow-back' style={styles.color} />
+                                <Button transparent onPress={() => this.handleBackButton()}>
+                                    <Icon name='arrow-back' style={{ color: '#000' }} />
                                 </Button>
                             </Left>
                         }
