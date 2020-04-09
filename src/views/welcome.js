@@ -15,6 +15,7 @@ class welcome extends Component {
     }
 
     resetTo(route) {
+        //Navego a una ruta reseteando el stack
         const resetAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({ routeName: route })],

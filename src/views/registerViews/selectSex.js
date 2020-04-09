@@ -4,6 +4,7 @@ import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { register, changeReferredModalValue} from '../../actions';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 class selectAge extends Component {
 
@@ -32,7 +33,12 @@ class selectAge extends Component {
             user.gender = this.state.gender
             await this.props.register(user)
             this.props.changeReferredModalValue()
-            this.props.navigation.navigate('TabNavigation')
+            //Navego a TabNavigation reseteando el stack
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'TabNavigation' })],
+            });
+            this.props.navigation.dispatch(resetAction);
         }
 
     }
