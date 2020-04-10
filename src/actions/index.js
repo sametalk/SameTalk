@@ -7,19 +7,21 @@ import {
     getProfiles, 
     getInterests, 
     setInt, 
+    deleteInt,
     getSelectedInt,
     getMatchs,
     updateDataUser,
     getCountries,
     setReward, 
-    filter
+    filter,
+    getTags
 } from '../api'
 import OneSignal from 'react-native-onesignal';
 
-export const selectedInterests = (interest) => {
+export const selectedInterests = (listInterests) => {
     return {
         type: 'selectedInterests',
-        interest: interest
+        listInterests: listInterests
     }
 }
 
@@ -75,6 +77,25 @@ export const setCountries = (countries) => {
 export const changeReferredModalValue = () => {
     return {
         type: 'changeReferredModalValue'
+    }
+}
+
+export const setListTags = (listTags) => {
+    return {
+        type: 'setListTags',
+        listTags: listTags
+    }
+}
+
+export const setCountTags = (listTags) => {
+    var countTags = 0;
+    listTags.forEach(tag => {
+        countTags += tag.count
+    });
+
+    return {
+        type: 'setCountTags',
+        countTags: countTags
     }
 }
 
@@ -138,6 +159,7 @@ export const login = (token) => {
         // Si no, tengo que registrarlo
         if (loginST.status === "ok") {
             const dataSameTalk = await sameTalkGetData(loginST.token) //Trae los datos del usuario registrado en SameTalk
+            user.id = dataSameTalk.id
             user.token = loginST.token
             user.full_name = dataSameTalk.full_name
             user.birthdate = dataSameTalk.birthdate
@@ -149,6 +171,7 @@ export const login = (token) => {
             dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
             dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
             dispatch(getListMatchs(loginST.token)) //Trae los matchs del servidor
+            dispatch(getListTags(user.token, user.id)) //Trae las etiquetas
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
             dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
@@ -220,7 +243,8 @@ export const setInterest = (interest, token_ST) => {
         dispatch(getData())
         const response = await setInt(interest, token_ST)
         if (response.status !== "error"){
-            dispatch(selectedInterests(interest))
+            const responseListInterest = await getSelectedInt(token_ST)
+            dispatch(selectedInterests(responseListInterest))
         }
         dispatch(getDataSuccess([]))
     }
@@ -232,21 +256,18 @@ export const setInterest = (interest, token_ST) => {
 export const getSelectedInterest = ( token_ST ) => {
     return async (dispatch) => {
         dispatch(getData())
-        const interests = await getSelectedInt(token_ST)
+        const listInterests = await getSelectedInt(token_ST)
+        dispatch(selectedInterests(listInterests))
+        dispatch(getDataSuccess([]))
+    }
+}
 
-        // Hago esto para pasar al formato y que sea compatible cuando agrego un interes al dar click
-        let newArray = []
-        interests.map(i => {
-            let obj = {
-                id: i.category.id,
-                name: i.category.name,
-                children: []
-            }
-            newArray.push(obj)
-        });
-        // --------------------
-
-        dispatch(selectedInterests(newArray))
+// Funcion que elimina un interes seleccionado
+export const deleteInterest = (token, id) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const response = await deleteInt(token, id)
+        dispatch(getSelectedInterest(token))
         dispatch(getDataSuccess([]))
     }
 }
@@ -304,3 +325,15 @@ export const cleanListProfiles = () => {
         dispatch(setListProfiles([]))
     }
 }
+
+// Obtiene las etiquetas que me dieron
+export const getListTags = (token, id) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listTags = await getTags(token, id)
+        dispatch(setListTags(listTags))
+        dispatch(setCountTags(listTags))
+        dispatch(getDataSuccess([]))
+    }
+}
+

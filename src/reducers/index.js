@@ -7,6 +7,8 @@ import fetchData from './fetchDataReducer'
 import listMatchs from './listMatchsReducer'
 import countries from './countriesReducer'
 import showReferredModal from './showReferredModalReducer'
+import listTags from './listTagsReducer'
+import countTags from './countTagsReducer'
 import { RESET_STORE } from '../constant'
 
 /*
@@ -21,7 +23,9 @@ const appReducer = combineReducers({
     listProfiles,
     listMatchs,
     countries,
-    showReferredModal
+    showReferredModal,
+    listTags,
+    countTags
 })
   
 export default rootReducer = (state, action) => {

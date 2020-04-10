@@ -8,6 +8,8 @@ import ListMatchs from '../views/profile/listMatchs'
 import SelectCountry from '../views/profile/selectCountry'
 import MatchProfile from '../views/profile/matchProfile'
 import Tagger from '../views/profile/tagger'
+import MyTags from '../views/profile/myTags'
+import MyMatchsTags from '../views/profile/myMatchsTags'
 
 /*
   Navegación interna dentro de la pantalla de perfil
@@ -54,6 +56,18 @@ const ProfileStack = createStackNavigator(
       screen: Tagger,
       navigationOptions: () => ({
         title: `Etiquetar usuario:`
+      }),
+    },
+    MyTags: {
+      screen: MyTags,
+      navigationOptions: () => ({
+        title: `Mis etiquetas:`
+      }),
+    },
+    MyMatchsTags: {
+      screen: MyMatchsTags,
+      navigationOptions: () => ({
+        title: `Etiquetado por:`
       }),
     }
   },
