@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
@@ -32,6 +32,7 @@ class selectAge extends Component {
     render() {
         return (
             <Container style={styles.container}>
+                <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
                     <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
                         <View style={{ flex: 0.50, flexDirection: "row", justifyContent: 'center' }}>
                             <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
@@ -69,6 +70,7 @@ class selectAge extends Component {
                             </Button>
                         </FooterTab>
                     </Footer>
+                    </ImageBackground>
             </Container>
         )
     }
@@ -84,5 +86,9 @@ export default connect(mapStateToProps, actions)(selectAge)
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F1F3F5'
+    },
+    imageBackground: {
+        width: '100%',
+        height: '100%'
     }
 })

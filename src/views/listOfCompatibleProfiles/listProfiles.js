@@ -327,11 +327,19 @@ class ListProfiles extends Component {
                                                 </Button>
                                             </CardItem>
                                             <CardItem>
-                                                <Button rounded danger onPress={() => this.setState({ modalFilterVisible: false })} style={{ marginRight: 10 }}>
-                                                    <Text style={styles.textButton}>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
+                                                <Button 
+                                                    rounded 
+                                                    danger 
+                                                    onPress={() => this.setState({ modalFilterVisible: false })} 
+                                                    style={[styles.buttonModal, { marginRight: 10 }]}>
+                                                    <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
                                                 </Button>
-                                                <Button rounded success onPress={() => this.onFilter()}>
-                                                    <Text style={styles.textButton}>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
+                                                <Button 
+                                                    rounded 
+                                                    success 
+                                                    onPress={() => this.onFilter()}
+                                                    style={[styles.buttonModal, { backgroundColor:"#4B62A5" }]}>
+                                                    <Text>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
                                                 </Button>
                                             </CardItem>
                                         </Card>
@@ -458,10 +466,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
 
-    textButton: {
-        fontSize: 20
-    },
-
     /*--------------Modal Filter CSS--------------*/
     containerFilter: {
         flex: 1,
@@ -503,6 +507,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     buttonCountry: {
-        borderRadius: 10
+        borderRadius: 10,
+        backgroundColor:"#00C851"
     }
 });

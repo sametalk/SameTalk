@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getListInterests, selectedInterests, setInterest } from '../../actions';
 import { Container, Header, Left, Body, Text, Button, Icon, Title } from 'native-base';
 import ModalRecommended from '../../components/modalRecommended';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 const numColumns = 2;
 
@@ -44,6 +45,7 @@ class selectInterests extends Component {
                 level: this.state.level + 1,
             })
         } else {
+            this.refs.toast.show('¡Interes seleccionado!', DURATION.LENGTH_SHORT);
             this.props.setInterest(item, this.props.userData.token)
         }
     }
@@ -103,6 +105,9 @@ class selectInterests extends Component {
                         renderItem={this.renderItem}
                         numColumns={numColumns}
                     />
+                    <Toast 
+                        ref="toast"
+                        style={{backgroundColor:'grey'}}/> 
                     </ImageBackground>
                 </Container>
                 <ModalRecommended></ModalRecommended>
