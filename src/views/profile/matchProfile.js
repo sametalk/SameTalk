@@ -20,7 +20,7 @@ class MatchProfile extends Component {
                   </Body>
                 </Left>
                 <Right>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Tagger')}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Tagger', {id: profile.id})}>
                     <Icon type="FontAwesome" name='tag' style={{ color: "gray" }} />
                   </TouchableOpacity>
                 </Right>

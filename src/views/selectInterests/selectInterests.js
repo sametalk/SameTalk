@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, Dimensions, TouchableOpacity, ImageBackground, BackHandler} from 'react-native';
 import { connect } from 'react-redux';
-import { StackActions, NavigationActions } from 'react-navigation';
 import { getListInterests, selectedInterests, setInterest } from '../../actions';
 import { Container, Header, Left, Body, Text, Button, Icon, Title } from 'native-base';
-import { violetDegradation } from '../../constant/colors';
 import ModalRecommended from '../../components/modalRecommended';
 
 const numColumns = 2;
@@ -70,7 +68,6 @@ class selectInterests extends Component {
     }
 
     renderItem = ({ item, index }) => {
-        let colorCalculation = (index + 1) % this.state.interests.length
         if (item.empty === true) {
             return <View style={[styles.item, styles.itemInvisible]} />;
         }
