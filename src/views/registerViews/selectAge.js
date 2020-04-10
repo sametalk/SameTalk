@@ -24,11 +24,7 @@ class selectAge extends Component {
     */
    nextStep = () => {
         const user = this.props.userData
-        let yearOfBirth = this.state.date.substring(0,4)
-        let date = new Date();
-        let currentYear = date.getFullYear()
-        let age = currentYear - yearOfBirth
-        user.age = age
+        user.birthdate = this.state.date
         this.props.userSetData(user)
         this.props.navigation.navigate('SelectCountry')
     }

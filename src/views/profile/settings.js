@@ -12,6 +12,7 @@ import {
   Text,
   Thumbnail
 } from 'native-base';
+import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { updateUser } from '../../actions';
 
@@ -21,7 +22,7 @@ class Settings extends Component {
     super(props)
     this.state = {
       name: this.props.userData.full_name,
-      age: this.props.userData.age.toString()
+      date: this.props.userData.birthdate
     }
   }
 
@@ -31,7 +32,7 @@ class Settings extends Component {
 
   editProfile() {
     const { userData, updateUser } = this.props;
-    userData.age = this.state.age;
+    userData.birthdate = this.state.date;
     userData.full_name = this.state.name;
     updateUser(userData);
     this.props.navigation.navigate('Profile');
@@ -53,7 +54,23 @@ class Settings extends Component {
               <View style={styles.input}>
                 <Item stackedLabel last>
                   <Label>Edad</Label>
-                  <Input keyboardType="numeric" onChangeText={(age) => this.setState({ age })} value={this.state.age} />
+                  <DatePicker
+                      date={this.state.date}
+                      mode="date"
+                      style={{ alignSelf: 'center' }}
+                      format="YYYY-MM-DD"
+                      minDate="1940-01-01"
+                      maxDate="2016-06-01"
+                      confirmBtnText="Confirm"
+                      cancelBtnText="Cancel"
+                      customStyles={{
+                          dateInput: {
+                              borderColor: 'white',
+                              borderBottomColor: 'grey'
+                          }
+                      }}
+                      onDateChange={(date) => { this.setState({ date: date }) }}
+                  />                  
                 </Item>
               </View>
               <View style={styles.inputGroup}>

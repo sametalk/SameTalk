@@ -144,6 +144,7 @@ export const login = (token) => {
             bio: dataInstagram.bio,
             follows: dataInstagram.counts.follows,
             followed_by: dataInstagram.counts.followed_by,
+            birthdate: '',
             age: '',
             coins: 0,
             gender: '',
@@ -161,6 +162,7 @@ export const login = (token) => {
             user.id = dataSameTalk.id
             user.token = loginST.token
             user.full_name = dataSameTalk.full_name
+            user.birthdate = dataSameTalk.birthdate
             user.age = dataSameTalk.age
             user.coins = dataSameTalk.coins
             user.gender = dataSameTalk.gender
@@ -204,7 +206,7 @@ export const updateUser = (user) => {
     return async (dispatch) => {
         dispatch(getData())
         const userUpdate = await updateDataUser(user)
-        dispatch(userUpdateData(userUpdate[0]))
+        dispatch(userUpdateData(userUpdate))
         dispatch(getDataSuccess([]))
     }
 }
@@ -264,9 +266,7 @@ export const getSelectedInterest = ( token_ST ) => {
 export const deleteInterest = (token, id) => {
     return async (dispatch) => {
         dispatch(getData())
-        console.log("entro")
         const response = await deleteInt(token, id)
-        console.log(response)
         dispatch(getSelectedInterest(token))
         dispatch(getDataSuccess([]))
     }

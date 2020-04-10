@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
-    Linking
+    Linking,
+    StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Header, Title, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item, Label, Input, Thumbnail, Right } from 'native-base';
@@ -105,6 +106,7 @@ class ListProfiles extends Component {
 
     render() {
         const { listProfiles } = this.props
+        console.log(listProfiles)
         return (
             <React.Fragment>
                 {
@@ -120,7 +122,7 @@ class ListProfiles extends Component {
                             </View>
                         ) : (
                             <React.Fragment>
-                                <View style={{ flex: 1 }}>
+                                <View style={styles.container}>
                                     <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
                                         <Header style={{ backgroundColor: "white" }}>
                                             <Body style={{ marginLeft: 10 }}>
@@ -314,6 +316,10 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(ListProfiles)
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: StatusBar.currentHeight,
+        flex: 1
+    },
     content: {
         flex: 5,
         alignItems: 'center',

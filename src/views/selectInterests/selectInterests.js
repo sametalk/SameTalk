@@ -89,8 +89,8 @@ class selectInterests extends Component {
                     <Header transparent style={styles.header}>
                         {this.state.level !== 1 &&
                             <Left style={{ flex: 1 }}>
-                                <Button transparent onPress={() => this.handleBackButton}>
-                                    <Icon name='arrow-back' style={styles.color} />
+                                <Button transparent onPress={() => this.handleBackButton()}>
+                                    <Icon name='arrow-back' style={{ color: '#000' }} />
                                 </Button>
                             </Left>
                         }
