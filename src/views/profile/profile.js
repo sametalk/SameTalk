@@ -23,7 +23,8 @@ class profile extends Component {
     }
 
     render() {
-        const { userData, listMatchs, selectedInterests } = this.props
+        const { userData, listMatchs, selectedInterests, countTags} = this.props
+        
         return (
             <View style={{ flex: 1 }}>
                 <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
@@ -73,9 +74,11 @@ class profile extends Component {
                                         </TouchableOpacity>
                                     </View>
                                     <View style={[styles.cardButton, styles.blue]}>
-                                        <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Etiquetas</Text>
-                                        <Icon type="FontAwesome" name="tags" color="yellow" style={[styles.icon, styles.margin, { color: "white" }]} />
-                                        <Text style={[styles.count, styles.margin]}>{userData.coins}</Text>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('MyTags')}>
+                                            <Text style={[styles.margin, { alignSelf: "center", color: "white" }]}>Etiquetas</Text>
+                                            <Icon type="FontAwesome" name="tags" color="yellow" style={[styles.icon, styles.margin, { color: "white" }]} />
+                                            <Text style={[styles.count, styles.margin]}>{countTags}</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                             </CardItem>
@@ -92,6 +95,8 @@ const mapStateToProps = state => {
     return {
         userData: state.userData,
         listMatchs: state.listMatchs,
+        listTags: state.listTags,
+        countTags: state.countTags,
         selectedInterests: state.selectedInterests
     }
 }
