@@ -9,7 +9,6 @@ class MyTags extends Component {
         console.disableYellowBox = true;
         const { getListTags, userData } = this.props
         await getListTags(userData.token, userData.id)
-        console.log(this.props.listTags);
     }
 
     onClick(tag) {
@@ -20,7 +19,6 @@ class MyTags extends Component {
 
     render() {
         const { listTags } = this.props
-        console.log(listTags);
         return (
             <React.Fragment>
                 {

@@ -7,6 +7,7 @@ import {
     getProfiles, 
     getInterests, 
     setInt, 
+    deleteInt,
     getSelectedInt,
     getMatchs,
     updateDataUser,
@@ -17,10 +18,10 @@ import {
 } from '../api'
 import OneSignal from 'react-native-onesignal';
 
-export const selectedInterests = (interest) => {
+export const selectedInterests = (listInterests) => {
     return {
         type: 'selectedInterests',
-        interest: interest
+        listInterests: listInterests
     }
 }
 
@@ -240,7 +241,8 @@ export const setInterest = (interest, token_ST) => {
         dispatch(getData())
         const response = await setInt(interest, token_ST)
         if (response.status !== "error"){
-            dispatch(selectedInterests(interest))
+            const responseListInterest = await getSelectedInt(token_ST)
+            dispatch(selectedInterests(responseListInterest))
         }
         dispatch(getDataSuccess([]))
     }
@@ -252,21 +254,20 @@ export const setInterest = (interest, token_ST) => {
 export const getSelectedInterest = ( token_ST ) => {
     return async (dispatch) => {
         dispatch(getData())
-        const interests = await getSelectedInt(token_ST)
+        const listInterests = await getSelectedInt(token_ST)
+        dispatch(selectedInterests(listInterests))
+        dispatch(getDataSuccess([]))
+    }
+}
 
-        // Hago esto para pasar al formato y que sea compatible cuando agrego un interes al dar click
-        let newArray = []
-        interests.map(i => {
-            let obj = {
-                id: i.category.id,
-                name: i.category.name,
-                children: []
-            }
-            newArray.push(obj)
-        });
-        // --------------------
-
-        dispatch(selectedInterests(newArray))
+// Funcion que elimina un interes seleccionado
+export const deleteInterest = (token, id) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        console.log("entro")
+        const response = await deleteInt(token, id)
+        console.log(response)
+        dispatch(getSelectedInterest(token))
         dispatch(getDataSuccess([]))
     }
 }
@@ -323,9 +324,9 @@ export const getListTags = (token, id) => {
     return async (dispatch) => {
         dispatch(getData())
         const listTags = await getTags(token, id)
-        console.log(listTags)
         dispatch(setListTags(listTags))
         dispatch(setCountTags(listTags))
         dispatch(getDataSuccess([]))
     }
 }
+

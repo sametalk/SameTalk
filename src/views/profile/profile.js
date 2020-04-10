@@ -24,6 +24,7 @@ class profile extends Component {
 
     render() {
         const { userData, listMatchs, selectedInterests, countTags} = this.props
+        
         return (
             <View style={{ flex: 1 }}>
                 <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>

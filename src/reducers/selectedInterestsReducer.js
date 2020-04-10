@@ -2,7 +2,7 @@ export default (state = [], action) => {
     
     switch(action.type){
         case 'selectedInterests':
-            return state.concat(action.interest)
+            return action.listInterests
         default:
             return state
     }   

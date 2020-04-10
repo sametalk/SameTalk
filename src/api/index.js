@@ -112,6 +112,20 @@ export const setInt = async (interest, token_ST) => {
     }
 }
 
+export const deleteInt = async (token_ST, id) => {
+    try {
+        const response = await fetch(URL + `/interests/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 // Solicita la lista de intereses que fueron solicitados por el usuario autenticado
 export const getSelectedInt = async (token_ST) => {
     try {
