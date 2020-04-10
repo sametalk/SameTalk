@@ -106,6 +106,7 @@ class ListProfiles extends Component {
 
     render() {
         const { listProfiles } = this.props
+        console.log(listProfiles)
         return (
             <React.Fragment>
                 {

@@ -266,9 +266,7 @@ export const getSelectedInterest = ( token_ST ) => {
 export const deleteInterest = (token, id) => {
     return async (dispatch) => {
         dispatch(getData())
-        console.log("entro")
         const response = await deleteInt(token, id)
-        console.log(response)
         dispatch(getSelectedInterest(token))
         dispatch(getDataSuccess([]))
     }
