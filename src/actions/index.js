@@ -319,6 +319,13 @@ export const cleanStore = () => {
     }
 }
 
+// Reset list profiles
+export const cleanListProfiles = () => {
+    return dispatch => {
+        dispatch(setListProfiles([]))
+    }
+}
+
 // Obtiene las etiquetas que me dieron
 export const getListTags = (token, id) => {
     return async (dispatch) => {

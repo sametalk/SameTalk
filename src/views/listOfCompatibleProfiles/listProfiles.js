@@ -7,21 +7,31 @@ import {
     Image,
     ImageBackground,
     Linking,
-    StatusBar
+    StatusBar,
+    ScrollView, 
+    RefreshControl,
+    Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Header, Title, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item, Label, Input, Thumbnail, Right } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import { CheckBox } from 'react-native-elements';
 import { setLike, setSuperLike, setDontLike } from '../../api';
-import { getListProfiles, filterProfiles } from '../../actions';
+import { getListProfiles, filterProfiles, cleanListProfiles } from '../../actions';
 import SelectCountryComponent from '../../components/selectCountry';
 
 class ListProfiles extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Personas',
+            swipeEnabled: navigation.getParam('swipeAll', true),
+        };
+    };
 
     constructor(props) {
         super(props)
         this.state = {
+            refreshing: false,
             modalMatchVisible: false,
             modalFilterVisible: false,
             profileMatch: this.props.userData,
@@ -36,13 +46,39 @@ class ListProfiles extends Component {
                 flag: "",
                 code: ""
             },
+            swipedAll: true,
         }
+        this._onRefresh = this._onRefresh.bind(this);
+        this._onSwipedAll = this._onSwipedAll.bind(this);
+    }
+
+    async _onRefresh() {
+        this.setState({refreshing: true});
+        await this.props.getListProfiles(this.props.userData.token);
+        this.setState({refreshing: false});
+        if(this.props.listProfiles.length == 0) {
+            this.setState({swipedAll: true});
+            this.props.navigation.setParams({swipeAll: true});
+        } else {
+            this.setState({swipedAll: false});
+            this.props.navigation.setParams({swipeAll: false});
+        }
+    }
+
+    async _onSwipedAll() {
+        await this.props.cleanListProfiles();
+        this.setState({swipedAll: true});
+        this.props.navigation.setParams({swipeAll: true});
     }
 
     async componentDidMount() {
         console.disableYellowBox = true;
         const { getListProfiles, userData } = this.props
         await getListProfiles(userData.token)
+        if(this.props.listProfiles.length > 0) {
+            this.setState({swipedAll: false});
+            this.props.navigation.setParams({swipeAll: false});
+        }
     }
 
     async onNoLike(profile) {
@@ -105,8 +141,7 @@ class ListProfiles extends Component {
     }
 
     render() {
-        const { listProfiles } = this.props
-        console.log(listProfiles)
+        let { listProfiles } = this.props
         return (
             <React.Fragment>
                 {
@@ -122,7 +157,18 @@ class ListProfiles extends Component {
                             </View>
                         ) : (
                             <React.Fragment>
-                                <View style={styles.container}>
+                                <ScrollView
+                                    contentContainerStyle={{ flex: 1 }}
+                                    style={styles.container}
+                                    refreshControl={
+                                    (this.state.swipedAll) &&
+                                    <RefreshControl
+                                        progressViewOffset={80}
+                                        refreshing={this.state.refreshing}
+                                        onRefresh={this._onRefresh}
+                                    />
+                                    }
+                                >
                                     <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
                                         <Header style={{ backgroundColor: "white" }}>
                                             <Body style={{ marginLeft: 10 }}>
@@ -137,39 +183,40 @@ class ListProfiles extends Component {
                                         <CardStack
                                             style={styles.content}
                                             renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No hay más perfiles compatibles!</Text>}
+                                            onSwipedAll={this._onSwipedAll}
                                             ref={swiper => {
                                                 this.swiper = swiper
                                             }}
+                                            key={listProfiles.length}
                                         >
                                             {listProfiles.map((profile) => (
-                                                <Card key={profile} style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
-                                                    <CardItem key={profile}>
-                                                        <Left>
-                                                            <Thumbnail small source={{ uri: profile.country.flag }} />
+                                                    <Card key={profile.id} style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                                                        <CardItem key={profile.id}>
+                                                            <Left>
+                                                                <Thumbnail small source={{ uri: profile.country.flag }} />
+                                                                <Body>
+                                                                    <Text style={{ color: '#212121' }}>{profile.full_name}</Text>
+                                                                    <Text note>{profile.age} Años</Text>
+                                                                </Body>
+                                                            </Left>
+                                                            <Right>
+                                                                <TouchableOpacity onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
+                                                                    <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                                                                </TouchableOpacity>
+                                                            </Right>
+                                                        </CardItem>
+                                                        <CardItem cardBody>
+                                                            <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
+                                                        </CardItem>
+                                                        <CardItem>
                                                             <Body>
-                                                                <Text style={{ color: '#212121' }}>{profile.full_name}</Text>
-                                                                <Text note>{profile.age} Años</Text>
+                                                                <Body>
+                                                                    <Text style={{ color: '#4B515D', fontSize: 20, fontWeight: '600' }}>Compatibilidad: {profile.compatibility}</Text>
+                                                                </Body>
                                                             </Body>
-                                                        </Left>
-                                                        <Right>
-                                                            <TouchableOpacity onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
-                                                                <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
-                                                            </TouchableOpacity>
-                                                        </Right>
-                                                    </CardItem>
-                                                    <CardItem cardBody>
-                                                        <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
-                                                    </CardItem>
-                                                    <CardItem>
-                                                        <Body>
-                                                            <Body>
-                                                                <Text style={{ color: '#4B515D', fontSize: 20, fontWeight: '600' }}>Compatibilidad: {profile.compatibility}</Text>
-                                                            </Body>
-                                                        </Body>
-                                                    </CardItem>
-                                                </Card>
-                                            ))}
-                                        </CardStack>
+                                                        </CardItem>
+                                                    </Card>
+                                            ))}</CardStack>
                                         <View style={styles.footer}>
                                             <View style={styles.buttonContainer}>
                                                 <TouchableOpacity onPress={() => this.swiper.swipeLeft()}>
@@ -184,8 +231,7 @@ class ListProfiles extends Component {
                                             </View>
                                         </View>
                                     </ImageBackground>
-                                </View>
-
+                                </ScrollView>
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
@@ -309,16 +355,18 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getListProfiles: (token) => dispatch(getListProfiles(token)),
-        filterProfiles: (token, data) => dispatch(filterProfiles(token, data))
+        filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
+        cleanListProfiles: () => dispatch(cleanListProfiles())
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListProfiles)
 
+const win = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         marginTop: StatusBar.currentHeight,
-        flex: 1
+        flex: 1,
     },
     content: {
         flex: 5,
@@ -331,7 +379,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: 320,
-        height: 420,
+        flex: 1,
         borderRadius: 5,
         shadowColor: 'rgba(0,0,0,0.5)',
         shadowOffset: {
@@ -365,7 +413,7 @@ const styles = StyleSheet.create({
         height: 80,
     },
     profile: {
-        height: 300,
+        height: win.width/1.5,
         width: null,
         flex: 1
     },
