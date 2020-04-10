@@ -12,10 +12,7 @@ import ProfileStack from './profileNavigation'
 */
 const TabNavigator = createMaterialTopTabNavigator({
     ListProfiles: {
-        screen: ListProfiles, 
-        navigationOptions: () => ({
-            title: `Personas`
-        })
+        screen: ListProfiles,
     },
     SelectInterests: {
         screen: SelectInterests, 

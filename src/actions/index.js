@@ -297,3 +297,10 @@ export const cleanStore = () => {
         dispatch(resetStore())
     }
 }
+
+// Reset list profiles
+export const cleanListProfiles = () => {
+    return dispatch => {
+        dispatch(setListProfiles([]))
+    }
+}
