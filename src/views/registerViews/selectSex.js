@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Container, Footer, FooterTab, Card, CardItem, Text, Button, Icon } from 'native-base';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { register, changeReferredModalValue} from '../../actions';
+import { register, changeReferredModalValue } from '../../actions';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 class selectAge extends Component {
@@ -63,49 +63,51 @@ class selectAge extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
-                    <View style={{ flex: 0.50, flexDirection: "row", justifyContent: 'center' }}>
-                        <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
+                <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
+                        <View style={{ flex: 0.50, flexDirection: "row", justifyContent: 'center' }}>
+                            <Card style={{ flex: 0.80, flexDirection: "column", justifyContent: 'center' }}>
 
-                            <CardItem cardBody style={{ flex: 0.50, flexDirection: "column", justifyContent: 'center' }}>
+                                <CardItem cardBody style={{ flex: 0.50, flexDirection: "column", justifyContent: 'center' }}>
 
-                                <Button transparent>
-                                    <Text style={{ textAlign: "center" }}>Seleccione su Sexo:</Text>
-                                </Button>
-                                <View>
-                                    <CheckBox
-                                        center
-                                        title='Mujer'
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checkedColor='red'
-                                        checked={this.state.women}
-                                        onPress={() => this._check('F')}
-                                    />
-                                </View>
-                                <View>
-                                    <CheckBox
-                                        center
-                                        title='Hombre'
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checkedColor='blue'
-                                        checked={this.state.men}
-                                        onPress={() => this._check('M')}
-                                    />
-                                </View>
-                            </CardItem>
+                                    <Button transparent>
+                                        <Text style={{ textAlign: "center" }}>Seleccione su Sexo:</Text>
+                                    </Button>
+                                    <View>
+                                        <CheckBox
+                                            center
+                                            title='Mujer'
+                                            checkedIcon='dot-circle-o'
+                                            uncheckedIcon='circle-o'
+                                            checkedColor='red'
+                                            checked={this.state.women}
+                                            onPress={() => this._check('F')}
+                                        />
+                                    </View>
+                                    <View>
+                                        <CheckBox
+                                            center
+                                            title='Hombre'
+                                            checkedIcon='dot-circle-o'
+                                            uncheckedIcon='circle-o'
+                                            checkedColor='blue'
+                                            checked={this.state.men}
+                                            onPress={() => this._check('M')}
+                                        />
+                                    </View>
+                                </CardItem>
 
-                        </Card>
+                            </Card>
+                        </View>
                     </View>
-                </View>
-                <Footer>
-                    <FooterTab>
-                        <Button full danger onPress={() => this.nextStep()}>
-                            <Icon type="FontAwesome" name="arrow-circle-right" style={{ color: "white" }} />
-                        </Button>
-                    </FooterTab>
-                </Footer>
+                    <Footer>
+                        <FooterTab>
+                            <Button full danger onPress={() => this.nextStep()}>
+                                <Icon type="FontAwesome" name="arrow-circle-right" style={{ color: "white" }} />
+                            </Button>
+                        </FooterTab>
+                    </Footer>
+                </ImageBackground>
             </Container>
         )
     }
@@ -129,6 +131,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(selectAge)
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F1F3F5'
+    },
+    imageBackground: {
+        width: '100%',
+        height: '100%'
     }
 })
 

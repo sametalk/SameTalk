@@ -14,38 +14,40 @@ class register extends Component {
         const { userData } = this.props
         return (
             <Container style={styles.container}>
-                <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center'}}>
-                    <View style={{ flex: 0.90, flexDirection: "row", justifyContent: 'center' }}>
-                        <Card style={{ flex: 0.90, flexDirection: "column", alignSelf: 'center'}}>
-                            <CardItem style={{ flexDirection: "column"}}>
-                                <Text>Bienvenido a Same Talk</Text>
-                                <Text note>{userData.full_name}</Text>
-                            </CardItem>
-                            <CardItem cardBody style={{ flex: 0.50, flexDirection: "row", alignSelf: 'center' }}>
-                                <Avatar
-                                    rounded
-                                    size="xlarge"
-                                    source={{ uri: userData.profile_picture }}
-                                />
-                            </CardItem>
-                            <CardItem>
-                                <Body>
-                                    <Button transparent>
-                                        <Text style={{ textAlign: "center" }}>Complete los datos para finalizar su registro</Text>
-                                    </Button>
-                                </Body>
-                            </CardItem>
+                <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
+                        <View style={{ flex: 0.90, flexDirection: "row", justifyContent: 'center' }}>
+                            <Card style={{ flex: 0.90, flexDirection: "column", alignSelf: 'center' }}>
+                                <CardItem style={{ flexDirection: "column" }}>
+                                    <Text>Bienvenido a Same Talk</Text>
+                                    <Text note>{userData.full_name}</Text>
+                                </CardItem>
+                                <CardItem cardBody style={{ flex: 0.50, flexDirection: "row", alignSelf: 'center' }}>
+                                    <Avatar
+                                        rounded
+                                        size="xlarge"
+                                        source={{ uri: userData.profile_picture }}
+                                    />
+                                </CardItem>
+                                <CardItem>
+                                    <Body>
+                                        <Button transparent>
+                                            <Text style={{ textAlign: "center" }}>Complete los datos para finalizar su registro</Text>
+                                        </Button>
+                                    </Body>
+                                </CardItem>
 
-                        </Card>
+                            </Card>
+                        </View>
                     </View>
-                </View>
-                <Footer>
-                    <FooterTab>
+                    <Footer>
+                        <FooterTab>
                             <Button full danger onPress={() => this.props.navigation.navigate('SelectAge')} >
-                                <Icon type="FontAwesome" name="arrow-circle-right" style={{color: "white"}}/>
+                                <Icon type="FontAwesome" name="arrow-circle-right" style={{ color: "white" }} />
                             </Button>
-                    </FooterTab>
-                </Footer>
+                        </FooterTab>
+                    </Footer>
+                </ImageBackground>
             </Container>
         )
     }
@@ -91,5 +93,9 @@ const styles = StyleSheet.create({
     },
     button: {
         color: '#34222e'
+    },
+    imageBackground: {
+        width: '100%',
+        height: '100%'
     }
 });
