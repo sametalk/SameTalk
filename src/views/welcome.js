@@ -165,14 +165,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   button: {
-    width: Platform.OS === 'ios' ? '75%' : '60%',
+    width: '60%',
     alignSelf: 'center',
     borderRadius: 10,
     marginTop: 10,
   },
   text: {
     fontFamily: 'Roboto',
-    fontSize: Platform.OS === 'ios' ? 10 : 12.5,
+    fontSize: 12.5,
   },
   image: {
     alignSelf: 'center',
