@@ -9,6 +9,7 @@ import countries from './countriesReducer'
 import showReferredModal from './showReferredModalReducer'
 import listTags from './listTagsReducer'
 import countTags from './countTagsReducer'
+import listLikeMee from './listLikeMeeReducer'
 import { RESET_STORE } from '../constant'
 
 /*
@@ -25,7 +26,8 @@ const appReducer = combineReducers({
     countries,
     showReferredModal,
     listTags,
-    countTags
+    countTags,
+    listLikeMee
 })
   
 export default rootReducer = (state, action) => {
