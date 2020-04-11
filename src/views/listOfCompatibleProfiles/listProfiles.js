@@ -601,7 +601,30 @@ const styles = StyleSheet.create({
   },
 
   /*--------------Modal Filter CSS--------------*/
+
   containerFilter: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'grey',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+  },
+  cardFilter: {
+    flex: 0.45,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: 350,
+    minHeight: 350,
+    borderRadius: 20,
+  },
+
+  iconButton: {
+    color: 'white',
+    fontSize: 20,
+  },
+  containerFilterMatch: {
     flexDirection: 'column',
     backgroundColor: 'grey',
     justifyContent: 'center',
@@ -609,7 +632,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
     borderRadius: 20,
   },
-  cardFilter: {
+  cardFilterMatch: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -617,7 +640,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
-  iconButton: {
+  iconButtonMatch: {
     color: 'white',
     fontSize: 20,
   },

@@ -50,7 +50,7 @@ const TabNavigator = createMaterialTopTabNavigator(
       inactiveTintColor: 'grey',
       showIcon: true,
       style: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(0, 0, 0, 1)',
         elevation: 8,
         padding: 0,
         margin: 0,
