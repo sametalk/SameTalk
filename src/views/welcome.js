@@ -120,10 +120,7 @@ class welcome extends Component {
           ) : (
             <View style={styles.loading}>
               <View style={styles.loadingItem}>
-                <Spinner color="red" style={{textAlign: 'center'}} />
-                <Text style={{textAlign: 'center', color: 'red'}}>
-                  Cargando...
-                </Text>
+                <Spinner color="white" style={{textAlign: 'center'}} />
               </View>
             </View>
           )}
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Roboto',
-    fontSize: 12.5,
+    fontSize: Platform.OS === 'ios' ? 14 : 12.5,
   },
   image: {
     alignSelf: 'center',
@@ -188,9 +185,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: 300,
     borderRadius: 20,
-    borderColor: 'black',
     opacity: 0.95,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignSelf: 'center',
   },
