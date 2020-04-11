@@ -7,6 +7,7 @@ import { Container, Content, List, ListItem, Left, Body, Thumbnail, Text } from 
 import tags from '../../constant/tags';
 import { tagUser } from '../../api';
 import { connect } from 'react-redux';
+import { discountCoins } from '../../actions';
 
 class Tagger extends Component {
 
@@ -15,9 +16,11 @@ class Tagger extends Component {
     }
 
     onTag(idTag) {
-        let user = this.props.userData;
+        const { userData, discountCoins } = this.props;
         let id = this.props.navigation.state.params.id;
-        tagUser(user.token, idTag, id);
+        discountCoins(userData);
+        tagUser(userData.token, idTag, id);
+        this.props.navigation.goBack();
     }
 
     render() {
@@ -50,5 +53,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Tagger)
+const mapDispatchToProps = dispatch => {
+    return {
+        discountCoins: (token) => dispatch(discountCoins(token))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tagger)
 
