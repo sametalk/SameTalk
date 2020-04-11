@@ -8,7 +8,7 @@ import {
     ImageBackground,
     Linking,
     StatusBar,
-    ScrollView, 
+    ScrollView,
     RefreshControl,
     Dimensions,
 } from 'react-native';
@@ -19,6 +19,7 @@ import { CheckBox } from 'react-native-elements';
 import { setLike, setSuperLike, setDontLike } from '../../api';
 import { getListProfiles, filterProfiles, cleanListProfiles } from '../../actions';
 import SelectCountryComponent from '../../components/selectCountry';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 class ListProfiles extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -34,6 +35,10 @@ class ListProfiles extends Component {
             refreshing: false,
             modalMatchVisible: false,
             modalFilterVisible: false,
+            alert: {
+                show: false,
+                showConfirmButton: true
+            },
             profileMatch: this.props.userData,
             listProfiles: this.props.listProfiles,
             women: false,
@@ -52,33 +57,33 @@ class ListProfiles extends Component {
         this._onSwipedAll = this._onSwipedAll.bind(this);
     }
 
+    async componentDidMount() {
+        console.disableYellowBox = true;
+        const { getListProfiles, userData } = this.props
+        await getListProfiles(userData.token)
+        if (this.props.listProfiles.length > 0) {
+            this.setState({ swipedAll: false });
+            this.props.navigation.setParams({ swipeAll: false });
+        }
+    }
+
     async _onRefresh() {
-        this.setState({refreshing: true});
+        this.setState({ refreshing: true });
         await this.props.getListProfiles(this.props.userData.token);
-        this.setState({refreshing: false});
-        if(this.props.listProfiles.length == 0) {
-            this.setState({swipedAll: true});
-            this.props.navigation.setParams({swipeAll: true});
+        this.setState({ refreshing: false });
+        if (this.props.listProfiles.length == 0) {
+            this.setState({ swipedAll: true });
+            this.props.navigation.setParams({ swipeAll: true });
         } else {
-            this.setState({swipedAll: false});
-            this.props.navigation.setParams({swipeAll: false});
+            this.setState({ swipedAll: false });
+            this.props.navigation.setParams({ swipeAll: false });
         }
     }
 
     async _onSwipedAll() {
         await this.props.cleanListProfiles();
-        this.setState({swipedAll: true});
-        this.props.navigation.setParams({swipeAll: true});
-    }
-
-    async componentDidMount() {
-        console.disableYellowBox = true;
-        const { getListProfiles, userData } = this.props
-        await getListProfiles(userData.token)
-        if(this.props.listProfiles.length > 0) {
-            this.setState({swipedAll: false});
-            this.props.navigation.setParams({swipeAll: false});
-        }
+        this.setState({ swipedAll: true });
+        this.props.navigation.setParams({ swipeAll: true });
     }
 
     async onNoLike(profile) {
@@ -140,6 +145,22 @@ class ListProfiles extends Component {
         Linking.openURL("https://www.instagram.com/" + this.state.profileMatch.username);
     }
 
+    calculateCoinsForSuperLike() {
+        let coins = this.props.userData.coins;
+        let permitted = true;
+
+        if ((coins - 10) <= 0) {
+            permitted = false;
+        }
+        
+        this.setState({ 
+            alert: {
+                show: true,
+                showConfirmButton: true
+            }
+        })
+    }
+
     render() {
         let { listProfiles } = this.props
         return (
@@ -161,12 +182,12 @@ class ListProfiles extends Component {
                                     contentContainerStyle={{ flex: 1 }}
                                     style={styles.container}
                                     refreshControl={
-                                    (this.state.swipedAll) &&
-                                    <RefreshControl
-                                        progressViewOffset={80}
-                                        refreshing={this.state.refreshing}
-                                        onRefresh={this._onRefresh}
-                                    />
+                                        (this.state.swipedAll) &&
+                                        <RefreshControl
+                                            progressViewOffset={80}
+                                            refreshing={this.state.refreshing}
+                                            onRefresh={this._onRefresh}
+                                        />
                                     }
                                 >
                                     <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
@@ -175,6 +196,9 @@ class ListProfiles extends Component {
                                                 <Title style={{ color: '#414241' }}>Perfiles compatibles:</Title>
                                             </Body>
                                             <Right>
+                                                <Button transparent onPress={() => this.calculateCoinsForSuperLike()}>
+                                                    <Icon type="FontAwesome" name='heart' style={{ color: "grey" }} />
+                                                </Button>
                                                 <Button transparent onPress={() => this.setState({ modalFilterVisible: true })}>
                                                     <Icon type="FontAwesome" name='filter' style={{ color: "gray" }} />
                                                 </Button>
@@ -190,32 +214,32 @@ class ListProfiles extends Component {
                                             key={listProfiles.length}
                                         >
                                             {listProfiles.map((profile) => (
-                                                    <Card key={profile.id} style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
-                                                        <CardItem key={profile.id}>
-                                                            <Left>
-                                                                <Thumbnail small source={{ uri: profile.country.flag }} />
-                                                                <Body>
-                                                                    <Text style={{ color: '#212121' }}>{profile.full_name}</Text>
-                                                                    <Text note>{profile.age} Años</Text>
-                                                                </Body>
-                                                            </Left>
-                                                            <Right>
-                                                                <TouchableOpacity onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
-                                                                    <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
-                                                                </TouchableOpacity>
-                                                            </Right>
-                                                        </CardItem>
-                                                        <CardItem cardBody>
-                                                            <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
-                                                        </CardItem>
-                                                        <CardItem>
+                                                <Card key={profile.id} style={styles.card} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                                                    <CardItem key={profile.id}>
+                                                        <Left>
+                                                            <Thumbnail small source={{ uri: profile.country.flag }} />
                                                             <Body>
-                                                                <Body>
-                                                                    <Text style={{ color: '#4B515D', fontSize: 20, fontWeight: '600' }}>Compatibilidad: {profile.compatibility}</Text>
-                                                                </Body>
+                                                                <Text style={{ color: '#212121' }}>{profile.full_name}</Text>
+                                                                <Text note>{profile.age} Años</Text>
                                                             </Body>
-                                                        </CardItem>
-                                                    </Card>
+                                                        </Left>
+                                                        <Right>
+                                                            <TouchableOpacity onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
+                                                                <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                                                            </TouchableOpacity>
+                                                        </Right>
+                                                    </CardItem>
+                                                    <CardItem cardBody>
+                                                        <Image source={{ uri: profile.profile_picture }} style={styles.profile} />
+                                                    </CardItem>
+                                                    <CardItem>
+                                                        <Body>
+                                                            <Body>
+                                                                <Text style={{ color: '#4B515D', fontSize: 20, fontWeight: '600' }}>Compatibilidad: {profile.compatibility}</Text>
+                                                            </Body>
+                                                        </Body>
+                                                    </CardItem>
+                                                </Card>
                                             ))}</CardStack>
                                         <View style={styles.footer}>
                                             <View style={styles.buttonContainer}>
@@ -267,7 +291,7 @@ class ListProfiles extends Component {
                                                     rounded
                                                     success
                                                     onPress={() => this.goToInstagram()}
-                                                    style={[styles.buttonModal, { marginLeft: 10, backgroundColor:"#4B62A5" }]}>
+                                                    style={[styles.buttonModal, { marginLeft: 10, backgroundColor: "#4B62A5" }]}>
                                                     <Text>Seguir <Icon type="FontAwesome" name="instagram" style={styles.iconButton} /></Text>
                                                 </Button>
                                             </CardItem>
@@ -327,24 +351,55 @@ class ListProfiles extends Component {
                                                 </Button>
                                             </CardItem>
                                             <CardItem>
-                                                <Button 
-                                                    rounded 
-                                                    danger 
-                                                    onPress={() => this.setState({ modalFilterVisible: false })} 
+                                                <Button
+                                                    rounded
+                                                    danger
+                                                    onPress={() => this.setState({ modalFilterVisible: false })}
                                                     style={[styles.buttonModal, { marginRight: 10 }]}>
                                                     <Text>Cerrar <Icon type="FontAwesome" name="times-circle" style={styles.iconButton} /></Text>
                                                 </Button>
-                                                <Button 
-                                                    rounded 
-                                                    success 
+                                                <Button
+                                                    rounded
+                                                    success
                                                     onPress={() => this.onFilter()}
-                                                    style={[styles.buttonModal, { backgroundColor:"#4B62A5" }]}>
+                                                    style={[styles.buttonModal, { backgroundColor: "#4B62A5" }]}>
                                                     <Text>Filtrar <Icon type="FontAwesome" name='filter' style={styles.iconButton} /></Text>
                                                 </Button>
                                             </CardItem>
                                         </Card>
                                     </View>
                                 </Modal>
+                                <AwesomeAlert
+                                    show={this.state.alert.show}
+                                    showProgress={false}
+                                    title="¿Quieres ver quien te dio Like?"
+                                    message={this.state.alert.showConfirmButton ? 'Se te descontarán 10 monedas' : 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas'}
+                                    messageStyle={{textAlign: "center"}}
+                                    closeOnTouchOutside={true}
+                                    closeOnHardwareBackPress={false}
+                                    showCancelButton={true}
+                                    showConfirmButton={this.state.alert.showConfirmButton}
+                                    cancelText={this.state.alert.showConfirmButton ? 'No, cancelar' : 'Salir'}
+                                    confirmText="Si, continuar"
+                                    cancelButtonColor="#d9534f"
+                                    confirmButtonColor="#4B62A5"
+                                    onCancelPressed={() => {
+                                        this.setState({
+                                            alert: {
+                                                show: false
+                                            }
+                                        });
+                                    }}
+                                    onConfirmPressed={() => {
+                                        this.setState({
+                                            alert: {
+                                                show: false
+                                            }
+                                        });
+
+                                        this.props.navigation.navigate('SeeWhoLikeMee')
+                                    }}
+                                />
                             </React.Fragment>
                         )}
             </React.Fragment>
@@ -373,7 +428,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(ListProfiles)
 const win = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
-        marginTop: StatusBar.currentHeight,
         flex: 1,
     },
     content: {
@@ -421,7 +475,7 @@ const styles = StyleSheet.create({
         height: 80,
     },
     profile: {
-        height: win.width/1.5,
+        height: win.width / 1.5,
         width: null,
         flex: 1
     },
@@ -508,6 +562,6 @@ const styles = StyleSheet.create({
     },
     buttonCountry: {
         borderRadius: 10,
-        backgroundColor:"#00C851"
+        backgroundColor: "grey"
     }
 });

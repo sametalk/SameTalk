@@ -69,7 +69,7 @@ const ProfileStack = createStackNavigator(
       navigationOptions: () => ({
         title: `Etiquetado por:`
       }),
-    }
+    },
   },
   {
     initialRouteName: 'Profile',

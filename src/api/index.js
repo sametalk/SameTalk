@@ -307,17 +307,53 @@ export const tagUser = async (token_ST, idTag, idUser) => {
     }
 }
 
-//Etiquetar usuario
+//Trae las etiquetas que se le pusieron al usuario logueado
 export const getTags = async (token_ST, idUser) => {
     try {
+        console.log(token_ST)
         const response = await fetch(URL + `/tags/user/${idUser}`, {
             headers: {
                 "Authorization": "Bearer " + token_ST
             }
         })
+        console.log(response)
+        return response.json()
+    } catch {
+        console.log(error)
+    }
+}
+
+//Descontar monedas
+export const discount = async (user) => {
+    try {
+        const response = await fetch(URL + `/users/self`, {
+            method: "PUT",
+            body: JSON.stringify({
+                coins: user.coins - 10,
+            }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.token
+            }
+        })
         console.log(response);
         return response.json()
-    } catch{
+    } catch {
+        console.log(error)
+    }
+}
+
+//Obtener quien me dio likes
+export const fetchListLikeMee = async (token_ST) => {
+    try {
+        const response = await fetch(URL + `/matches/likedMe`, {
+            headers: {
+                "Authorization": "Bearer " + token_ST
+            }
+        })
+        return response.json()
+    } catch {
         console.log(error)
     }
 }
