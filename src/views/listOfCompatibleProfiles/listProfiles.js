@@ -11,6 +11,7 @@ import {
   ScrollView,
   RefreshControl,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {
@@ -191,124 +192,135 @@ class ListProfiles extends Component {
                   />
                 )
               }>
-              <ImageBackground
-                source={require('../../../assets/image/fondo.png')}
-                style={styles.imageBackground}
-                imageStyle={{opacity: 0.3}}>
-                <Header style={{backgroundColor: 'white'}}>
-                  <Body style={{marginLeft: 10}}>
-                    <Title style={{color: '#414241'}}>
-                      Perfiles compatibles:
+              <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+                <StatusBar barStyle="light-content" />
+                <SafeAreaView style={{flex: 1}}>
+                  <View
+                    style={[
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        height: 48,
+                        width: '100%',
+                        paddingHorizontal: 10,
+                      },
+                    ]}>
+                    <View />
+                    <Title style={{color: 'white'}}>
+                      Selecciona tus intereses{' '}
                     </Title>
-                  </Body>
-                  <Right>
-                    <Button
-                      transparent
+                    <TouchableOpacity
                       onPress={() => this.setState({modalFilterVisible: true})}>
                       <Icon
-                        type="FontAwesome"
-                        name="filter"
-                        style={{color: 'gray'}}
-                      />
-                    </Button>
-                  </Right>
-                </Header>
-                <CardStack
-                  style={styles.content}
-                  renderNoMoreCards={() => (
-                    <Text
-                      style={{fontWeight: '700', fontSize: 18, color: 'gray'}}>
-                      No hay más perfiles compatibles!
-                    </Text>
-                  )}
-                  onSwipedAll={this._onSwipedAll}
-                  ref={swiper => {
-                    this.swiper = swiper;
-                  }}
-                  key={listProfiles.length}>
-                  {listProfiles.map(profile => (
-                    <Card
-                      key={profile.id}
-                      style={styles.card}
-                      onSwipedLeft={() => this.onNoLike(profile)}
-                      onSwipedRight={() => this.onLike(profile, 'like')}>
-                      <CardItem key={profile.id}>
-                        <Left>
-                          <Thumbnail
-                            small
-                            source={{uri: profile.country.flag}}
-                          />
-                          <Body>
-                            <Text style={{color: '#212121'}}>
-                              {profile.full_name}
-                            </Text>
-                            <Text note>{profile.age} Años</Text>
-                          </Body>
-                        </Left>
-                        <Right>
-                          <TouchableOpacity
-                            onPress={() => {
-                              this.onLike(profile, 'super-like'),
-                                this.swiper.swipeBottom();
-                            }}>
-                            <Icon
-                              type="FontAwesome"
-                              name="star"
-                              style={{fontSize: 25, color: '#37D7DE'}}
-                            />
-                          </TouchableOpacity>
-                        </Right>
-                      </CardItem>
-                      <CardItem cardBody>
-                        <Image
-                          source={{uri: profile.profile_picture}}
-                          style={styles.profile}
-                        />
-                      </CardItem>
-                      <CardItem>
-                        <Body>
-                          <Body>
-                            <Text
-                              style={{
-                                color: '#4B515D',
-                                fontSize: 20,
-                                fontWeight: '600',
-                              }}>
-                              Compatibilidad: {profile.compatibility}
-                            </Text>
-                          </Body>
-                        </Body>
-                      </CardItem>
-                    </Card>
-                  ))}
-                </CardStack>
-                <View style={styles.footer}>
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={() => this.swiper.swipeLeft()}>
-                      <Image
-                        source={require('../../../assets/image/buttons/dislike.png')}
-                        resizeMode={'contain'}
-                        style={styles.dislike}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => this.swiper.goBackFromLeft()}>
-                      <Image
-                        source={require('../../../assets/image/buttons/refresh.png')}
-                        resizeMode={'contain'}
-                        style={styles.goBack}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.swiper.swipeRight()}>
-                      <Image
-                        source={require('../../../assets/image/buttons/like.png')}
-                        resizeMode={'contain'}
-                        style={styles.like}
+                        type="MaterialCommunityIcons"
+                        name="filter-variant"
+                        style={{color: 'white'}}
                       />
                     </TouchableOpacity>
                   </View>
-                </View>
-              </ImageBackground>
+                  <CardStack
+                    style={styles.content}
+                    renderNoMoreCards={() => (
+                      <Text
+                        style={{
+                          fontWeight: '700',
+                          fontSize: 18,
+                          color: 'gray',
+                        }}>
+                        No hay más perfiles compatibles!
+                      </Text>
+                    )}
+                    onSwipedAll={this._onSwipedAll}
+                    ref={swiper => {
+                      this.swiper = swiper;
+                    }}
+                    key={listProfiles.length}>
+                    {listProfiles.map(profile => (
+                      <Card
+                        key={profile.id}
+                        style={styles.card}
+                        onSwipedLeft={() => this.onNoLike(profile)}
+                        onSwipedRight={() => this.onLike(profile, 'like')}>
+                        <CardItem key={profile.id}>
+                          <Left>
+                            <Thumbnail
+                              small
+                              source={{uri: profile.country.flag}}
+                            />
+                            <Body>
+                              <Text style={{color: '#212121'}}>
+                                {profile.full_name}
+                              </Text>
+                              <Text note>{profile.age} Años</Text>
+                            </Body>
+                          </Left>
+                          <Right>
+                            <TouchableOpacity
+                              onPress={() => {
+                                this.onLike(profile, 'super-like'),
+                                  this.swiper.swipeBottom();
+                              }}>
+                              <Icon
+                                type="FontAwesome"
+                                name="star"
+                                style={{fontSize: 25, color: '#37D7DE'}}
+                              />
+                            </TouchableOpacity>
+                          </Right>
+                        </CardItem>
+                        <CardItem cardBody>
+                          <Image
+                            source={{uri: profile.profile_picture}}
+                            style={styles.profile}
+                          />
+                        </CardItem>
+                        <CardItem>
+                          <Body>
+                            <Body>
+                              <Text
+                                style={{
+                                  color: '#4B515D',
+                                  fontSize: 20,
+                                  fontWeight: '600',
+                                }}>
+                                Compatibilidad: {profile.compatibility}
+                              </Text>
+                            </Body>
+                          </Body>
+                        </CardItem>
+                      </Card>
+                    ))}
+                  </CardStack>
+                  <View style={styles.footer}>
+                    <View style={styles.buttonContainer}>
+                      <TouchableOpacity onPress={() => this.swiper.swipeLeft()}>
+                        <Image
+                          source={require('../../../assets/image/buttons/dislike.png')}
+                          resizeMode={'contain'}
+                          style={styles.dislike}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => this.swiper.goBackFromLeft()}>
+                        <Image
+                          source={require('../../../assets/image/buttons/refresh.png')}
+                          resizeMode={'contain'}
+                          style={styles.goBack}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => this.swiper.swipeRight()}>
+                        <Image
+                          source={require('../../../assets/image/buttons/like.png')}
+                          resizeMode={'contain'}
+                          style={styles.like}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </SafeAreaView>
+              </View>
             </ScrollView>
             <Modal
               animationType="slide"
@@ -447,14 +459,7 @@ class ListProfiles extends Component {
                       danger
                       onPress={() => this.setState({modalFilterVisible: false})}
                       style={[styles.buttonModal, {marginRight: 10}]}>
-                      <Text>
-                        Cerrar{' '}
-                        <Icon
-                          type="FontAwesome"
-                          name="times-circle"
-                          style={styles.iconButton}
-                        />
-                      </Text>
+                      <Text>Cerrar </Text>
                     </Button>
                     <Button
                       rounded
@@ -464,14 +469,7 @@ class ListProfiles extends Component {
                         styles.buttonModal,
                         {backgroundColor: '#4B62A5'},
                       ]}>
-                      <Text>
-                        Filtrar{' '}
-                        <Icon
-                          type="FontAwesome"
-                          name="filter"
-                          style={styles.iconButton}
-                        />
-                      </Text>
+                      <Text>Filtrar </Text>
                     </Button>
                   </CardItem>
                 </Card>
@@ -508,7 +506,6 @@ export default connect(
 const win = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
     flex: 1,
   },
   content: {

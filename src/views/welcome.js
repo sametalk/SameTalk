@@ -6,12 +6,14 @@ import {
   View,
   Image,
   BackHandler,
+  Platform,
 } from 'react-native';
 import InstagramLogin from 'react-native-instagram-login';
 import {connect} from 'react-redux';
 import {login, cleanStore} from '../actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationActions, StackActions} from 'react-navigation';
+import {TouchableOpacity} from 'react-native';
 
 class welcome extends Component {
   constructor(props) {
@@ -93,15 +95,29 @@ class welcome extends Component {
                 />
               </View>
               <View style={styles.buttonZone}>
-                <Button
-                  iconLeft
-                  danger
-                  full
-                  style={styles.button}
-                  onPress={() => this.instagramLogin.show()}>
-                  <Icon type="AntDesign" name="instagram" />
-                  <Text style={styles.text}>Conectarse con Instagram</Text>
-                </Button>
+                <View style={{alignItems: 'center'}}>
+                  <TouchableOpacity
+                    style={{
+                      width: Platform.OS === 'ios' ? '65%' : '60%',
+                      height: 50,
+                      backgroundColor: '#d9534f',
+                      flexDirection: 'row',
+                      borderRadius: 10,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    onPress={() => this.instagramLogin.show()}>
+                    <Icon
+                      type="AntDesign"
+                      name="instagram"
+                      style={{color: 'white'}}
+                    />
+                    <View style={{marginLeft: 5}} />
+                    <Text style={[styles.text, {color: 'white'}]}>
+                      Conectarse con Instagram
+                    </Text>
+                  </TouchableOpacity>
+                </View>
                 <InstagramLogin
                   ref={ref => (this.instagramLogin = ref)}
                   clientId="c222a1cb5aa94671adc8c085a2d1aaf4"
@@ -169,7 +185,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Roboto',
-    fontSize: Platform.OS === 'ios' ? 14 : 12.5,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   image: {
     alignSelf: 'center',

@@ -133,9 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: Platform.OS === 'ios' ? '35%' : '20%',
   },
-  header: {
-    backgroundColor: 'white',
-  },
+
   card: {
     width: 320,
     paddingBottom: 10,
