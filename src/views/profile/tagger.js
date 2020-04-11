@@ -7,6 +7,7 @@ import { Container, Content, List, ListItem, Left, Body, Thumbnail, Text } from 
 import tags from '../../constant/tags';
 import { tagUser } from '../../api';
 import { connect } from 'react-redux';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 class Tagger extends Component {
 
@@ -17,7 +18,9 @@ class Tagger extends Component {
     onTag(idTag) {
         let user = this.props.userData;
         let id = this.props.navigation.state.params.id;
+        this.refs.toast.show('¡Match etiquetado!', DURATION.LENGTH_SHORT);
         tagUser(user.token, idTag, id);
+        this.props.navigation.goBack();
     }
 
     render() {
@@ -38,6 +41,9 @@ class Tagger extends Component {
                             </TouchableOpacity>
                         ))}
                     </List>
+                    <Toast 
+                        ref="toast"
+                        style={{backgroundColor:'grey'}}/>
                 </Content>
             </Container>
         );
