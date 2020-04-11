@@ -3,7 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {Icon} from 'native-base';
 import SelectInterests from '../views/selectInterests/selectInterests';
-import ListProfiles from '../views/listOfCompatibleProfiles/listProfiles';
+import CompatibleProfileStack from './compatibleProfilesNavigator';
 import ProfileStack from './profileNavigation';
 
 /*
@@ -11,8 +11,11 @@ import ProfileStack from './profileNavigation';
 */
 const TabNavigator = createMaterialTopTabNavigator(
   {
-    ListProfiles: {
-      screen: ListProfiles,
+    CompatibleProfileStack: {
+      screen: CompatibleProfileStack,
+      navigationOptions: () => ({
+        title: `Personas`,
+      }),
     },
     SelectInterests: {
       screen: SelectInterests,
@@ -33,7 +36,7 @@ const TabNavigator = createMaterialTopTabNavigator(
       tabBarIcon: ({focused, horizontal, tintColor}) => {
         const {routeName} = navigation.state;
         let iconName;
-        if (routeName === 'ListProfiles') {
+        if (routeName === 'CompatibleProfileStack') {
           iconName = 'heart';
         } else if (routeName === 'Profile') {
           iconName = 'user';

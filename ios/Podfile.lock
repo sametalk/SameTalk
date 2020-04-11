@@ -62,8 +62,6 @@ PODS:
   - react-native-onesignal (3.6.5):
     - OneSignal (= 2.12.6)
     - React (< 1.0.0, >= 0.13.0)
-  - react-native-statusbar (1.0.3):
-    - React
   - react-native-webview (7.4.3):
     - React
   - React-RCTActionSheet (0.60.5):
@@ -114,7 +112,6 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
-  - "react-native-statusbar (from `../node_modules/@react-native-community/status-bar`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -163,8 +160,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
-  react-native-statusbar:
-    :path: "../node_modules/@react-native-community/status-bar"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -215,7 +210,6 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
   react-native-onesignal: f6e1f20292cba72076ddb97e52290b0d5cc0a51c
-  react-native-statusbar: ee9cc04cf942791e3d10597280d0e1adc876b9e5
   react-native-webview: 82d6456dfae1b3ef70c3939135536342afc96373
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e

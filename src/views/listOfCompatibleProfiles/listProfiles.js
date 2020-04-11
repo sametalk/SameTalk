@@ -7,10 +7,10 @@ import {
   Image,
   ImageBackground,
   Linking,
-  StatusBar,
   ScrollView,
   RefreshControl,
   Dimensions,
+  StatusBar,
   SafeAreaView,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -34,13 +34,10 @@ import {
 import CardStack from 'react-native-card-stack-swiper';
 import {CheckBox} from 'react-native-elements';
 import {setLike, setSuperLike, setDontLike} from '../../api';
-import {
-  getListProfiles,
-  filterProfiles,
-  cleanListProfiles,
-} from '../../actions';
+import {getListProfiles, filterProfiles, setListProfiles} from '../../actions';
 import SelectCountryComponent from '../../components/selectCountry';
-
+import AwesomeAlert from 'react-native-awesome-alerts';
+import IconCoin from 'react-native-vector-icons/AntDesign';
 class ListProfiles extends Component {
   static navigationOptions = ({navigation}) => {
     return {
@@ -55,6 +52,10 @@ class ListProfiles extends Component {
       refreshing: false,
       modalMatchVisible: false,
       modalFilterVisible: false,
+      alert: {
+        show: false,
+        showConfirmButton: true,
+      },
       profileMatch: this.props.userData,
       listProfiles: this.props.listProfiles,
       women: false,
@@ -73,6 +74,29 @@ class ListProfiles extends Component {
     this._onSwipedAll = this._onSwipedAll.bind(this);
   }
 
+  goBack = () => {
+    if (this.state.swipedAll && typeof this.lastProfile !== 'undefined') {
+      this.props.setListProfiles(this.lastProfile);
+      this.setState({swipedAll: false});
+      this.props.navigation.setParams({swipeAll: false});
+    } else {
+      if (this.props.listProfiles.length > 0) {
+        this.swiper.goBackFromLeft();
+        this.props.navigation.setParams({swipeAll: false});
+      }
+    }
+  };
+
+  async componentDidMount() {
+    console.disableYellowBox = true;
+    const {getListProfiles, userData} = this.props;
+    await getListProfiles(userData.token);
+    if (this.props.listProfiles.length > 0) {
+      this.setState({swipedAll: false});
+      this.props.navigation.setParams({swipeAll: false});
+    }
+  }
+
   async _onRefresh() {
     this.setState({refreshing: true});
     await this.props.getListProfiles(this.props.userData.token);
@@ -87,19 +111,13 @@ class ListProfiles extends Component {
   }
 
   async _onSwipedAll() {
-    await this.props.cleanListProfiles();
+    this.lastProfile = new Array();
+    this.lastProfile[0] = this.props.listProfiles[
+      this.props.listProfiles.length - 1
+    ];
+    await this.props.setListProfiles([]);
     this.setState({swipedAll: true});
     this.props.navigation.setParams({swipeAll: true});
-  }
-
-  async componentDidMount() {
-    console.disableYellowBox = true;
-    const {getListProfiles, userData} = this.props;
-    await getListProfiles(userData.token);
-    if (this.props.listProfiles.length > 0) {
-      this.setState({swipedAll: false});
-      this.props.navigation.setParams({swipeAll: false});
-    }
   }
 
   async onNoLike(profile) {
@@ -163,6 +181,22 @@ class ListProfiles extends Component {
     );
   }
 
+  calculateCoinsForSuperLike() {
+    let coins = this.props.userData.coins;
+    let permitted = true;
+
+    if (coins - 10 <= 0) {
+      permitted = false;
+    }
+
+    this.setState({
+      alert: {
+        show: true,
+        showConfirmButton: true,
+      },
+    });
+  }
+
   render() {
     let {listProfiles} = this.props;
     return (
@@ -206,19 +240,34 @@ class ListProfiles extends Component {
                         paddingHorizontal: 10,
                       },
                     ]}>
-                    <View />
                     <Title style={{color: 'white'}}>
                       Selecciona tus intereses{' '}
                     </Title>
-                    <TouchableOpacity
-                      onPress={() => this.setState({modalFilterVisible: true})}>
-                      <Icon
-                        type="MaterialCommunityIcons"
-                        name="filter-variant"
-                        style={{color: 'white'}}
-                      />
-                    </TouchableOpacity>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <TouchableOpacity
+                        onPress={() => this.calculateCoinsForSuperLike()}>
+                        <IconCoin name="hearto" color="white" size={22} />
+                      </TouchableOpacity>
+                      <View style={{marginRight: 8}} />
+
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.setState({modalFilterVisible: true})
+                        }>
+                        <Icon
+                          type="MaterialCommunityIcons"
+                          name="filter-variant"
+                          style={{color: 'white'}}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </View>
+
                   <CardStack
                     style={styles.content}
                     renderNoMoreCards={() => (
@@ -301,8 +350,7 @@ class ListProfiles extends Component {
                           style={styles.dislike}
                         />
                       </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => this.swiper.goBackFromLeft()}>
+                      <TouchableOpacity onPress={() => this.goBack()}>
                         <Image
                           source={require('../../../assets/image/buttons/refresh.png')}
                           resizeMode={'contain'}
@@ -327,19 +375,10 @@ class ListProfiles extends Component {
               transparent={true}
               visible={this.state.modalMatchVisible}>
               <View style={styles.containerMatch}>
-                <View style={styles.modal}>
-                  <View
-                    style={{
-                      paddingTop: 10,
-                      paddingBottom: 10,
-                      width: '100%',
-                      backgroundColor: '#D9544E',
-                      alignItems: 'center',
-                      borderTopLeftRadius: 20,
-                      borderTopRightRadius: 20,
-                    }}>
-                    <H1 style={[styles.title]}>Tienes un Match</H1>
-                  </View>
+                <Card style={styles.modal}>
+                  <CardItem style={styles.titleView}>
+                    <H1 style={styles.title}>Tienes un Match</H1>
+                  </CardItem>
                   <CardItem>
                     <Left>
                       <Thumbnail
@@ -360,25 +399,20 @@ class ListProfiles extends Component {
                       style={styles.profile}
                     />
                   </CardItem>
-                  <View
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'space-around',
-                      paddingHorizontal: 10,
-                      width: '100%',
-                      flexDirection: 'row',
-                      paddingTop: 20,
-                      paddingBottom: 20,
-                      backgroundColor: 'white',
-                      borderBottomLeftRadius: 20,
-                      borderBottomRightRadius: 20,
-                    }}>
+                  <CardItem>
                     <Button
                       rounded
                       danger
                       onPress={() => this.setState({modalMatchVisible: false})}
                       style={styles.buttonModal}>
-                      <Text>Cerrar </Text>
+                      <Text>
+                        Cerrar{' '}
+                        <Icon
+                          type="FontAwesome"
+                          name="times-circle"
+                          style={styles.iconButton}
+                        />
+                      </Text>
                     </Button>
                     <Button
                       rounded
@@ -388,10 +422,17 @@ class ListProfiles extends Component {
                         styles.buttonModal,
                         {marginLeft: 10, backgroundColor: '#4B62A5'},
                       ]}>
-                      <Text>Seguir </Text>
+                      <Text>
+                        Seguir{' '}
+                        <Icon
+                          type="FontAwesome"
+                          name="instagram"
+                          style={styles.iconButton}
+                        />
+                      </Text>
                     </Button>
-                  </View>
-                </View>
+                  </CardItem>
+                </Card>
               </View>
             </Modal>
 
@@ -459,7 +500,14 @@ class ListProfiles extends Component {
                       danger
                       onPress={() => this.setState({modalFilterVisible: false})}
                       style={[styles.buttonModal, {marginRight: 10}]}>
-                      <Text>Cerrar </Text>
+                      <Text>
+                        Cerrar{' '}
+                        <Icon
+                          type="FontAwesome"
+                          name="times-circle"
+                          style={styles.iconButton}
+                        />
+                      </Text>
                     </Button>
                     <Button
                       rounded
@@ -469,12 +517,56 @@ class ListProfiles extends Component {
                         styles.buttonModal,
                         {backgroundColor: '#4B62A5'},
                       ]}>
-                      <Text>Filtrar </Text>
+                      <Text>
+                        Filtrar{' '}
+                        <Icon
+                          type="FontAwesome"
+                          name="filter"
+                          style={styles.iconButton}
+                        />
+                      </Text>
                     </Button>
                   </CardItem>
                 </Card>
               </View>
             </Modal>
+            <AwesomeAlert
+              show={this.state.alert.show}
+              showProgress={false}
+              title="¿Quieres ver quien te dio Like?"
+              message={
+                this.state.alert.showConfirmButton
+                  ? 'Se te descontarán 10 monedas'
+                  : 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas'
+              }
+              messageStyle={{textAlign: 'center'}}
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              showConfirmButton={this.state.alert.showConfirmButton}
+              cancelText={
+                this.state.alert.showConfirmButton ? 'No, cancelar' : 'Salir'
+              }
+              confirmText="Si, continuar"
+              cancelButtonColor="#d9534f"
+              confirmButtonColor="#4B62A5"
+              onCancelPressed={() => {
+                this.setState({
+                  alert: {
+                    show: false,
+                  },
+                });
+              }}
+              onConfirmPressed={() => {
+                this.setState({
+                  alert: {
+                    show: false,
+                  },
+                });
+
+                this.props.navigation.navigate('SeeWhoLikeMee');
+              }}
+            />
           </React.Fragment>
         )}
       </React.Fragment>
@@ -494,7 +586,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getListProfiles: token => dispatch(getListProfiles(token)),
     filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
-    cleanListProfiles: () => dispatch(cleanListProfiles()),
+    setListProfiles: profiles => dispatch(setListProfiles(profiles)),
   };
 };
 
@@ -573,11 +665,12 @@ const styles = StyleSheet.create({
   },
 
   modal: {
+    flex: 0.7,
     flexDirection: 'column',
-    marginTop: 50,
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     width: 350,
-    height: 500,
+    minHeight: 350,
     borderRadius: 20,
   },
 
@@ -598,7 +691,6 @@ const styles = StyleSheet.create({
   },
 
   /*--------------Modal Filter CSS--------------*/
-
   containerFilter: {
     flex: 1,
     flexDirection: 'column',
@@ -621,26 +713,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
   },
-  containerFilterMatch: {
-    flexDirection: 'column',
-    backgroundColor: 'grey',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    borderRadius: 20,
-  },
-  cardFilterMatch: {
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    width: 350,
-    borderRadius: 20,
-  },
-
-  iconButtonMatch: {
-    color: 'white',
-    fontSize: 20,
-  },
 
   /*---------- Countries ---------*/
   country: {
@@ -660,6 +732,6 @@ const styles = StyleSheet.create({
   },
   buttonCountry: {
     borderRadius: 10,
-    backgroundColor: '#00C851',
+    backgroundColor: 'grey',
   },
 });

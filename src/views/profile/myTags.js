@@ -19,6 +19,7 @@ class MyTags extends Component {
 
     render() {
         const { listTags } = this.props
+        console.log(listTags)
         return (
             <React.Fragment>
                 {
@@ -34,7 +35,7 @@ class MyTags extends Component {
                                             <TouchableOpacity key={index}>
                                                 <ListItem thumbnail onPress={() => this.onClick(tag)}>
                                                     <Left>
-                                                        <Thumbnail square source={{ uri: tag.icon }}></Thumbnail>
+                                                        <Thumbnail small source={{ uri: tag.image }}></Thumbnail>
                                                     </Left>
                                                     <Body>
                                                         <Text>{tag.name}</Text>

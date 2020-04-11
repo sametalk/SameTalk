@@ -13,7 +13,6 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		149AF1A77F115A400F31236B /* libPods-SameTalk-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6688A843C42E751AC94190A3 /* libPods-SameTalk-tvOS.a */; };
 		1DA5B6001DAF46DDBE41E286 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9545C27364D546BCAD0222BB /* Zocial.ttf */; };
 		21421EB6A2C046F0B50A191D /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80C1B60B727C421F820AF3BB /* AntDesign.ttf */; };
 		218B8702E3964ACEB882CBAD /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54BED09E6D7E40009720A475 /* FontAwesome5_Solid.ttf */; };
@@ -22,19 +21,20 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* SameTalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SameTalkTests.m */; };
 		346DCD740E774DAD99A4FE7D /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB424C392C604AD39C495183 /* Fontisto.ttf */; };
-		58C9D401257289713DDA8491 /* libPods-SameTalk-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6D117E6A4D5E797BC9DB38 /* libPods-SameTalk-tvOSTests.a */; };
+		53D1D1AA11638B234A34DC4D /* libPods-SameTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E92C39468868374E6C932B /* libPods-SameTalk.a */; };
 		59A9C80FC795455CBDB9CD1B /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 060020CB3121490D878A142C /* MaterialCommunityIcons.ttf */; };
 		5EC9FF0A44894526BD3274B2 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52DB3E44A2854BA6BD801672 /* rubicon-icon-font.ttf */; };
 		609F9A39A60C44A58D55FC26 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F776BA7F0D174EF0A03BDBA3 /* Roboto_medium.ttf */; };
 		6650DF2FA3C84F87862B30F8 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEBC410A9494B2380DB03F8 /* Ionicons.ttf */; };
-		6E5BDA373C7CCF3062CD4FCC /* libPods-SameTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3490049184806BB4756B15DD /* libPods-SameTalk.a */; };
+		669BAF17A54BE4A0471A106C /* libPods-SameTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA08EF1BE2CBFB2E884A102 /* libPods-SameTalkTests.a */; };
 		78A0CF46E3CE4F878919B687 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3454553976224B1496B06E08 /* FontAwesome5_Brands.ttf */; };
 		7C17FD8D79B5429496708D45 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48C60849AE274A1AA30DC9BE /* FontAwesome5_Regular.ttf */; };
 		8157432A462341C08966907E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5FBB9703E99485E84E4B875 /* MaterialIcons.ttf */; };
+		82C9A0CEC04590EA6B9C7C4C /* libPods-SameTalk-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8685E3D8186A334EEF2418 /* libPods-SameTalk-tvOS.a */; };
 		8A41E45BF4BA461B968C560D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F6B4F07CE324DAF9C1A92A4 /* Octicons.ttf */; };
-		95D264FEB9A142FAC1556033 /* libPods-SameTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2271BAA04AE8F0054E356F16 /* libPods-SameTalkTests.a */; };
 		B744FE2654864BD5AF3DD941 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A987E0AB13342F0AE2329D5 /* FontAwesome.ttf */; };
 		BD49B76288B94CE286261D1A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD661B6FFCDC4EF682A4CB7B /* SimpleLineIcons.ttf */; };
+		D0628DDD57869585C55EEBD6 /* libPods-SameTalk-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4EA2BD85E9AD3B5CA731A5 /* libPods-SameTalk-tvOSTests.a */; };
 		E3F0F9CB727E47DC81E7546F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1936EF08745D436D8EAAE6AD /* EvilIcons.ttf */; };
 		F1A6ABFF6A1340D6967213C5 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 525D40A0BF524C508205FFE6 /* Foundation.ttf */; };
 		F4A83D464EE8486484341715 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E8465313D1F419D9182040C /* Entypo.ttf */; };
@@ -64,6 +64,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SameTalkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SameTalkTests.m; sourceTree = "<group>"; };
 		060020CB3121490D878A142C /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		0D4EA2BD85E9AD3B5CA731A5 /* libPods-SameTalk-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalk-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* SameTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SameTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SameTalk/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SameTalk/AppDelegate.m; sourceTree = "<group>"; };
@@ -71,37 +72,36 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SameTalk/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SameTalk/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SameTalk/main.m; sourceTree = "<group>"; };
-		1450A93531B1AC956F1AAED5 /* Pods-SameTalkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalkTests.debug.xcconfig"; path = "Target Support Files/Pods-SameTalkTests/Pods-SameTalkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		147703560ECFCACB380BE3A8 /* Pods-SameTalk-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOSTests/Pods-SameTalk-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		1936EF08745D436D8EAAE6AD /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		1A987E0AB13342F0AE2329D5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		2271BAA04AE8F0054E356F16 /* libPods-SameTalkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B5A608E1F1B56BD318347E3 /* Pods-SameTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk.release.xcconfig"; path = "Target Support Files/Pods-SameTalk/Pods-SameTalk.release.xcconfig"; sourceTree = "<group>"; };
+		20E92C39468868374E6C932B /* libPods-SameTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* SameTalk-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SameTalk-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* SameTalk-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SameTalk-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8465313D1F419D9182040C /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		2EEBC410A9494B2380DB03F8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		2FA08EF1BE2CBFB2E884A102 /* libPods-SameTalkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454553976224B1496B06E08 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		3490049184806BB4756B15DD /* libPods-SameTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B6D117E6A4D5E797BC9DB38 /* libPods-SameTalk-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalk-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48C60849AE274A1AA30DC9BE /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		4A5A383BC67FF6100D0FC686 /* Pods-SameTalkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalkTests.release.xcconfig"; path = "Target Support Files/Pods-SameTalkTests/Pods-SameTalkTests.release.xcconfig"; sourceTree = "<group>"; };
 		525D40A0BF524C508205FFE6 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		52DB3E44A2854BA6BD801672 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		54BED09E6D7E40009720A475 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		631EB9A7C0C05E5F78BA6423 /* Pods-SameTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk.release.xcconfig"; path = "Target Support Files/Pods-SameTalk/Pods-SameTalk.release.xcconfig"; sourceTree = "<group>"; };
-		6688A843C42E751AC94190A3 /* libPods-SameTalk-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalk-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FC52A6C88D9057ED223359F /* Pods-SameTalkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalkTests.debug.xcconfig"; path = "Target Support Files/Pods-SameTalkTests/Pods-SameTalkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		786E53BD64D98DC90F2C96C9 /* Pods-SameTalk-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOS.release.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOS/Pods-SameTalk-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7F6B4F07CE324DAF9C1A92A4 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		80C1B60B727C421F820AF3BB /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		880DC8DC909D7B3069551521 /* Pods-SameTalk-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOSTests/Pods-SameTalk-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8812CA4222B52946ACEBA8E7 /* Pods-SameTalkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalkTests.release.xcconfig"; path = "Target Support Files/Pods-SameTalkTests/Pods-SameTalkTests.release.xcconfig"; sourceTree = "<group>"; };
 		8A2CE0AF22164C1BB7F4D9BA /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
+		8B8685E3D8186A334EEF2418 /* libPods-SameTalk-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SameTalk-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9545C27364D546BCAD0222BB /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		9A41207CD6A86364704D9AEA /* Pods-SameTalk-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOSTests/Pods-SameTalk-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		AD3901496645B4FD0748990F /* Pods-SameTalk-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOSTests/Pods-SameTalk-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B2ADC8323A8AC92C8BC3DF2A /* Pods-SameTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk.debug.xcconfig"; path = "Target Support Files/Pods-SameTalk/Pods-SameTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		C047B907A4DA4D2FB50A80E0 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		C0E2722414482AFA3606D1A5 /* Pods-SameTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk.debug.xcconfig"; path = "Target Support Files/Pods-SameTalk/Pods-SameTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		C5FBB9703E99485E84E4B875 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		D2E048BF8342AC12F609FED6 /* Pods-SameTalk-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOS/Pods-SameTalk-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DB424C392C604AD39C495183 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		DD661B6FFCDC4EF682A4CB7B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		E58F188440475EB0AF6661B7 /* Pods-SameTalk-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOS/Pods-SameTalk-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		EAB43069F8E717156A254ED9 /* Pods-SameTalk-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SameTalk-tvOS.release.xcconfig"; path = "Target Support Files/Pods-SameTalk-tvOS/Pods-SameTalk-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F776BA7F0D174EF0A03BDBA3 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95D264FEB9A142FAC1556033 /* libPods-SameTalkTests.a in Frameworks */,
+				669BAF17A54BE4A0471A106C /* libPods-SameTalkTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E5BDA373C7CCF3062CD4FCC /* libPods-SameTalk.a in Frameworks */,
+				53D1D1AA11638B234A34DC4D /* libPods-SameTalk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				149AF1A77F115A400F31236B /* libPods-SameTalk-tvOS.a in Frameworks */,
+				82C9A0CEC04590EA6B9C7C4C /* libPods-SameTalk-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,13 +136,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58C9D401257289713DDA8491 /* libPods-SameTalk-tvOSTests.a in Frameworks */,
+				D0628DDD57869585C55EEBD6 /* libPods-SameTalk-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00057B9F64BB534D393CE008 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2ADC8323A8AC92C8BC3DF2A /* Pods-SameTalk.debug.xcconfig */,
+				1B5A608E1F1B56BD318347E3 /* Pods-SameTalk.release.xcconfig */,
+				D2E048BF8342AC12F609FED6 /* Pods-SameTalk-tvOS.debug.xcconfig */,
+				786E53BD64D98DC90F2C96C9 /* Pods-SameTalk-tvOS.release.xcconfig */,
+				AD3901496645B4FD0748990F /* Pods-SameTalk-tvOSTests.debug.xcconfig */,
+				147703560ECFCACB380BE3A8 /* Pods-SameTalk-tvOSTests.release.xcconfig */,
+				5FC52A6C88D9057ED223359F /* Pods-SameTalkTests.debug.xcconfig */,
+				8812CA4222B52946ACEBA8E7 /* Pods-SameTalkTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		00E356EF1AD99517003FC87E /* SameTalkTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,22 +174,6 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		079B8218048AEBFE694594AA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C0E2722414482AFA3606D1A5 /* Pods-SameTalk.debug.xcconfig */,
-				631EB9A7C0C05E5F78BA6423 /* Pods-SameTalk.release.xcconfig */,
-				E58F188440475EB0AF6661B7 /* Pods-SameTalk-tvOS.debug.xcconfig */,
-				EAB43069F8E717156A254ED9 /* Pods-SameTalk-tvOS.release.xcconfig */,
-				880DC8DC909D7B3069551521 /* Pods-SameTalk-tvOSTests.debug.xcconfig */,
-				9A41207CD6A86364704D9AEA /* Pods-SameTalk-tvOSTests.release.xcconfig */,
-				1450A93531B1AC956F1AAED5 /* Pods-SameTalkTests.debug.xcconfig */,
-				4A5A383BC67FF6100D0FC686 /* Pods-SameTalkTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* SameTalk */ = {
@@ -195,10 +195,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				3490049184806BB4756B15DD /* libPods-SameTalk.a */,
-				6688A843C42E751AC94190A3 /* libPods-SameTalk-tvOS.a */,
-				3B6D117E6A4D5E797BC9DB38 /* libPods-SameTalk-tvOSTests.a */,
-				2271BAA04AE8F0054E356F16 /* libPods-SameTalkTests.a */,
+				20E92C39468868374E6C932B /* libPods-SameTalk.a */,
+				8B8685E3D8186A334EEF2418 /* libPods-SameTalk-tvOS.a */,
+				0D4EA2BD85E9AD3B5CA731A5 /* libPods-SameTalk-tvOSTests.a */,
+				2FA08EF1BE2CBFB2E884A102 /* libPods-SameTalkTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3D9BE60668E048FC95AABAE9 /* Resources */,
-				079B8218048AEBFE694594AA /* Pods */,
+				00057B9F64BB534D393CE008 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SameTalkTests" */;
 			buildPhases = (
-				48E3F875AB99FC2D9907E215 /* [CP] Check Pods Manifest.lock */,
+				FA48A1761FDE3365D56B529C /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -290,7 +290,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SameTalk" */;
 			buildPhases = (
-				80484113FB8FD92E7D01262C /* [CP] Check Pods Manifest.lock */,
+				457CE966C1842444604CCB44 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -310,7 +310,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SameTalk-tvOS" */;
 			buildPhases = (
-				FA5351557CC0796622E1C7E6 /* [CP] Check Pods Manifest.lock */,
+				06E3131EFA36841CC3D5395D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -330,7 +330,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SameTalk-tvOSTests" */;
 			buildPhases = (
-				A6CADE645B2AC59F2A6069A1 /* [CP] Check Pods Manifest.lock */,
+				2B95EF5B3040AF958FF36409 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -458,21 +458,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		48E3F875AB99FC2D9907E215 /* [CP] Check Pods Manifest.lock */ = {
+		06E3131EFA36841CC3D5395D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -487,36 +473,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SameTalkTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SameTalk-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		80484113FB8FD92E7D01262C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SameTalk-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A6CADE645B2AC59F2A6069A1 /* [CP] Check Pods Manifest.lock */ = {
+		2B95EF5B3040AF958FF36409 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -538,7 +502,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA5351557CC0796622E1C7E6 /* [CP] Check Pods Manifest.lock */ = {
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		457CE966C1842444604CCB44 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -553,7 +531,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SameTalk-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SameTalk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA48A1761FDE3365D56B529C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SameTalkTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -665,7 +665,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1450A93531B1AC956F1AAED5 /* Pods-SameTalkTests.debug.xcconfig */;
+			baseConfigurationReference = 5FC52A6C88D9057ED223359F /* Pods-SameTalkTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -688,7 +688,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A5A383BC67FF6100D0FC686 /* Pods-SameTalkTests.release.xcconfig */;
+			baseConfigurationReference = 8812CA4222B52946ACEBA8E7 /* Pods-SameTalkTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -708,7 +708,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0E2722414482AFA3606D1A5 /* Pods-SameTalk.debug.xcconfig */;
+			baseConfigurationReference = B2ADC8323A8AC92C8BC3DF2A /* Pods-SameTalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -728,7 +728,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 631EB9A7C0C05E5F78BA6423 /* Pods-SameTalk.release.xcconfig */;
+			baseConfigurationReference = 1B5A608E1F1B56BD318347E3 /* Pods-SameTalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -747,7 +747,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E58F188440475EB0AF6661B7 /* Pods-SameTalk-tvOS.debug.xcconfig */;
+			baseConfigurationReference = D2E048BF8342AC12F609FED6 /* Pods-SameTalk-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -775,7 +775,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAB43069F8E717156A254ED9 /* Pods-SameTalk-tvOS.release.xcconfig */;
+			baseConfigurationReference = 786E53BD64D98DC90F2C96C9 /* Pods-SameTalk-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -803,7 +803,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 880DC8DC909D7B3069551521 /* Pods-SameTalk-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = AD3901496645B4FD0748990F /* Pods-SameTalk-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -830,7 +830,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A41207CD6A86364704D9AEA /* Pods-SameTalk-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 147703560ECFCACB380BE3A8 /* Pods-SameTalk-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

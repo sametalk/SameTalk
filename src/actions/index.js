@@ -14,7 +14,9 @@ import {
     getCountries,
     setReward, 
     filter,
-    getTags
+    getTags,
+    discount,
+    fetchListLikeMee
 } from '../api'
 import OneSignal from 'react-native-onesignal';
 
@@ -64,6 +66,13 @@ export const setListMatchs = (listMatchs) => {
     return {
         type: 'setListMatchs',
         listMatchs: listMatchs
+    }
+}
+
+export const setListLikeMee = (listLikeMee) => {
+    return {
+        type: 'setListLikeMee',
+        listLikeMee: listLikeMee
     }
 }
 
@@ -172,6 +181,7 @@ export const login = (token) => {
             dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
             dispatch(getListMatchs(loginST.token)) //Trae los matchs del servidor
             dispatch(getListTags(user.token, user.id)) //Trae las etiquetas
+            dispatch(getListLikeMee(user.token)); //Trae las personas que me dieron like
             dispatch(getDataSuccess([])) // Informo que el logueo finalizo correctamente
         } else {
             dispatch(userSetData(user)) //Almaceno los datos basico obtenidos de instagram
@@ -319,13 +329,6 @@ export const cleanStore = () => {
     }
 }
 
-// Reset list profiles
-export const cleanListProfiles = () => {
-    return dispatch => {
-        dispatch(setListProfiles([]))
-    }
-}
-
 // Obtiene las etiquetas que me dieron
 export const getListTags = (token, id) => {
     return async (dispatch) => {
@@ -337,3 +340,21 @@ export const getListTags = (token, id) => {
     }
 }
 
+//Descuenta monedas al usuario logueado
+export const discountCoins = (user) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const response = await discount(user)
+        dispatch(getDataSuccess([]))
+    }
+}
+
+//Descuenta monedas al usuario logueado
+export const getListLikeMee = (token) => {
+    return async (dispatch) => {
+        dispatch(getData())
+        const listLike = await fetchListLikeMee(token)
+        dispatch(setListLikeMee(listLike))
+        dispatch(getDataSuccess([]))
+    }
+}
