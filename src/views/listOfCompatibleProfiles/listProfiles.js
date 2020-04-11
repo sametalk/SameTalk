@@ -7,7 +7,6 @@ import {
     Image,
     ImageBackground,
     Linking,
-    StatusBar,
     ScrollView,
     RefreshControl,
     Dimensions,
@@ -17,7 +16,7 @@ import { Header, Title, Card, CardItem, Text, Left, Body, Button, H1, Icon, Item
 import CardStack from 'react-native-card-stack-swiper';
 import { CheckBox } from 'react-native-elements';
 import { setLike, setSuperLike, setDontLike } from '../../api';
-import { getListProfiles, filterProfiles, cleanListProfiles } from '../../actions';
+import { getListProfiles, filterProfiles, setListProfiles } from '../../actions';
 import SelectCountryComponent from '../../components/selectCountry';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
@@ -57,6 +56,19 @@ class ListProfiles extends Component {
         this._onSwipedAll = this._onSwipedAll.bind(this);
     }
 
+    goBack = () => {
+        if (this.state.swipedAll && typeof this.lastProfile !== 'undefined') {
+            this.props.setListProfiles(this.lastProfile);
+            this.setState({swipedAll: false});
+            this.props.navigation.setParams({swipeAll: false});
+        } else {
+            if (this.props.listProfiles.length > 0) {
+                this.swiper.goBackFromLeft();
+                this.props.navigation.setParams({swipeAll: false});
+            }
+        }
+    } 
+    
     async componentDidMount() {
         console.disableYellowBox = true;
         const { getListProfiles, userData } = this.props
@@ -81,9 +93,11 @@ class ListProfiles extends Component {
     }
 
     async _onSwipedAll() {
-        await this.props.cleanListProfiles();
-        this.setState({ swipedAll: true });
-        this.props.navigation.setParams({ swipeAll: true });
+        this.lastProfile = new Array();
+        this.lastProfile[0] = this.props.listProfiles[this.props.listProfiles.length-1]
+        await this.props.setListProfiles([]);
+        this.setState({swipedAll: true});
+        this.props.navigation.setParams({swipeAll: true});
     }
 
     async onNoLike(profile) {
@@ -246,7 +260,7 @@ class ListProfiles extends Component {
                                                 <TouchableOpacity onPress={() => this.swiper.swipeLeft()}>
                                                     <Image source={require('../../../assets/image/buttons/dislike.png')} resizeMode={'contain'} style={styles.dislike} />
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => this.swiper.goBackFromLeft()}>
+                                                <TouchableOpacity onPress={() => this.goBack()}>
                                                     <Image source={require('../../../assets/image/buttons/refresh.png')} resizeMode={'contain'} style={styles.goBack} />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity onPress={() => this.swiper.swipeRight()}>
@@ -419,7 +433,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getListProfiles: (token) => dispatch(getListProfiles(token)),
         filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
-        cleanListProfiles: () => dispatch(cleanListProfiles())
+        setListProfiles: (profiles) => dispatch(setListProfiles(profiles))
     }
 }
 
