@@ -10,19 +10,18 @@ import TabBar from '../components/TabBar';
 /*
     En este .js se configura el TabBar que aparece en la parte de abajo
 */
-const TabNavigator = createMaterialTopTabNavigator(
-  {
+const TabNavigator = createMaterialTopTabNavigator({
     CompatibleProfileStack: {
-      screen: CompatibleProfileStack,
-      navigationOptions: () => ({
-        title: `Personas`,
-      }),
+        screen: CompatibleProfileStack,
+        navigationOptions: () => ({
+            title: `Personas`
+        })
     },
     SelectInterests: {
-      screen: SelectInterests,
-      navigationOptions: () => ({
-        title: `Intereses`,
-      }),
+        screen: SelectInterests, 
+        navigationOptions: () => ({
+            title: `Intereses`
+        })
     },
     Profile: {
       screen: ProfileStack,

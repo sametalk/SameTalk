@@ -54,9 +54,6 @@ class ListProfiles extends Component {
       listProfiles: this.props.listProfiles,
       swipedAll: true,
     };
-    this._onRefresh = this._onRefresh.bind(this);
-    this._onSwipedAll = this._onSwipedAll.bind(this);
-  }
 
   goBack = () => {
     if (this.state.swipedAll && typeof this.lastProfile !== 'undefined') {
@@ -69,7 +66,6 @@ class ListProfiles extends Component {
         this.props.navigation.setParams({ swipeAll: false });
       }
     }
-  };
 
   async componentDidMount() {
     console.disableYellowBox = true;
@@ -79,7 +75,6 @@ class ListProfiles extends Component {
       this.setState({ swipedAll: false });
       this.props.navigation.setParams({ swipeAll: false });
     }
-  }
 
   async _onRefresh() {
     this.setState({ refreshing: true });
@@ -122,7 +117,6 @@ class ListProfiles extends Component {
     } catch (error) {
       console.log(error);
     }
-  }
 
   onFilter(gender, age, countryCode) {
     let token = this.props.userData.token;
@@ -378,50 +372,82 @@ class ListProfiles extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    userData: state.userData,
-    listProfiles: state.listProfiles,
-  };
-};
+    return {
+        userData: state.userData,
+        listProfiles: state.listProfiles,
+    }
+}
 
 // Trae de action las funciones definidas en ese archivo
 const mapDispatchToProps = dispatch => {
-  return {
-    getListProfiles: token => dispatch(getListProfiles(token)),
-    filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
-    setListProfiles: profiles => dispatch(setListProfiles(profiles)),
-  };
-};
+    return {
+        getListProfiles: (token) => dispatch(getListProfiles(token)),
+        filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
+        cleanListProfiles: () => dispatch(cleanListProfiles())
+    }
+}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ListProfiles);
+export default connect(mapStateToProps, mapDispatchToProps)(ListProfiles)
 
 const win = Dimensions.get('window');
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-  },
-  content: {
-    flex: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(158, 158, 158, 0.1)',
-  },
-  header: {
-    backgroundColor: '#F1F3F5',
-  },
-  card: {
-    width: 320,
-    flex: 1,
-    borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
+    container: {
+        flex: 1,
     },
+    content: {
+        flex: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(158, 158, 158, 0.1)'
+    },
+    header: {
+        backgroundColor: '#F1F3F5'
+    },
+    card: {
+        width: 320,
+        flex: 1,
+        borderRadius: 5,
+        shadowColor: 'rgba(0,0,0,0.5)',
+        shadowOffset: {
+            width: 0,
+            height: 1
+        },
+        shadowOpacity: 0.5,
+    },
+    buttonContainer: {
+        width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
+    footer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(158, 158, 158, 0.1)'
+    },
+    dislike: {
+        width: 80,
+        height: 80,
+    },
+    goBack: {
+        width: 70,
+        height: 70,
+        marginTop: -15
+    },
+    like: {
+        width: 80,
+        height: 80,
+    },
+    profile: {
+        height: win.width / 1.5,
+        width: null,
+        flex: 1
+    },
+    imageBackground: {
+        width: '100%',
+        height: '100%'
+    },
+  {
     shadowOpacity: 0.5,
   },
   buttonContainer: {
