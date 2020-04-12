@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: Platform.OS === 'ios' ? '20%' : '20%',
+    paddingTop: '20%',
   },
 
   card: {
