@@ -16,7 +16,7 @@ const Tab = props => {
   const animatedBubbleValues = useRef(new Animated.Value(0)).current;
   const animatedBubbleScaleValues = animatedBubbleValues.interpolate({
     inputRange: [0, 0.25, 0.4, 0.525, 0.8, 1],
-    outputRange: [0.01, 3, 1.65, 1.65, 3.2, 3],
+    outputRange: [0.01, 0.9, 0.55, 0.55, 1, 0.9],
   });
   const animatedBubbleStyle = {transform: [{scale: animatedBubbleScaleValues}]};
 
