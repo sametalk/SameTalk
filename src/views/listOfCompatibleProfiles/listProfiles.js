@@ -220,6 +220,7 @@ class ListProfiles extends Component {
               refreshControl={
                 this.state.swipedAll && (
                   <RefreshControl
+                    tintColor="white"
                     progressViewOffset={80}
                     refreshing={this.state.refreshing}
                     onRefresh={this._onRefresh}
@@ -375,64 +376,121 @@ class ListProfiles extends Component {
               transparent={true}
               visible={this.state.modalMatchVisible}>
               <View style={styles.containerMatch}>
-                <Card style={styles.modal}>
-                  <CardItem style={styles.titleView}>
-                    <H1 style={styles.title}>Tienes un Match</H1>
+                <View style={styles.modal}>
+                  <View
+                    style={{
+                      paddingBottom: 10,
+                      width: '80%',
+                      height: 50,
+                      backgroundColor: 'white',
+                      alignItems: 'center',
+                      borderTopLeftRadius: 20,
+                      borderTopRightRadius: 20,
+                    }}>
+                    <View
+                      style={{
+                        width: '100%',
+                        height: 50,
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                      }}>
+                      <H1 style={[styles.title]}>Has hecho match 🤙</H1>
+                    </View>
+                  </View>
+                  <CardItem cardBody>
+                    <View
+                      style={{
+                        height: 175,
+                        width: '80%',
+                        borderRadius: 175 / 2,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 30,
+                      }}>
+                      <Image
+                        source={{uri: this.state.profileMatch.profile_picture}}
+                        style={[
+                          styles.profile,
+                          {height: 175, width: 175, borderRadius: 175 / 2},
+                        ]}
+                      />
+                    </View>
                   </CardItem>
-                  <CardItem>
-                    <Left>
+
+                  <View
+                    style={{
+                      paddingHorizontal: 10,
+                      width: '80%',
+                      paddingTop: 20,
+                      paddingBottom: 10,
+                      backgroundColor: 'white',
+                      borderBottomLeftRadius: 20,
+                      borderBottomRightRadius: 20,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        width: '100%',
+                        justifyContent: 'center',
+                        paddingBottom: 10,
+                      }}>
                       <Thumbnail
                         small
                         source={{uri: this.state.profileMatch.country.flag}}
                       />
-                      <Body>
+                      <View style={{marginLeft: 20}}>
                         <Text style={{color: '#212121'}}>
                           {this.state.profileMatch.full_name}
                         </Text>
                         <Text note>{this.state.profileMatch.age} Años</Text>
-                      </Body>
-                    </Left>
-                  </CardItem>
-                  <CardItem cardBody>
-                    <Image
-                      source={{uri: this.state.profileMatch.profile_picture}}
-                      style={styles.profile}
-                    />
-                  </CardItem>
-                  <CardItem>
-                    <Button
-                      rounded
-                      danger
-                      onPress={() => this.setState({modalMatchVisible: false})}
-                      style={styles.buttonModal}>
-                      <Text>
-                        Cerrar{' '}
-                        <Icon
-                          type="FontAwesome"
-                          name="times-circle"
-                          style={styles.iconButton}
-                        />
-                      </Text>
-                    </Button>
-                    <Button
-                      rounded
-                      success
-                      onPress={() => this.goToInstagram()}
-                      style={[
-                        styles.buttonModal,
-                        {marginLeft: 10, backgroundColor: '#4B62A5'},
-                      ]}>
-                      <Text>
-                        Seguir{' '}
-                        <Icon
-                          type="FontAwesome"
-                          name="instagram"
-                          style={styles.iconButton}
-                        />
-                      </Text>
-                    </Button>
-                  </CardItem>
-                </Card>
+                      </View>
+                    </View>
+
+                    <View
+                      style={{
+                        alignItems: 'center',
+                        justifyContent: 'space-around',
+                        paddingHorizontal: 10,
+                        width: '100%',
+                        flexDirection: 'row',
+                        paddingTop: 10,
+                        backgroundColor: 'white',
+                        borderBottomLeftRadius: 20,
+                        borderBottomRightRadius: 20,
+                      }}>
+                      <Button
+                        rounded
+                        onPress={() =>
+                          this.setState({modalMatchVisible: false})
+                        }
+                        style={[
+                          styles.buttonModal,
+                          {
+                            marginLeft: 0,
+                            backgroundColor: '#b32821',
+                          },
+                        ]}>
+                        <Text style={{fontWeight: 'bold'}}>Cerrar </Text>
+                      </Button>
+                      <Button
+                        rounded
+                        onPress={() => this.goToInstagram()}
+                        style={[
+                          styles.buttonModal,
+                          {
+                            marginLeft: 10,
+                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                          },
+                        ]}>
+                        <Text style={{fontWeight: 'bold'}}>Seguir </Text>
+                      </Button>
+                    </View>
+                  </View>
+                </View>
               </View>
             </Modal>
 
@@ -599,6 +657,7 @@ const win = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   content: {
     flex: 5,
@@ -665,12 +724,11 @@ const styles = StyleSheet.create({
   },
 
   modal: {
-    flex: 0.7,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    marginTop: 50,
     alignItems: 'center',
     width: 350,
-    minHeight: 350,
+    height: 500,
     borderRadius: 20,
   },
 
@@ -682,10 +740,11 @@ const styles = StyleSheet.create({
 
   title: {
     color: 'white',
+    fontSize: 22,
   },
 
   buttonModal: {
-    width: '45%',
+    width: '48%',
     borderRadius: 10,
     justifyContent: 'center',
   },
@@ -710,6 +769,26 @@ const styles = StyleSheet.create({
   },
 
   iconButton: {
+    color: 'white',
+    fontSize: 20,
+  },
+  containerFilterMatch: {
+    flexDirection: 'column',
+    backgroundColor: 'grey',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    borderRadius: 20,
+  },
+  cardFilterMatch: {
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: 350,
+    borderRadius: 20,
+  },
+
+  iconButtonMatch: {
     color: 'white',
     fontSize: 20,
   },
