@@ -142,7 +142,7 @@ const Tab = props => {
             numberOfLines={1}
             style={{color: isFocused ? 'black' : 'white'}}>
             {title === 'CompatibleProfileStack'
-              ? 'Personas'
+              ? 'Conocer'
               : title === 'SelectInterests'
               ? 'Intereses'
               : 'Perfil'}

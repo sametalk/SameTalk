@@ -77,6 +77,42 @@ class profile extends Component {
                 alignItems: 'flex-start',
               }}>
               <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('ListMatchs')}
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 15,
+                }}>
+                <IconSetting name="star" size={25} color="white" />
+                <View style={{marginRight: 3}} />
+                <Text style={{fontSize: 20, color: 'white'}}>Matchs</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('ListInterests')}
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 15,
+                }}>
+                <IconSetting name="like2" size={25} color="white" />
+                <View style={{marginRight: 3}} />
+                <Text style={{fontSize: 20, color: 'white'}}>Intereses</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Settings')}
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 15,
+                }}>
+                <IconSetting name="tag" size={25} color="white" />
+                <View style={{marginRight: 3}} />
+                <Text style={{fontSize: 20, color: 'white'}}>Etiquetas</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Settings')}
                 style={{
                   flexDirection: 'row',
@@ -90,7 +126,6 @@ class profile extends Component {
                   Configuración
                 </Text>
               </TouchableOpacity>
-
               <TouchableOpacity
                 onPress={() => this.logoutUser()}
                 style={{
@@ -131,7 +166,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: Platform.OS === 'ios' ? '35%' : '20%',
+    paddingTop: Platform.OS === 'ios' ? '20%' : '20%',
   },
 
   card: {
