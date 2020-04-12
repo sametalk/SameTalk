@@ -1,15 +1,15 @@
-import { Platform, StatusBar } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
+import {Platform, StatusBar} from 'react-native';
+import {createStackNavigator} from 'react-navigation-stack';
 
-import Profile from '../views/profile/profile'
-import ListInterests from '../views/profile/listInterests'
-import Settings from '../views/profile/settings'
-import ListMatchs from '../views/profile/listMatchs'
-import SelectCountry from '../views/profile/selectCountry'
-import MatchProfile from '../views/profile/matchProfile'
-import Tagger from '../views/profile/tagger'
-import MyTags from '../views/profile/myTags'
-import MyMatchsTags from '../views/profile/myMatchsTags'
+import Profile from '../views/profile/profile';
+import ListInterests from '../views/profile/listInterests';
+import Settings from '../views/profile/settings';
+import ListMatchs from '../views/profile/listMatchs';
+import SelectCountry from '../views/profile/selectCountry';
+import MatchProfile from '../views/profile/matchProfile';
+import Tagger from '../views/profile/tagger';
+import MyTags from '../views/profile/myTags';
+import MyMatchsTags from '../views/profile/myMatchsTags';
 
 /*
   Navegación interna dentro de la pantalla de perfil
@@ -19,64 +19,61 @@ const ProfileStack = createStackNavigator(
     Profile: {
       screen: Profile,
       navigationOptions: () => ({
-        header: null
-      })
+        header: null,
+      }),
     },
     ListInterests: {
       screen: ListInterests,
       navigationOptions: () => ({
-        title: `Intereses Seleccionados:`
+        title: `Intereses Seleccionados:`,
       }),
     },
     ListMatchs: {
       screen: ListMatchs,
       navigationOptions: () => ({
-        title: `Lista de Match's:`
+        title: `Lista de Match's:`,
       }),
     },
     Settings: {
       screen: Settings,
       navigationOptions: () => ({
-        title: `Configuración:`
+        title: `Configuración:`,
       }),
     },
     SelectCountry: {
       screen: SelectCountry,
       navigationOptions: () => ({
-        title: `Selecciona tu país:`
+        title: `Selecciona tu país:`,
       }),
     },
     MatchProfile: {
       screen: MatchProfile,
       navigationOptions: () => ({
-        title: `Datos del usuario:`
+        title: `Datos del usuario:`,
       }),
     },
     Tagger: {
       screen: Tagger,
       navigationOptions: () => ({
-        title: `Etiquetar usuario:`
+        title: `Etiquetar usuario:`,
       }),
     },
     MyTags: {
       screen: MyTags,
       navigationOptions: () => ({
-        title: `Mis etiquetas:`
+        title: `Mis etiquetas:`,
       }),
     },
     MyMatchsTags: {
       screen: MyMatchsTags,
       navigationOptions: () => ({
-        title: `Etiquetado por:`
+        title: `Etiquetado por:`,
       }),
     },
   },
   {
     initialRouteName: 'Profile',
-    cardStyle: {
-      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-    }
-  }
+  },
 );
 
 export default ProfileStack;
