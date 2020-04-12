@@ -50,11 +50,6 @@ export const sameTalkGetData = async (token_ST) => {
 // Registra un nuevo usuario en el servidor de SameTalk
 export const registerUser = async (user) => {
     try {
-        // Obtener imagen de perfil de instagram
-        const res = await fetch(`https://www.instagram.com/${user.username}/?__a=1`);
-        const resJson = await res.json();
-        user.profile_picture = resJson.graphql.user.profile_pic_url_hd;
-        // Registrar usuario en backend
         const response = await fetch(URL + `/auth/register`, {
             method: "POST",
             body: JSON.stringify(user),
