@@ -108,6 +108,13 @@ export const setCountTags = (listTags) => {
     }
 }
 
+export const setCoinsCount = (coins) => {
+    return {
+        type: 'setCoinsCount',
+        coins: coins
+    }
+}
+
 /*
     Manejadores de estados para las peticiones a API's
 */
@@ -345,6 +352,8 @@ export const discountCoins = (user) => {
     return async (dispatch) => {
         dispatch(getData())
         const response = await discount(user)
+        const userUpdate = await sameTalkGetData(user.token)
+        dispatch(setCoinsCount(userUpdate.coins))
         dispatch(getDataSuccess([]))
     }
 }
