@@ -25,7 +25,7 @@ import {
 } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import { setLike, setSuperLike, setDontLike } from '../../api';
-import { getListProfiles, filterProfiles, setListProfiles } from '../../actions';
+import { getListProfiles, filterProfiles, setListProfiles, discountCoins } from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import IconCoin from 'react-native-vector-icons/AntDesign';
 import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
@@ -49,6 +49,9 @@ class ListProfiles extends Component {
       alert: {
         show: false,
         showConfirmButton: true,
+        type: 'superlike',
+        title: '',
+        message: ''
       },
       profileMatch: this.props.userData,
       listProfiles: this.props.listProfiles,
@@ -114,7 +117,20 @@ class ListProfiles extends Component {
       if (type === 'like') {
         response = await setLike(this.props.userData.token, profile.id); //Seteo el Like
       } else {
-        response = await setSuperLike(this.props.userData.token, profile.id); //Seteo el superLike
+        if (this.props.userData.coins - 10 <= 0) {
+          this.setState({
+            alert: {
+              show: true,
+              title: 'No puedes dar Superlikes',
+              message: 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas',
+              type: 'superlike'
+            }
+          });
+          this.goBack()
+        } else {
+          response = await setSuperLike(this.props.userData.token, profile.id); //Seteo el superLike
+          this.props.discountCoins(this.props.userData);
+        }
       }
       if (response.match.status == 'accepted') {
         this.setState({ modalMatchVisible: true, profileMatch: profile }); //Abro el modal
@@ -147,21 +163,29 @@ class ListProfiles extends Component {
   calculateCoinsForSuperLike() {
     let coins = this.props.userData.coins;
     let permitted = true;
+    let title = "¿Quieres ver quien te dio Like?";
+    let message = ''
 
     if (coins - 10 <= 0) {
       permitted = false;
+      message = 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas';
+    } else {
+      message = 'Se te descontarán 10 monedas';
     }
 
     this.setState({
       alert: {
         show: true,
-        showConfirmButton: true,
+        showConfirmButton: permitted,
+        message: message,
+        title: title,
+        type: 'likeMee'
       },
     });
   }
 
   render() {
-    let { listProfiles } = this.props;
+    let { listProfiles, userData, discountCoins} = this.props;
     return (
       <React.Fragment>
         {!this.state.selectCountryOn &&
@@ -338,12 +362,8 @@ class ListProfiles extends Component {
         <AwesomeAlert
           show={this.state.alert.show}
           showProgress={false}
-          title="¿Quieres ver quien te dio Like?"
-          message={
-            this.state.alert.showConfirmButton
-              ? 'Se te descontarán 10 monedas'
-              : 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas'
-          }
+          title={this.state.alert.title}
+          message={this.state.alert.message}
           messageStyle={{ textAlign: 'center' }}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
@@ -368,7 +388,7 @@ class ListProfiles extends Component {
                 show: false,
               },
             });
-
+            discountCoins(userData);
             this.props.navigation.navigate('SeeWhoLikeMee');
           }}
         />
@@ -390,6 +410,7 @@ const mapDispatchToProps = dispatch => {
     getListProfiles: token => dispatch(getListProfiles(token)),
     filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
     setListProfiles: profiles => dispatch(setListProfiles(profiles)),
+    discountCoins: user => dispatch(discountCoins(user))
   };
 };
 
