@@ -37,13 +37,13 @@ const ProfileStack = createStackNavigator(
     Settings: {
       screen: Settings,
       navigationOptions: () => ({
-        title: `Configuración`,
+        header: null,
       }),
     },
     SelectCountry: {
       screen: SelectCountry,
       navigationOptions: () => ({
-        title: `Selecciona tu país`,
+        header: null,
       }),
     },
     MatchProfile: {
