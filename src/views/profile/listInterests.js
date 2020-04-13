@@ -54,9 +54,7 @@ class ListInterests extends Component {
                   <Icon name="arrow-back" style={{color: 'white'}} />
                 </Button>
 
-                <Title style={{color: 'white'}}>
-                  Selecciona tus intereses{' '}
-                </Title>
+                <Title style={{color: 'white'}}>Mis intereses</Title>
                 <View />
               </View>
 
@@ -85,9 +83,7 @@ class ListInterests extends Component {
                   <Icon name="arrow-back" style={{color: 'white'}} />
                 </Button>
 
-                <Title style={{color: 'white'}}>
-                  Selecciona tus intereses{' '}
-                </Title>
+                <Title style={{color: 'white'}}>Mis intereses</Title>
                 <View />
               </View>
               <Container>
