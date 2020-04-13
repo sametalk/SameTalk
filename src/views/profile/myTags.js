@@ -19,7 +19,6 @@ class MyTags extends Component {
 
     render() {
         const { listTags } = this.props
-        console.log(listTags)
         return (
             <React.Fragment>
                 {

@@ -11,7 +11,6 @@ import styles from './styles';
 const TabBar = props => {
   const {navigationState} = props;
   const {routes} = navigationState;
-  console.log('PROPS', props);
   return (
     <SafeAreaView>
       <View style={styles.container}>

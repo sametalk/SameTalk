@@ -6,10 +6,10 @@ import {StyleSheet, Platform} from 'react-native';
 export const styles = StyleSheet.create({
   bubble: {
     backgroundColor: 'black',
-    borderRadius: 8.5,
-    height: 17,
+    borderRadius: 27.5,
+    height: 55,
     position: 'absolute',
-    width: 17,
+    width: 55,
   },
   container: {
     alignItems: 'center',
