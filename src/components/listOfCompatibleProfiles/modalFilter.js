@@ -168,7 +168,7 @@ class ModalMatch extends Component {
                   />
                 </View>
                 <View style={{paddingLeft: 20}}>
-                  <Text>Edad superior a:</Text>
+                  <Text>Edad superior a</Text>
                   <View style={{marginTop: Platform.OS === 'ios' ? 10 : -5}} />
 
                   <TextInput
@@ -188,7 +188,7 @@ class ModalMatch extends Component {
                   onPress={() => this.selectCountry()}
                   style={{paddingLeft: 20}}>
                   <View>
-                    <Text>Nacionalidad:</Text>
+                    <Text>Nacionalidad</Text>
                   </View>
 
                   <View style={{marginTop: 10}} />
