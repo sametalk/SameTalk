@@ -135,9 +135,6 @@ class Settings extends Component {
                           borderWidth: 0,
                           alignItems: 'flex-start',
                         },
-                        confirmBtnText: {
-                          color: 'rgba(0, 0, 0, 0.9)',
-                        },
                       }}
                       onDateChange={date => {
                         this.setState({date: date});
