@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {Modal, View, Dimensions, StyleSheet} from 'react-native';
+import {
+  Modal,
+  View,
+  Dimensions,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Card,
   CardItem,
@@ -18,7 +27,7 @@ import {
 } from 'native-base';
 import {CheckBox} from 'react-native-elements';
 import SelectCountryComponent from '../../components/selectCountry';
-import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {TextInput} from 'react-native-gesture-handler';
 
 class ModalMatch extends Component {
   constructor(props) {
@@ -74,15 +83,29 @@ class ModalMatch extends Component {
     return (
       <React.Fragment>
         {this.state.selectCountryModal ? (
-          <View style={{flex: 10}}>
-            <Header transparent>
-              <Body style={{marginLeft: 10}}>
-                <Title style={{color: '#414241'}}>Selecciona un país:</Title>
-              </Body>
-            </Header>
-            <SelectCountryComponent
-              handleSelect={country => this.setCountry(country)}
-            />
+          <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+            <StatusBar barStyle="light-content" />
+            <SafeAreaView style={{flex: 1}}>
+              <View
+                style={[
+                  styles.header,
+                  {
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    height: 48,
+                  },
+                ]}>
+                <View />
+
+                <Title style={{color: 'white'}}>Selecciona nacionalidad</Title>
+                <View />
+              </View>
+
+              <SelectCountryComponent
+                handleSelect={country => this.setCountry(country)}
+              />
+            </SafeAreaView>
           </View>
         ) : (
           <Modal
@@ -119,7 +142,12 @@ class ModalMatch extends Component {
                     <H1 style={[styles.title]}>Filtrar</H1>
                   </View>
                 </View>
-                <View style={{flexDirection: 'row'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    width: '100%',
+                  }}>
                   <CheckBox
                     center
                     title="Mujer"
@@ -141,41 +169,45 @@ class ModalMatch extends Component {
                 </View>
                 <View style={{paddingLeft: 20}}>
                   <Text>Edad superior a:</Text>
-                  <View style={{marginTop: 10}} />
+                  <View style={{marginTop: Platform.OS === 'ios' ? 10 : -5}} />
 
                   <TextInput
+                    underlineColorAndroid="black"
                     keyboardType="numeric"
                     onChangeText={age => this.setState({age})}
                     value={this.state.age}
+                    returnKeyType="done"
                     style={{
                       width: '80%',
-                      borderBottomWidth: 0.2,
+                      borderBottomWidth: Platform.OS === 'ios' ? 0.5 : 0,
                     }}
                   />
                 </View>
                 <View style={{marginTop: 30}} />
-                <View>
-                  <View style={{paddingLeft: 20}}>
+                <TouchableOpacity
+                  onPress={() => this.selectCountry()}
+                  style={{paddingLeft: 20}}>
+                  <View>
                     <Text>Nacionalidad:</Text>
-                    <View style={{marginTop: 10}} />
+                  </View>
 
-                    <TouchableOpacity
-                      onPress={() => this.selectCountry()}
+                  <View style={{marginTop: 10}} />
+
+                  <View
+                    style={{
+                      width: '80%',
+                      borderColor: 'black',
+                      borderBottomWidth: 0.5,
+                    }}>
+                    <Text
                       style={{
                         width: '80%',
-                        borderBottomWidth: 0.2,
+                        color: 'gray',
                       }}>
-                      <Text
-                        style={{
-                          width: '80%',
-                          borderBottomWidth: 0.2,
-                          color: 'gray',
-                        }}>
-                        {this.state.country.name}
-                      </Text>
-                    </TouchableOpacity>
+                      {this.state.country.name}
+                    </Text>
                   </View>
-                </View>
+                </TouchableOpacity>
                 <View style={{marginTop: 30}} />
                 <View
                   style={{
