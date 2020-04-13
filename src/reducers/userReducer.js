@@ -16,6 +16,11 @@ export default (state = {}, action) => {
                 ...state,
                 country: action.country
             }
+        case 'setCoinsCount':
+            return {
+                ...state,
+                coins: action.coins
+            }
         default:
             return state
     }

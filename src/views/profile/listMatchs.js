@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, StyleSheet, StatusBar, SafeAreaView} from 'react-native';
 import {
   Container,
-  Header,
   Content,
   List,
   Icon,
@@ -153,6 +152,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 18,
     color: 'gray',
-    textAlign: 'center',
   },
 });
