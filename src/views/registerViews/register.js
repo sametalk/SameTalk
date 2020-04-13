@@ -6,6 +6,8 @@ import {
   StatusBar,
   ImageBackground,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
+
 import {Avatar} from 'react-native-elements';
 import {
   Container,
@@ -40,7 +42,7 @@ class register extends Component {
           }}>
           <View
             style={{
-              height: 350,
+              height: 360,
               width: '75%',
               backgroundColor: 'white',
               borderRadius: 10,
@@ -65,18 +67,45 @@ class register extends Component {
               style={{
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'flex-end',
                 marginBottom: 20,
               }}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  color: 'rgba(0, 0, 0, 0.9)',
-                  fontSize: 14,
-                  textAlign: 'center',
-                }}>
-                Complete los siguiente datos para finalizar su autenticación
-              </Text>
+              <View style={{height: 200, width: '100%'}}>
+                <LottieView
+                  style={{position: 'absolute'}}
+                  source={require('../../assets/animations/register2.json')}
+                  autoPlay
+                  loop
+                />
+              </View>
+              <View style={{paddingHorizontal: 22}}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    color: 'rgba(0, 0, 0, 0.9)',
+                    fontSize: 16,
+                    textAlign: 'center',
+                  }}>
+                  Complete los siguiente datos para finalizar su autenticación
+                </Text>
+              </View>
+
+              <View style={{marginTop: 20}} />
+              <Button
+                success
+                onPress={() => this.props.navigation.navigate('SelectAge')}
+                style={[
+                  styles.buttonModal,
+                  {backgroundColor: 'rgba(0, 0, 0, 0.9)'},
+                  {
+                    width: '50%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                  Continuar
+                </Text>
+              </Button>
             </View>
           </View>
         </ImageBackground>
