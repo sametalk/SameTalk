@@ -42,7 +42,7 @@ class register extends Component {
           }}>
           <View
             style={{
-              height: 360,
+              height: 370,
               width: '75%',
               backgroundColor: 'white',
               borderRadius: 10,
