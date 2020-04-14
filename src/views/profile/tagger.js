@@ -7,7 +7,6 @@ import { Container, Content, List, ListItem, Left, Body, Thumbnail, Text } from 
 import tags from '../../constant/tags';
 import { tagUser } from '../../api';
 import { connect } from 'react-redux';
-import { discountCoins } from '../../actions';
 
 class Tagger extends Component {
 
@@ -16,9 +15,8 @@ class Tagger extends Component {
     }
 
     onTag(idTag) {
-        const { userData, discountCoins } = this.props;
+        const { userData } = this.props;
         let id = this.props.navigation.state.params.id;
-        discountCoins(userData);
         tagUser(userData.token, idTag, id);
         this.props.navigation.goBack();
     }

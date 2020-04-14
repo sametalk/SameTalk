@@ -84,7 +84,7 @@ class profile extends Component {
                   alignItems: 'center',
                   marginBottom: 15,
                 }}>
-                <IconSetting name="star" size={25} color="white" />
+                <IconSetting name="staro" size={25} color="white" />
                 <View style={{marginRight: 3}} />
                 <Text style={{fontSize: 20, color: 'white'}}>Matchs</Text>
               </TouchableOpacity>
@@ -101,14 +101,14 @@ class profile extends Component {
                 <Text style={{fontSize: 20, color: 'white'}}>Intereses</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Settings')}
+                onPress={() => this.props.navigation.navigate('MyTags')}
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   marginBottom: 15,
                 }}>
-                <IconSetting name="tag" size={25} color="white" />
+                <IconSetting name="tago" size={25} color="white" />
                 <View style={{marginRight: 3}} />
                 <Text style={{fontSize: 20, color: 'white'}}>Etiquetas</Text>
               </TouchableOpacity>

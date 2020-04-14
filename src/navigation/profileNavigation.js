@@ -25,49 +25,49 @@ const ProfileStack = createStackNavigator(
     ListInterests: {
       screen: ListInterests,
       navigationOptions: () => ({
-        title: `Intereses Seleccionados:`,
+        header: null,
       }),
     },
     ListMatchs: {
       screen: ListMatchs,
       navigationOptions: () => ({
-        title: `Lista de Match's:`,
+        header: null,
       }),
     },
     Settings: {
       screen: Settings,
       navigationOptions: () => ({
-        title: `Configuración:`,
+        header: null,
       }),
     },
     SelectCountry: {
       screen: SelectCountry,
       navigationOptions: () => ({
-        title: `Selecciona tu país:`,
+        header: null,
       }),
     },
     MatchProfile: {
       screen: MatchProfile,
       navigationOptions: () => ({
-        title: `Datos del usuario:`,
+        title: `Datos del usuario`,
       }),
     },
     Tagger: {
       screen: Tagger,
       navigationOptions: () => ({
-        title: `Etiquetar usuario:`,
+        title: `Etiquetar usuario`,
       }),
     },
     MyTags: {
       screen: MyTags,
       navigationOptions: () => ({
-        title: `Mis etiquetas:`,
+        header: null,
       }),
     },
     MyMatchsTags: {
       screen: MyMatchsTags,
       navigationOptions: () => ({
-        title: `Etiquetado por:`,
+        title: `Etiquetado por  `,
       }),
     },
   },
