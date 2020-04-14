@@ -10,12 +10,8 @@ import {
   StatusBar,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {getListInterests, selectedInterests, setInterest} from '../../actions';
+import {getListInterests, setInterest, deleteInterest} from '../../actions';
 import {
-  Container,
-  Header,
-  Left,
-  Body,
   Text,
   Button,
   Icon,
@@ -24,6 +20,7 @@ import {
 import ModalRecommended from '../../components/modalRecommended';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import {SafeAreaView} from 'react-navigation';
+import LinearGradient from 'react-native-linear-gradient';
 
 const numColumns = 2;
 
@@ -62,12 +59,19 @@ class selectInterests extends Component {
     if (this.state.level < 3) {
       this.setState({
         interests: item.children,
+        parent: {id:item.id, name:item.name},
         backInterests: this.state.interests,
         level: this.state.level + 1,
       });
     } else {
-      this.refs.toast.show('¡Interes seleccionado!', DURATION.LENGTH_SHORT);
-      this.props.setInterest(item, this.props.userData.token);
+      if (item.selected) {
+        this.props.deleteInterest(this.props.userData.token, item.id);
+        this.refs.toast.show('¡Interes eliminado!', DURATION.LENGTH_SHORT);
+      } else {
+        item.parent = this.state.parent;
+        this.props.setInterest(item, this.props.userData.token);
+        this.refs.toast.show('¡Interes seleccionado!', DURATION.LENGTH_SHORT);
+      }
     }
   };
 
@@ -96,12 +100,24 @@ class selectInterests extends Component {
     }
     return (
       <TouchableOpacity
-        onPress={() => this.onClickInterests(item)}
+        onPress={() => this.onClickInterests(item, index)}
         style={styles.item}>
-        <ImageBackground style={styles.itemImage} source={{uri: item.image}} />
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.itemText}>{item.name}</Text>
-        </View>
+          <ImageBackground source={{uri: item.image}} 
+          style={[item.selected ? styles.itemImageSelected : styles.itemImage]}>
+            <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.6)']} style={{flex:1}} />
+            <View style={{width:'100%'}} />
+          </ImageBackground>
+          <View style={{flexDirection:'row', justiftyContent:'bottom', alignItems:'flex-end', flex:1}}>
+            <Text style={styles.itemText}>{item.name}</Text>
+            {this.state.level == 3 &&
+            <Icon
+              type='FontAwesome'
+              name={[item.selected ? 'check-square-o' : 'square-o']}
+              style={{color:'white', fontSize:30, flex:0.25, textAlign:'right', 
+                paddingRight:item.selected ? 6 : 10, 
+                paddingBottom:5}}
+            />}
+          </View>
       </TouchableOpacity>
     );
   };
@@ -133,11 +149,16 @@ class selectInterests extends Component {
               <View />
             </View>
             <FlatList
-              data={this.state.interests}
+              data={this.state.interests.map(obj => (
+                { ...obj, 
+                  selected: this.props.selectedInterests.some(int => int.category.id === obj.id) 
+                }
+              ))}
               renderItem={this.renderItem}
               numColumns={numColumns}
+              extraData={this.state}
             />
-            <Toast ref="toast" style={{backgroundColor: 'grey'}} />
+            <Toast ref="toast" style={{backgroundColor: 'grey'}} positionValue={180} />
           </SafeAreaView>
         </View>
         <ModalRecommended />
@@ -151,6 +172,7 @@ const mapStateToProps = state => {
   return {
     userData: state.userData,
     interests: state.interests,
+    selectedInterests: state.selectedInterests
   };
 };
 
@@ -158,8 +180,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getListInterests: token => dispatch(getListInterests(token)),
-    selectedInterests: interest => dispatch(selectedInterests(interest)),
     setInterest: (interest, token) => dispatch(setInterest(interest, token)),
+    deleteInterest: (token, id) => dispatch(deleteInterest(token, id)),
   };
 };
 
@@ -173,24 +195,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: '#fff',
+    flex: 1,
+    margin: 2,
     width: Dimensions.get('window').width / numColumns,
-    height: 150,
+    height: Dimensions.get('window').width / numColumns,
+    maxHeight: 200,
     position: 'relative',
   },
   itemImage: {
-    width: Dimensions.get('window').width / numColumns,
-    height: 150,
+    width: '100%',
+    height: '100%',
     position: 'absolute',
   },
+  itemImageSelected: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    opacity: 0.6
+  },
   itemText: {
-    padding: 4,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'white',
+    flex: 1,
+    padding: 10,
     color: 'white',
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(238, 75, 59, 0.8)',
   },
 
   color: {
