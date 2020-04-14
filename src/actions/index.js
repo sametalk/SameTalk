@@ -137,6 +137,20 @@ export const resetStore = () => {
     }
 }
 
+export const addSelectedInterest = (interest) => {
+    return {
+       type: 'addSelectedInterest',
+       payload: interest
+    }
+}
+
+export const deleteSelectedInterest = (id) => {
+    return {
+       type: 'deleteSelectedInterest',
+       payload: id
+    }
+}
+
 export const login = (token) => {
     return async (dispatch) => {
         dispatch(getData())
@@ -251,11 +265,8 @@ export const getListInterests = (token_ST) => {
 export const setInterest = (interest, token_ST) => {
     return async (dispatch) => {
         dispatch(getData())
-        const response = await setInt(interest, token_ST)
-        if (response.status !== "error"){
-            const responseListInterest = await getSelectedInt(token_ST)
-            dispatch(selectedInterests(responseListInterest))
-        }
+        dispatch(addSelectedInterest({category: interest}))
+        await setInt(interest, token_ST)
         dispatch(getDataSuccess([]))
     }
 }
@@ -276,8 +287,8 @@ export const getSelectedInterest = ( token_ST ) => {
 export const deleteInterest = (token, id) => {
     return async (dispatch) => {
         dispatch(getData())
-        const response = await deleteInt(token, id)
-        dispatch(getSelectedInterest(token))
+        dispatch(deleteSelectedInterest(id))
+        await deleteInt(token, id)
         dispatch(getDataSuccess([]))
     }
 }

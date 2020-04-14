@@ -8,7 +8,6 @@ class ListInterests extends Component {
     async componentDidMount() {
         console.disableYellowBox = true;
         const { getSelectedInterest , userData } = this.props
-        await getSelectedInterest(userData.token)
     }
 
     async delete(id) {
@@ -21,7 +20,7 @@ class ListInterests extends Component {
         return (
             <React.Fragment>
                 {
-                    selectedInterests.length == 0 ? (
+                    this.props.selectedInterests.length == 0 ? (
                         <View style={styles.container}>
                             <Text style={styles.text}>¡Aún no posee intereses!</Text>
                         </View>
@@ -29,7 +28,7 @@ class ListInterests extends Component {
                         <Container>
                                 <Content>
                                     <List>
-                                        {selectedInterests.map((interest, index) => (
+                                        {this.props.selectedInterests.map((interest, index) => (
                                             <ListItem thumbnail key={index}>
                                                 <Left>
                                                     <Thumbnail square source={{ uri: interest.category.image }} />
