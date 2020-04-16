@@ -19,11 +19,10 @@ import {connect} from 'react-redux';
 import {getSelectedInterest, deleteInterest} from '../../actions';
 
 class ListInterests extends Component {
-  async componentDidMount() {
-    console.disableYellowBox = true;
-    const {getSelectedInterest, userData} = this.props;
-    await getSelectedInterest(userData.token);
-  }
+    async componentDidMount() {
+        console.disableYellowBox = true;
+        const { getSelectedInterest , userData } = this.props
+    }
 
   async delete(id) {
     const {deleteInterest, userData} = this.props;
@@ -31,10 +30,9 @@ class ListInterests extends Component {
   }
 
   render() {
-    const {selectedInterests} = this.props;
     return (
       <React.Fragment>
-        {selectedInterests.length == 0 ? (
+        {this.props.selectedInterests.length == 0 ? (
           <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{flex: 1}}>
@@ -89,7 +87,7 @@ class ListInterests extends Component {
               <Container>
                 <Content>
                   <List>
-                    {selectedInterests.map((interest, index) => (
+                    {this.props.selectedInterests.map((interest, index) => (
                       <ListItem thumbnail key={index}>
                         <Left>
                           <Thumbnail
