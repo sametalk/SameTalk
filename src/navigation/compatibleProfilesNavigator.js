@@ -1,5 +1,6 @@
 import {Platform, StatusBar} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
+import React from 'react';
 
 import ListProfiles from '../views/listOfCompatibleProfiles/listProfiles';
 import SeeWhoLikeMee from '../views/listOfCompatibleProfiles/seeWhoLikeMee';
@@ -10,10 +11,7 @@ import SeeWhoLikeMee from '../views/listOfCompatibleProfiles/seeWhoLikeMee';
 const compatibleProfileStack = createStackNavigator(
   {
     ListProfiles: {
-      screen: ListProfiles,
-      navigationOptions: () => ({
-        header: null,
-      }),
+      screen: props => <ListProfiles navigation={props.navigation}/>,
     },
     SeeWhoLikeMee: {
       screen: SeeWhoLikeMee,

@@ -32,12 +32,6 @@ import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
 import ModalFilter from '../../components/listOfCompatibleProfiles/modalFilter';
 
 class ListProfiles extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Personas',
-      swipeEnabled: navigation.getParam('swipeAll', true),
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -65,11 +59,11 @@ class ListProfiles extends Component {
     if (this.state.swipedAll && typeof this.lastProfile !== 'undefined') {
       this.props.setListProfiles(this.lastProfile);
       this.setState({ swipedAll: false });
-      this.props.navigation.setParams({ swipeAll: false });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
     } else {
       if (this.props.listProfiles.length > 0) {
         this.swiper.goBackFromLeft();
-        this.props.navigation.setParams({ swipeAll: false });
+        this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
       }
     }
   };
@@ -80,7 +74,7 @@ class ListProfiles extends Component {
     await getListProfiles(userData.token);
     if (this.props.listProfiles.length > 0) {
       this.setState({ swipedAll: false });
-      this.props.navigation.setParams({ swipeAll: false });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
     }
   }
 
@@ -90,10 +84,10 @@ class ListProfiles extends Component {
     this.setState({ refreshing: false });
     if (this.props.listProfiles.length == 0) {
       this.setState({ swipedAll: true });
-      this.props.navigation.setParams({ swipeAll: true });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: true });
     } else {
       this.setState({ swipedAll: false });
-      this.props.navigation.setParams({ swipeAll: false });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
     }
   }
 
@@ -104,7 +98,7 @@ class ListProfiles extends Component {
     ];
     await this.props.setListProfiles([]);
     this.setState({ swipedAll: true });
-    this.props.navigation.setParams({ swipeAll: true });
+    this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: true });
   }
 
   async onNoLike(profile) {

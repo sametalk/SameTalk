@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {Icon} from 'native-base';
@@ -10,13 +10,25 @@ import TabBar from '../components/TabBar';
 /*
     En este .js se configura el TabBar que aparece en la parte de abajo
 */
+
+class ExtendStack extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Personas',
+      swipeEnabled: navigation.getParam('swipeAll', true),
+      header: null,
+    };
+  };
+  static router = CompatibleProfileStack.router;
+  render() {
+    return <CompatibleProfileStack navigation={this.props.navigation} />;
+  }
+}
+
 const TabNavigator = createMaterialTopTabNavigator(
   {
     CompatibleProfileStack: {
-      screen: CompatibleProfileStack,
-      navigationOptions: () => ({
-        title: `Personas`,
-      }),
+      screen: ExtendStack,
     },
     SelectInterests: {
       screen: SelectInterests,
