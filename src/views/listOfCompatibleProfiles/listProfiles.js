@@ -10,18 +10,14 @@ import {
   Dimensions,
   StatusBar,
   SafeAreaView,
+  ImageBackground
 } from 'react-native';
 import { connect } from 'react-redux';
 import {
   Title,
-  Card,
-  CardItem,
   Text,
-  Left,
-  Body,
   Icon,
   Thumbnail,
-  Right,
 } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import { setLike, setSuperLike, setDontLike } from '../../api';
@@ -30,7 +26,10 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import IconCoin from 'react-native-vector-icons/AntDesign';
 import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
 import ModalFilter from '../../components/listOfCompatibleProfiles/modalFilter';
-import {DARK, DARK_2} from '../../constant/colors'; 
+import { DARK, DARK_2 } from '../../constant/colors';
+import LinearGradient from 'react-native-linear-gradient';
+
+const win = Dimensions.get('window');
 
 class ListProfiles extends Component {
 
@@ -180,7 +179,7 @@ class ListProfiles extends Component {
   }
 
   render() {
-    let { listProfiles, userData, discountCoins} = this.props;
+    let { listProfiles, userData, discountCoins } = this.props;
     return (
       <React.Fragment>
         {!this.state.selectCountryOn &&
@@ -258,59 +257,32 @@ class ListProfiles extends Component {
                   }}
                   key={listProfiles.length}>
                   {listProfiles.map(profile => (
-                    <Card
-                      key={profile.id}
-                      style={styles.card}
-                      onSwipedLeft={() => this.onNoLike(profile)}
-                      onSwipedRight={() => this.onLike(profile, 'like')}>
-                      <CardItem key={profile.id}>
-                        <Left>
-                          <Thumbnail
-                            small
-                            source={{ uri: profile.country.flag }}
-                          />
-                          <Body>
-                            <Text style={{ color: '#212121' }}>
-                              {profile.full_name}
-                            </Text>
-                            <Text note>{profile.age} Años</Text>
-                          </Body>
-                        </Left>
-                        <Right>
-                          <TouchableOpacity
-                            onPress={() => {
-                              this.onLike(profile, 'super-like'),
-                                this.swiper.swipeBottom();
-                            }}>
-                            <Icon
-                              type="FontAwesome"
-                              name="star"
-                              style={{ fontSize: 25, color: '#37D7DE' }}
-                            />
-                          </TouchableOpacity>
-                        </Right>
-                      </CardItem>
-                      <CardItem cardBody>
-                        <Image
-                          source={{ uri: profile.profile_picture }}
-                          style={styles.profile}
-                        />
-                      </CardItem>
-                      <CardItem>
-                        <Body>
-                          <Body>
-                            <Text
-                              style={{
-                                color: '#4B515D',
-                                fontSize: 20,
-                                fontWeight: '600',
-                              }}>
-                              Compatibilidad: {profile.compatibility}
-                            </Text>
-                          </Body>
-                        </Body>
-                      </CardItem>
-                    </Card>
+                    <View style={styles.item}>
+                      <ImageBackground
+                        source={{ uri: profile.profile_picture }}
+                        style={styles.itemImage}
+                        imageStyle={{
+                          borderRadius: 3
+                        }}>
+                        <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.8)']} style={{ flex: 1 }} />
+                        <View style={{ width: '100%' }} />
+                      </ImageBackground>
+                      <View style={{ 
+                          flex: 1,
+                          flexDirection: 'column', 
+                          alignItems: 'flex-start',
+                          justifyContent: 'flex-end',
+                          marginLeft: 10,
+                          marginBottom: 10
+                        }}>
+                        <Text style={styles.name}>{profile.full_name}</Text>
+                        <Text style={styles.age}>{profile.age} Años</Text>
+                        <Text
+                          style={styles.compatibility}>
+                          Compatibilidad: {profile.compatibility}
+                        </Text>
+                      </View>
+                    </View>
                   ))}
                 </CardStack>
                 <View style={styles.footer}>
@@ -415,7 +387,6 @@ export default connect(
   mapDispatchToProps,
 )(ListProfiles);
 
-const win = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -427,16 +398,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(158, 158, 158, 0.1)',
   },
-  card: {
-    width: 320,
+  item: {
     flex: 1,
-    borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.5,
+    margin: 2,
+    width: win.width / 1.05,
+    height: win.width / 1.05,
+    position: 'relative'
+  },
+  itemImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
   },
   buttonContainer: {
     width: '70%',
@@ -462,14 +434,27 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
   },
-  profile: {
-    height: win.width / 1.5,
-    width: null,
-    flex: 1,
-  },
   buttonModal: {
     width: '48%',
     borderRadius: 10,
     justifyContent: 'center',
   },
+  name: {
+    fontSize: 28,
+    color: 'white',
+    fontWeight: "700"
+  },
+  flag: {
+
+  },
+  age: {
+    fontSize: 18,
+    color: 'grey',
+    fontWeight: "500"
+  },
+  compatibility: {
+    color: 'green',
+    fontSize: 20,
+    fontWeight: '600',
+  }
 });
