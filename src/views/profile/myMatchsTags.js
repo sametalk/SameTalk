@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Linking } from 'react-native';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import {DARK} from '../../constant/colors'; 
 
 class MyMatchsTags extends Component {
     render() {

@@ -30,6 +30,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import IconCoin from 'react-native-vector-icons/AntDesign';
 import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
 import ModalFilter from '../../components/listOfCompatibleProfiles/modalFilter';
+import {DARK, DARK_2} from '../../constant/colors'; 
 
 class ListProfiles extends Component {
 
@@ -196,7 +197,7 @@ class ListProfiles extends Component {
                 />
               )
             }>
-            <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)' }}>
+            <View style={{ flex: 1, backgroundColor: DARK }}>
               <StatusBar barStyle="light-content" />
               <SafeAreaView style={{ flex: 1 }}>
                 <View
@@ -208,10 +209,11 @@ class ListProfiles extends Component {
                       height: 48,
                       width: '100%',
                       paddingHorizontal: 10,
+                      backgroundColor: DARK_2
                     },
                   ]}>
                   <Title style={{ color: 'white' }}>
-                    Selecciona tus intereses{' '}
+                    {' '}Perfiles compatibles
                   </Title>
                   <View
                     style={{
@@ -425,9 +427,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(158, 158, 158, 0.1)',
   },
-  header: {
-    backgroundColor: '#F1F3F5',
-  },
   card: {
     width: 320,
     flex: 1,
@@ -468,15 +467,9 @@ const styles = StyleSheet.create({
     width: null,
     flex: 1,
   },
-  imageBackground: {
-    width: '100%',
-    height: '100%',
-  },
-
   buttonModal: {
     width: '48%',
     borderRadius: 10,
     justifyContent: 'center',
   },
-
 });

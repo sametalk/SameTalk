@@ -4,7 +4,8 @@ import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right,
 import { connect } from 'react-redux';
 import { setLike, setDontLike } from '../../api';
 import { getListLikeMee } from '../../actions';
-import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch'
+import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
+import {WHITE} from '../../constant/colors'; 
 
 class SeeWhoLikeMee extends Component {
 
@@ -55,7 +56,7 @@ class SeeWhoLikeMee extends Component {
         const { listLikeMee } = this.props
         return (
             <React.Fragment>
-                <Container>
+                <Container style={{backgroundColor: WHITE}}>
                     <Content>
                         <List>
                             {listLikeMee.map((item, index) => (
@@ -107,10 +108,6 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(SeeWhoLikeMee)
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center'
-    },
     text: {
         fontWeight: '700',
         fontSize: 18,

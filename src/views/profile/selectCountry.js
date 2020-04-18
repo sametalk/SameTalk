@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {userSetCountry} from '../../actions';
 import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {Title, Button, Icon} from 'native-base';
+import {DARK} from '../../constant/colors'; 
+
 class SelectCountry extends Component {
   componentDidMount() {
     console.disableYellowBox = true;
@@ -17,7 +19,7 @@ class SelectCountry extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+      <View style={{flex: 1, backgroundColor: DARK}}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
           <View

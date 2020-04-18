@@ -3,6 +3,7 @@ import { Modal, StyleSheet, View } from 'react-native';
 import { Card, CardItem, Text, Button, Item, Input, Left, Body } from 'native-base';
 import { connect } from 'react-redux';
 import { changeReferredModalValue, setRewardForRecommendation } from '../actions';
+import {DARK} from '../constant/colors'; 
 
 class ModalRecommended extends Component {
 
@@ -53,7 +54,7 @@ class ModalRecommended extends Component {
                 <Button rounded danger style={styles.button} onPress={() => this.cancel()}>
                   <Text>Omitir</Text>
                 </Button>
-                <Button rounded info style={styles.button} onPress={() => this.setReward()}>
+                <Button rounded info style={[styles.button, {backgroundColor: DARK}]} onPress={() => this.setReward()}>
                   <Text>Confirmar</Text>
                 </Button>
               </CardItem>
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   button: {
-    margin: 10
+    margin: 10,
+    borderRadius: 8
   }
 });

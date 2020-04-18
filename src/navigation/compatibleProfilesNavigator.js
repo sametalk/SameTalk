@@ -5,6 +5,7 @@ import React from 'react';
 import ListProfiles from '../views/listOfCompatibleProfiles/listProfiles';
 import SeeWhoLikeMee from '../views/listOfCompatibleProfiles/seeWhoLikeMee';
 
+import {DARK} from '../constant/colors';
 /*
   Navegación interna dentro de la pantalla de perfil
 */
@@ -17,6 +18,10 @@ const compatibleProfileStack = createStackNavigator(
       screen: SeeWhoLikeMee,
       navigationOptions: () => ({
         title: `Likes:`,
+        headerTintColor: "white",
+        headerStyle: {
+          backgroundColor: DARK
+        },
       }),
     },
   },

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Modal, View, Image, Dimensions, StyleSheet} from 'react-native';
 import {CardItem, Text, Button, H1, Thumbnail} from 'native-base';
+import {DARK} from '../../constant/colors'; 
 
 class ModalMatch extends Component {
   render() {
@@ -35,7 +36,7 @@ class ModalMatch extends Component {
                   borderTopRightRadius: 20,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                  backgroundColor: DARK,
                 }}>
                 <H1 style={[styles.title]}>Has hecho match 🤙</H1>
               </View>
@@ -118,7 +119,7 @@ class ModalMatch extends Component {
                     styles.buttonModal,
                     {
                       marginLeft: 10,
-                      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                      backgroundColor: DARK,
                     },
                   ]}>
                   <Text style={{fontWeight: 'bold'}}>Seguir </Text>

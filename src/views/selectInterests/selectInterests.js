@@ -21,6 +21,7 @@ import ModalRecommended from '../../components/modalRecommended';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import {SafeAreaView} from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
+import {DARK, DARK_2} from '../../constant/colors'; 
 
 const numColumns = 2;
 
@@ -125,7 +126,7 @@ class selectInterests extends Component {
   render() {
     return (
       <React.Fragment>
-        <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+        <View style={{flex: 1, backgroundColor: DARK}}>
           <StatusBar barStyle="light-content" />
           <SafeAreaView style={{flex: 1}}>
             <View
@@ -136,6 +137,7 @@ class selectInterests extends Component {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   height: 48,
+                  backgroundColor: DARK_2
                 },
               ]}>
               {this.state.level !== 1 ? (
