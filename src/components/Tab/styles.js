@@ -1,11 +1,12 @@
 // STYLES
 import {StyleSheet, Platform} from 'react-native';
+import {DARK, WHITE} from '../../constant/colors'; 
 
 // UTILS
 
 export const styles = StyleSheet.create({
   bubble: {
-    backgroundColor: 'black',
+    backgroundColor: DARK,
     borderRadius: 27.5,
     height: 55,
     position: 'absolute',
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
     borderRadius: 30,
     height: 60,
     justifyContent: 'center',
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
   icon: {height: 30, width: 30},
   miniBubble: {
     alignSelf: 'center',
-    backgroundColor: 'black',
+    backgroundColor: DARK,
     borderRadius: 11,
     height: 22,
     position: 'absolute',

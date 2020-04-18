@@ -23,6 +23,7 @@ import {
 import { connect } from 'react-redux';
 import { getListTags, discountCoins } from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import {DARK, WHITE} from '../../constant/colors'; 
 
 class MyTags extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class MyTags extends Component {
     return (
       <React.Fragment>
         {listTags.length == 0 ? (
-          <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)' }}>
+          <View style={{ flex: 1, backgroundColor: DARK }}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{ flex: 1 }}>
               <View
@@ -102,7 +103,7 @@ class MyTags extends Component {
           </View>
         ) : (
             <React.Fragment>
-              <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)' }}>
+              <View style={{ flex: 1, backgroundColor: DARK }}>
                 <StatusBar barStyle="light-content" />
                 <SafeAreaView style={{ flex: 1 }}>
                   <View
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
   },
   text: {
     fontWeight: '700',

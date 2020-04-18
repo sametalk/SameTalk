@@ -17,6 +17,7 @@ import {
 } from 'native-base';
 import {connect} from 'react-redux';
 import {getSelectedInterest, deleteInterest} from '../../actions';
+import {DARK, WHITE} from '../../constant/colors'; 
 
 class ListInterests extends Component {
     async componentDidMount() {
@@ -33,7 +34,7 @@ class ListInterests extends Component {
     return (
       <React.Fragment>
         {this.props.selectedInterests.length == 0 ? (
-          <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+          <View style={{flex: 1, backgroundColor: DARK }}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{flex: 1}}>
               <View
@@ -62,7 +63,7 @@ class ListInterests extends Component {
             </SafeAreaView>
           </View>
         ) : (
-          <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+          <View style={{flex: 1, backgroundColor: DARK}}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{flex: 1}}>
               <View
@@ -84,7 +85,7 @@ class ListInterests extends Component {
                 <Title style={{color: 'white'}}>Mis intereses</Title>
                 <View />
               </View>
-              <Container>
+              <Container style={{backgroundColor: WHITE}}>
                 <Content>
                   <List>
                     {this.props.selectedInterests.map((interest, index) => (
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
   },
   text: {
     fontWeight: '700',

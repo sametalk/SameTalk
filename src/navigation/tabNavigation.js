@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
-import {Icon} from 'native-base';
 import SelectInterests from '../views/selectInterests/selectInterests';
 import CompatibleProfileStack from './compatibleProfilesNavigator';
 import ProfileStack from './profileNavigation';

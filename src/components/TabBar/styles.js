@@ -1,12 +1,13 @@
 // LIBS
 import {StyleSheet} from 'react-native';
+import {WHITE} from '../../constant/colors'; 
 // STYLES
 
 // ────────────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
     flexDirection: 'row',
     height: 60,
     justifyContent: 'space-around',
