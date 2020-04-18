@@ -45,7 +45,7 @@ const TabNavigator = createMaterialTopTabNavigator(
   {
     tabBarComponent: props => TabBar(props),
 
-    initialRouteName: 'SelectInterests',
+    initialRouteName: 'CompatibleProfileStack',
 
     tabBarPosition: 'bottom',
   },
