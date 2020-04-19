@@ -147,19 +147,7 @@ class selectInterests extends Component {
             }} />
 
           </View>
-          <View style={{ marginTop: 5 }} />
 
-          <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 5 }}>
-            <View style={{
-              width: Dimensions.get('window').width / numColumns,
-              height: Dimensions.get('window').width / numColumns, borderRadius: 4, marginRight: 5
-            }} />
-            <View style={{
-              width: Dimensions.get('window').width / numColumns,
-              height: Dimensions.get('window').width / numColumns, borderRadius: 4
-            }} />
-
-          </View>
           <View style={{ marginTop: 5 }} />
           <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 5 }}>
             <View style={{

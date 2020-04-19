@@ -174,8 +174,9 @@ const styles = StyleSheet.create({
     alignContent: 'flex-end',
   },
   buttonZone: {
-    flex: 1.2,
-    justifyContent: 'flex-start',
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: "15%"
   },
   button: {
     width: '60%',

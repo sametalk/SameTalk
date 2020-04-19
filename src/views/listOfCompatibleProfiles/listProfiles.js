@@ -10,21 +10,22 @@ import {
   Dimensions,
   StatusBar,
   SafeAreaView,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import { connect } from 'react-redux';
-import {
-  Title,
-  Text,
-  Icon,
-  Thumbnail,
-  Card,
-} from 'native-base';
+import { Text, Icon, Thumbnail, Card } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import { setLike, setSuperLike, setDontLike } from '../../api';
-import { getListProfiles, filterProfiles, setListProfiles, discountCoins } from '../../actions';
+import {
+  getListProfiles,
+  filterProfiles,
+  setListProfiles,
+  discountCoins,
+} from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import IconCoin from 'react-native-vector-icons/AntDesign';
+import IconLike from 'react-native-vector-icons/AntDesign';
+import IconRef from 'react-native-vector-icons/MaterialCommunityIcons';
 import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
 import ModalFilter from '../../components/listOfCompatibleProfiles/modalFilter';
 import { DARK, DARK_2 } from '../../constant/colors';
@@ -33,7 +34,6 @@ import LinearGradient from 'react-native-linear-gradient';
 const win = Dimensions.get('window');
 
 class ListProfiles extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +46,7 @@ class ListProfiles extends Component {
         showConfirmButton: true,
         type: 'superlike',
         title: '',
-        message: ''
+        message: '',
       },
       profileMatch: this.props.userData,
       listProfiles: this.props.listProfiles,
@@ -60,11 +60,15 @@ class ListProfiles extends Component {
     if (this.state.swipedAll && typeof this.lastProfile !== 'undefined') {
       this.props.setListProfiles(this.lastProfile);
       this.setState({ swipedAll: false });
-      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
+      this.props.navigation
+        .dangerouslyGetParent()
+        .setParams({ swipeAll: false });
     } else {
       if (this.props.listProfiles.length > 0) {
         this.swiper.goBackFromLeft();
-        this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
+        this.props.navigation
+          .dangerouslyGetParent()
+          .setParams({ swipeAll: false });
       }
     }
   };
@@ -75,7 +79,9 @@ class ListProfiles extends Component {
     await getListProfiles(userData.token);
     if (this.props.listProfiles.length > 0) {
       this.setState({ swipedAll: false });
-      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
+      this.props.navigation
+        .dangerouslyGetParent()
+        .setParams({ swipeAll: false });
     }
   }
 
@@ -83,12 +89,16 @@ class ListProfiles extends Component {
     this.setState({ refreshing: true });
     await this.props.getListProfiles(this.props.userData.token);
     this.setState({ refreshing: false });
-    if (this.props.listProfiles.length == 0) {
+    if (this.props.listProfiles.length === 0) {
       this.setState({ swipedAll: true });
-      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: true });
+      this.props.navigation
+        .dangerouslyGetParent()
+        .setParams({ swipeAll: true });
     } else {
       this.setState({ swipedAll: false });
-      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
+      this.props.navigation
+        .dangerouslyGetParent()
+        .setParams({ swipeAll: false });
     }
   }
 
@@ -117,11 +127,12 @@ class ListProfiles extends Component {
             alert: {
               show: true,
               title: 'No puedes dar Superlikes',
-              message: 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas',
-              type: 'superlike'
-            }
+              message:
+                'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas',
+              type: 'superlike',
+            },
           });
-          this.goBack()
+          this.goBack();
         } else {
           response = await setSuperLike(this.props.userData.token, profile.id); //Seteo el superLike
           this.props.discountCoins(this.props.userData);
@@ -151,19 +162,20 @@ class ListProfiles extends Component {
   goToInstagram() {
     this.setState({ modalMatchVisible: false });
     Linking.openURL(
-      'https://www.instagram.com/' + this.state.profileMatch.username,
+      'https://www.instagram.com/' + this.state.profileMatch.username
     );
   }
 
   calculateCoinsForSuperLike() {
     let coins = this.props.userData.coins;
     let permitted = true;
-    let title = "¿Quieres ver quien te dio Like?";
-    let message = ''
+    let title = '¿Quién te dio like?';
+    let message = '';
 
     if (coins - 10 <= 0) {
       permitted = false;
-      message = 'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas';
+      message =
+        'Necesitas 10 monedas, comparte nuestra aplicación con tus amigos y obtenlas';
     } else {
       message = 'Se te descontarán 10 monedas';
     }
@@ -174,7 +186,7 @@ class ListProfiles extends Component {
         showConfirmButton: permitted,
         message: message,
         title: title,
-        type: 'likeMee'
+        type: 'likeMee',
       },
     });
   }
@@ -183,7 +195,7 @@ class ListProfiles extends Component {
     let { listProfiles, userData, discountCoins } = this.props;
     return (
       <React.Fragment>
-        {!this.state.selectCountryOn &&
+        {!this.state.selectCountryOn && (
           <ScrollView
             contentContainerStyle={{ flex: 1 }}
             style={styles.container}
@@ -196,7 +208,8 @@ class ListProfiles extends Component {
                   onRefresh={this._onRefresh}
                 />
               )
-            }>
+            }
+          >
             <View style={{ flex: 1, backgroundColor: DARK }}>
               <StatusBar barStyle="light-content" />
               <SafeAreaView style={{ flex: 1 }}>
@@ -209,18 +222,22 @@ class ListProfiles extends Component {
                       height: 48,
                       width: '100%',
                       paddingHorizontal: 10,
-                      backgroundColor: DARK_2
+                      backgroundColor: DARK_2,
                     },
-                  ]}>
+                  ]}
+                >
                   <TouchableOpacity
-                    onPress={() => this.calculateCoinsForSuperLike()}>
+                    onPress={() => this.calculateCoinsForSuperLike()}
+                  >
                     <IconCoin name="hearto" color="white" size={22} />
                   </TouchableOpacity>
-                  <Image source={require('../../../assets/image/logo3.png')} style={{ width: 300, height: 25, resizeMode: 'contain' }} />
+                  <Image
+                    source={require('../../../assets/image/logo3.png')}
+                    style={{ width: 300, height: 25, resizeMode: 'contain' }}
+                  />
                   <TouchableOpacity
-                    onPress={() =>
-                      this.setState({ modalFilterVisible: true })
-                    }>
+                    onPress={() => this.setState({ modalFilterVisible: true })}
+                  >
                     <Icon
                       type="MaterialCommunityIcons"
                       name="filter-variant"
@@ -237,7 +254,8 @@ class ListProfiles extends Component {
                         fontWeight: '700',
                         fontSize: 18,
                         color: 'gray',
-                      }}>
+                      }}
+                    >
                       No hay más perfiles compatibles!
                     </Text>
                   )}
@@ -245,28 +263,47 @@ class ListProfiles extends Component {
                   ref={swiper => {
                     this.swiper = swiper;
                   }}
-                  key={listProfiles.length}>
+                  key={listProfiles.length}
+                >
                   {listProfiles.map(profile => (
-                    <Card key={profile.id} style={styles.item} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                    <Card
+                      key={profile.id}
+                      style={styles.item}
+                      onSwipedLeft={() => this.onNoLike(profile)}
+                      onSwipedRight={() => this.onLike(profile, 'like')}
+                    >
                       <ImageBackground
                         source={{ uri: profile.profile_picture }}
-                        style={[styles.itemImage, { backgroundColor: DARK, borderRadius: 10 }]}
+                        style={[
+                          styles.itemImage,
+                          { backgroundColor: DARK, borderRadius: 10 },
+                        ]}
                         imageStyle={{
-                          borderRadius: 10
-                        }}>
-                        <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.9)']} style={{ flex: 1, borderRadius: 10 }} />
+                          borderRadius: 10,
+                        }}
+                      >
+                        <LinearGradient
+                          colors={[
+                            'rgba(0,0,0,0)',
+                            'rgba(0,0,0,0.1)',
+                            'rgba(0,0,0,0.9)',
+                          ]}
+                          style={{ flex: 1, borderRadius: 10 }}
+                        />
                         <View style={{ width: '100%' }} />
                       </ImageBackground>
                       <View
                         style={{
                           alignItems: 'flex-end',
                           marginTop: 15,
-                          marginRight: 15}}>
-                        <TouchableOpacity 
+                          marginRight: 15,
+                        }}
+                      >
+                        <TouchableOpacity
                           style={{
-                            backgroundColor: 'white', 
-                            width: 40, 
-                            height: 40, 
+                            backgroundColor: 'white',
+                            width: 40,
+                            height: 40,
                             borderRadius: 150,
                             elevation: 10,
                             shadowColor: 'rgba(0,0,0, .4)', // IOS
@@ -274,31 +311,46 @@ class ListProfiles extends Component {
                             shadowOpacity: 1, // IOS
                             shadowRadius: 1, //IOS
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
                           }}
-                          onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
-                          <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                          onPress={() => {
+                            this.onLike(profile, 'super-like'),
+                              this.swiper.swipeBottom();
+                          }}
+                        >
+                          <Icon
+                            type="FontAwesome"
+                            name="star"
+                            style={{ fontSize: 25, color: '#37D7DE' }}
+                          />
                         </TouchableOpacity>
                       </View>
-                      <View style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-end',
-                        marginLeft: 15,
-                        marginBottom: 15
-                      }}>
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'column',
+                          alignItems: 'flex-start',
+                          justifyContent: 'flex-end',
+                          marginLeft: 15,
+                          marginBottom: 15,
+                        }}
+                      >
                         <Text style={styles.name}>{profile.full_name}</Text>
-                        <View style={{
-                          flexDirection: 'row',
-                          alignItems: 'flex-end',
-                          justifyContent: 'flex-start'
-                        }}>
-                          <Text style={styles.age}>{profile.age} Años {' '}</Text>
-                          <Thumbnail small source={{ uri: profile.country.flag }} style={styles.flag} />
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'flex-end',
+                            justifyContent: 'flex-start',
+                          }}
+                        >
+                          <Text style={styles.age}>{profile.age} Años </Text>
+                          <Thumbnail
+                            small
+                            source={{ uri: profile.country.flag }}
+                            style={styles.flag}
+                          />
                         </View>
-                        <Text
-                          style={styles.compatibility}>
+                        <Text style={styles.compatibility}>
                           Compatibilidad: {profile.compatibility}
                         </Text>
                       </View>
@@ -307,26 +359,62 @@ class ListProfiles extends Component {
                 </CardStack>
                 <View style={styles.footer}>
                   <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={() => this.swiper.swipeLeft()}>
-                      <Image
-                        source={require('../../../assets/image/buttons/dislike.png')}
-                        resizeMode={'contain'}
-                        style={styles.dislike}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.goBack()}>
-                      <Image
-                        source={require('../../../assets/image/buttons/refresh.png')}
-                        resizeMode={'contain'}
-                        style={styles.goBack}
+                    <TouchableOpacity
+                      style={{
+                        paddingTop: 10,
+                        borderWidth: 2,
+                        borderColor: 'white',
+                        borderRadius: 180 / 2,
+                        width: 80,
+                        height: 80,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      onPress={() => this.swiper.swipeLeft()}
+                    >
+                      <IconLike
+                        name="dislike2"
+                        size={50}
+                        color="white"
+                        style={{ textAlign: 'center' }}
                       />
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() => this.swiper.swipeRight()}>
-                      <Image
-                        source={require('../../../assets/image/buttons/like.png')}
-                        resizeMode={'contain'}
-                        style={styles.like}
+                      style={{
+                        borderWidth: 2,
+                        borderColor: 'white',
+                        borderRadius: 180 / 2,
+                        width: 80,
+                        height: 80,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      onPress={() => this.goBack()}
+                    >
+                      <IconRef
+                        name="backup-restore"
+                        size={50}
+                        color="white"
+                        style={{ textAlign: 'center' }}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{
+                        borderWidth: 2,
+                        borderColor: 'white',
+                        borderRadius: 180 / 2,
+                        width: 80,
+                        height: 80,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      onPress={() => this.swiper.swipeRight()}
+                    >
+                      <IconLike
+                        name="like2"
+                        size={50}
+                        color="white"
+                        style={{ textAlign: 'center' }}
                       />
                     </TouchableOpacity>
                   </View>
@@ -334,7 +422,7 @@ class ListProfiles extends Component {
               </SafeAreaView>
             </View>
           </ScrollView>
-        }
+        )}
         <ModalMatch
           modalMatchVisible={this.state.modalMatchVisible}
           profileMatch={this.state.profileMatch}
@@ -344,8 +432,10 @@ class ListProfiles extends Component {
         <ModalFilter
           modalFilterVisible={this.state.modalFilterVisible}
           closeModal={() => this.setState({ modalFilterVisible: false })}
-          filter={(gender, age, countryCode) => this.onFilter(gender, age, countryCode)}
-          selectCountry={(value) => this.setState({ selectCountryOn: value })}
+          filter={(gender, age, countryCode) =>
+            this.onFilter(gender, age, countryCode)
+          }
+          selectCountry={value => this.setState({ selectCountryOn: value })}
         />
         <AwesomeAlert
           show={this.state.alert.show}
@@ -398,13 +488,13 @@ const mapDispatchToProps = dispatch => {
     getListProfiles: token => dispatch(getListProfiles(token)),
     filterProfiles: (token, data) => dispatch(filterProfiles(token, data)),
     setListProfiles: profiles => dispatch(setListProfiles(profiles)),
-    discountCoins: user => dispatch(discountCoins(user))
+    discountCoins: user => dispatch(discountCoins(user)),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ListProfiles);
 
 const styles = StyleSheet.create({
@@ -415,7 +505,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 5,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   item: {
     flex: 1,
@@ -426,7 +516,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderWidth: 0,
-    elevation: 0
+    elevation: 0,
   },
   itemImage: {
     width: '100%',
@@ -434,7 +524,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   buttonContainer: {
-    width: '70%',
+    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
@@ -465,22 +555,22 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 28,
     color: 'white',
-    fontWeight: "700"
+    fontWeight: '700',
   },
   flag: {
     width: 30,
     height: 20,
     borderRadius: 4,
-    marginBottom: 2.5
+    marginBottom: 2.5,
   },
   age: {
     fontSize: 18,
     color: '#D7D7D7',
-    fontWeight: "500"
+    fontWeight: '500',
   },
   compatibility: {
     color: '#80FF00',
     fontSize: 20,
     fontWeight: '600',
-  }
+  },
 });
