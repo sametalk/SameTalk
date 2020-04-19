@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Modal, View, Image, Dimensions, StyleSheet} from 'react-native';
-import {CardItem, Text, Button, H1, Thumbnail} from 'native-base';
-import {DARK} from '../../constant/colors'; 
+import React, { Component } from 'react';
+import { Modal, View, Image, Dimensions, StyleSheet } from 'react-native';
+import { CardItem, Text, Button, H1, Thumbnail } from 'native-base';
+import { DARK } from '../../constant/colors';
 
 class ModalMatch extends Component {
   render() {
@@ -52,10 +52,10 @@ class ModalMatch extends Component {
                   marginTop: 30,
                 }}>
                 <Image
-                  source={{uri: profileMatch.profile_picture}}
+                  source={{ uri: profileMatch.profile_picture }}
                   style={[
                     styles.profile,
-                    {height: 175, width: 175, borderRadius: 175 / 2},
+                    { height: 175, width: 175, borderRadius: 175 / 2 },
                   ]}
                 />
               </View>
@@ -79,9 +79,9 @@ class ModalMatch extends Component {
                   justifyContent: 'center',
                   paddingBottom: 10,
                 }}>
-                <Thumbnail small source={{uri: profileMatch.country.flag}} />
-                <View style={{marginLeft: 20}}>
-                  <Text style={{color: '#212121'}}>
+                <Thumbnail small source={{ uri: profileMatch.country.flag }} />
+                <View style={{ marginLeft: 20 }}>
+                  <Text style={{ color: '#212121' }}>
                     {profileMatch.full_name}
                   </Text>
                   <Text note>{profileMatch.age} Años</Text>
@@ -110,7 +110,7 @@ class ModalMatch extends Component {
                       backgroundColor: '#b32821',
                     },
                   ]}>
-                  <Text style={{fontWeight: 'bold'}}>Cerrar </Text>
+                  <Text style={{ fontWeight: 'bold' }}>Cerrar </Text>
                 </Button>
                 <Button
                   rounded
@@ -122,7 +122,7 @@ class ModalMatch extends Component {
                       backgroundColor: DARK,
                     },
                   ]}>
-                  <Text style={{fontWeight: 'bold'}}>Seguir </Text>
+                  <Text style={{ fontWeight: 'bold' }}>Seguir </Text>
                 </Button>
               </View>
             </View>

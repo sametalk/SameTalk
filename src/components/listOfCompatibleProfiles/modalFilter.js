@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Modal,
   View,
@@ -15,10 +15,10 @@ import {
   Title,
   H1,
 } from 'native-base';
-import {CheckBox} from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import SelectCountryComponent from '../../components/selectCountry';
-import {TextInput} from 'react-native-gesture-handler';
-import {DARK} from '../../constant/colors'; 
+import { TextInput } from 'react-native-gesture-handler';
+import { DARK } from '../../constant/colors';
 
 class ModalMatch extends Component {
   constructor(props) {
@@ -55,28 +55,28 @@ class ModalMatch extends Component {
   };
 
   onFilter() {
-    const {filter} = this.props;
+    const { filter } = this.props;
     filter(this.state.gender, this.state.age, this.state.country.code);
   }
 
   setCountry(country) {
-    this.setState({country: country, selectCountryModal: false});
+    this.setState({ country: country, selectCountryModal: false });
     this.props.selectCountry(false);
   }
 
   selectCountry() {
     this.props.selectCountry(true);
-    this.setState({selectCountryModal: true});
+    this.setState({ selectCountryModal: true });
   }
 
   render() {
-    const {modalFilterVisible, closeModal} = this.props;
+    const { modalFilterVisible, closeModal } = this.props;
     return (
       <React.Fragment>
         {this.state.selectCountryModal ? (
-          <View style={{flex: 1, backgroundColor: DARK}}>
+          <View style={{ flex: 1, backgroundColor: DARK }}>
             <StatusBar barStyle="light-content" />
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{ flex: 1 }}>
               <View
                 style={[
                   styles.header,
@@ -89,7 +89,7 @@ class ModalMatch extends Component {
                 ]}>
                 <View />
 
-                <Title style={{color: 'white'}}>Selecciona nacionalidad</Title>
+                <Title style={{ color: 'white' }}>Selecciona nacionalidad</Title>
                 <View />
               </View>
 
@@ -99,151 +99,151 @@ class ModalMatch extends Component {
             </SafeAreaView>
           </View>
         ) : (
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalFilterVisible}>
-            <View style={styles.containerFilter}>
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  width: '80%',
-                  borderRadius: 20,
-                }}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalFilterVisible}>
+              <View style={styles.containerFilter}>
                 <View
                   style={{
-                    paddingBottom: 10,
-                    width: '100%',
-                    height: 50,
                     backgroundColor: 'white',
-                    alignItems: 'center',
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
+                    width: '80%',
+                    borderRadius: 20,
                   }}>
                   <View
                     style={{
+                      paddingBottom: 10,
                       width: '100%',
                       height: 50,
+                      backgroundColor: 'white',
+                      alignItems: 'center',
                       borderTopLeftRadius: 20,
                       borderTopRightRadius: 20,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: DARK,
                     }}>
-                    <H1 style={[styles.title]}>Filtrar</H1>
+                    <View
+                      style={{
+                        width: '100%',
+                        height: 50,
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: DARK,
+                      }}>
+                      <H1 style={[styles.title]}>Filtrar</H1>
+                    </View>
                   </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    width: '100%',
-                  }}>
-                  <CheckBox
-                    center
-                    title="Mujer"
-                    checkedIcon="dot-circle-o"
-                    uncheckedIcon="circle-o"
-                    checkedColor="rgba(0, 0, 0, 0.9)"
-                    checked={this.state.women}
-                    onPress={() => this._check('F')}
-                  />
-                  <CheckBox
-                    center
-                    title="Hombre"
-                    checkedIcon="dot-circle-o"
-                    uncheckedIcon="circle-o"
-                    checkedColor="rgba(0, 0, 0, 0.9)"
-                    checked={this.state.men}
-                    onPress={() => this._check('M')}
-                  />
-                </View>
-                <View style={{paddingLeft: 20}}>
-                  <Text>Edad superior a</Text>
-                  <View style={{marginTop: Platform.OS === 'ios' ? 10 : -5}} />
-
-                  <TextInput
-                    underlineColorAndroid="black"
-                    keyboardType="numeric"
-                    onChangeText={age => this.setState({age})}
-                    value={this.state.age}
-                    returnKeyType="done"
-                    style={{
-                      width: '80%',
-                      borderBottomWidth: Platform.OS === 'ios' ? 0.5 : 0,
-                    }}
-                  />
-                </View>
-                <View style={{marginTop: 30}} />
-                <TouchableOpacity
-                  onPress={() => this.selectCountry()}
-                  style={{paddingLeft: 20}}>
-                  <View>
-                    <Text>Nacionalidad</Text>
-                  </View>
-
-                  <View style={{marginTop: 10}} />
-
                   <View
                     style={{
-                      width: '80%',
-                      borderColor: 'black',
-                      borderBottomWidth: 0.5,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      width: '100%',
                     }}>
-                    <Text
+                    <CheckBox
+                      center
+                      title="Mujer"
+                      checkedIcon="dot-circle-o"
+                      uncheckedIcon="circle-o"
+                      checkedColor="rgba(0, 0, 0, 0.9)"
+                      checked={this.state.women}
+                      onPress={() => this._check('F')}
+                    />
+                    <CheckBox
+                      center
+                      title="Hombre"
+                      checkedIcon="dot-circle-o"
+                      uncheckedIcon="circle-o"
+                      checkedColor="rgba(0, 0, 0, 0.9)"
+                      checked={this.state.men}
+                      onPress={() => this._check('M')}
+                    />
+                  </View>
+                  <View style={{ paddingLeft: 20 }}>
+                    <Text>Edad superior a</Text>
+                    <View style={{ marginTop: Platform.OS === 'ios' ? 10 : -5 }} />
+
+                    <TextInput
+                      underlineColorAndroid="black"
+                      keyboardType="numeric"
+                      onChangeText={age => this.setState({ age })}
+                      value={this.state.age}
+                      returnKeyType="done"
                       style={{
                         width: '80%',
-                        color: 'gray',
-                      }}>
-                      {this.state.country.name}
-                    </Text>
+                        borderBottomWidth: Platform.OS === 'ios' ? 0.5 : 0,
+                      }}
+                    />
                   </View>
-                </TouchableOpacity>
-                <View style={{marginTop: 30}} />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 15,
-                  }}>
-                  <Button
-                    onPress={() => closeModal()}
-                    style={[
-                      styles.buttonModal,
-                      {
-                        width: '45%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: '#b32821',
-                      },
-                    ]}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                      Cerrar
+                  <View style={{ marginTop: 30 }} />
+                  <TouchableOpacity
+                    onPress={() => this.selectCountry()}
+                    style={{ paddingLeft: 20 }}>
+                    <View>
+                      <Text>Nacionalidad</Text>
+                    </View>
+
+                    <View style={{ marginTop: 10 }} />
+
+                    <View
+                      style={{
+                        width: '80%',
+                        borderColor: 'black',
+                        borderBottomWidth: 0.5,
+                      }}>
+                      <Text
+                        style={{
+                          width: '80%',
+                          color: 'gray',
+                        }}>
+                        {this.state.country.name}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <View style={{ marginTop: 30 }} />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: 15,
+                      paddingHorizontal: 15,
+
+                    }}>
+                    <Button
+                      onPress={() => closeModal()}
+                      style={[
+                        styles.buttonModal,
+                        {
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          backgroundColor: '#b32821',
+                        },
+                      ]}>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                        Cerrar
                     </Text>
-                  </Button>
-                  <View style={{marginHorizontal: 5}} />
-                  <Button
-                    success
-                    onPress={() => this.onFilter()}
-                    style={[
-                      styles.buttonModal,
-                      {backgroundColor: DARK},
-                      {
-                        width: '45%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      },
-                    ]}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                      Filtrar
+                    </Button>
+                    <View style={{ marginHorizontal: 5 }} />
+                    <Button
+                      success
+                      onPress={() => this.onFilter()}
+                      style={[
+                        styles.buttonModal,
+                        { backgroundColor: DARK },
+                        {
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        },
+                      ]}>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                        Filtrar
                     </Text>
-                  </Button>
+                    </Button>
+                  </View>
                 </View>
               </View>
-            </View>
-          </Modal>
-        )}
+            </Modal>
+          )}
       </React.Fragment>
     );
   }
