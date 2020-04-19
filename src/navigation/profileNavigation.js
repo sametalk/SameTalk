@@ -10,6 +10,7 @@ import MatchProfile from '../views/profile/matchProfile';
 import Tagger from '../views/profile/tagger';
 import MyTags from '../views/profile/myTags';
 import MyMatchsTags from '../views/profile/myMatchsTags';
+import {DARK, DARK_2} from '../constant/colors';
 
 /*
   Navegación interna dentro de la pantalla de perfil
@@ -50,12 +51,20 @@ const ProfileStack = createStackNavigator(
       screen: MatchProfile,
       navigationOptions: () => ({
         title: `Datos del usuario`,
+        headerTintColor: "white",
+        headerStyle: {
+          backgroundColor: DARK_2
+        },
       }),
     },
     Tagger: {
       screen: Tagger,
       navigationOptions: () => ({
         title: `Etiquetar usuario`,
+        headerTintColor: "white",
+        headerStyle: {
+          backgroundColor: DARK
+        },
       }),
     },
     MyTags: {

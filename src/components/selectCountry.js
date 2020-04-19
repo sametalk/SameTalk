@@ -4,15 +4,13 @@ import {
   Container,
   Content,
   List,
-  ListItem,
-  Left,
   View,
-  Body,
   Thumbnail,
   Text,
 } from 'native-base';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
+import {WHITE} from '../constant/colors'; 
 
 class selectCountry extends Component {
   componentDidMount() {
@@ -38,6 +36,7 @@ class selectCountry extends Component {
                     borderBottomWidth: 0.2,
                     paddingBottom: 5,
                     paddingTop: 5,
+                    backgroundColor: WHITE
                   }}>
                   <Thumbnail
                     scaleX={0.8}

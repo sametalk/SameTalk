@@ -10,18 +10,15 @@ import {
   Dimensions,
   StatusBar,
   SafeAreaView,
+  ImageBackground
 } from 'react-native';
 import { connect } from 'react-redux';
 import {
   Title,
-  Card,
-  CardItem,
   Text,
-  Left,
-  Body,
   Icon,
   Thumbnail,
-  Right,
+  Card,
 } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import { setLike, setSuperLike, setDontLike } from '../../api';
@@ -30,14 +27,12 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import IconCoin from 'react-native-vector-icons/AntDesign';
 import ModalMatch from '../../components/listOfCompatibleProfiles/modalMatch';
 import ModalFilter from '../../components/listOfCompatibleProfiles/modalFilter';
+import { DARK, DARK_2 } from '../../constant/colors';
+import LinearGradient from 'react-native-linear-gradient';
+
+const win = Dimensions.get('window');
 
 class ListProfiles extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Personas',
-      swipeEnabled: navigation.getParam('swipeAll', true),
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -65,11 +60,11 @@ class ListProfiles extends Component {
     if (this.state.swipedAll && typeof this.lastProfile !== 'undefined') {
       this.props.setListProfiles(this.lastProfile);
       this.setState({ swipedAll: false });
-      this.props.navigation.setParams({ swipeAll: false });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
     } else {
       if (this.props.listProfiles.length > 0) {
         this.swiper.goBackFromLeft();
-        this.props.navigation.setParams({ swipeAll: false });
+        this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
       }
     }
   };
@@ -80,7 +75,7 @@ class ListProfiles extends Component {
     await getListProfiles(userData.token);
     if (this.props.listProfiles.length > 0) {
       this.setState({ swipedAll: false });
-      this.props.navigation.setParams({ swipeAll: false });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
     }
   }
 
@@ -90,10 +85,10 @@ class ListProfiles extends Component {
     this.setState({ refreshing: false });
     if (this.props.listProfiles.length == 0) {
       this.setState({ swipedAll: true });
-      this.props.navigation.setParams({ swipeAll: true });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: true });
     } else {
       this.setState({ swipedAll: false });
-      this.props.navigation.setParams({ swipeAll: false });
+      this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: false });
     }
   }
 
@@ -104,7 +99,7 @@ class ListProfiles extends Component {
     ];
     await this.props.setListProfiles([]);
     this.setState({ swipedAll: true });
-    this.props.navigation.setParams({ swipeAll: true });
+    this.props.navigation.dangerouslyGetParent().setParams({ swipeAll: true });
   }
 
   async onNoLike(profile) {
@@ -185,7 +180,7 @@ class ListProfiles extends Component {
   }
 
   render() {
-    let { listProfiles, userData, discountCoins} = this.props;
+    let { listProfiles, userData, discountCoins } = this.props;
     return (
       <React.Fragment>
         {!this.state.selectCountryOn &&
@@ -202,7 +197,7 @@ class ListProfiles extends Component {
                 />
               )
             }>
-            <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)' }}>
+            <View style={{ flex: 1, backgroundColor: DARK }}>
               <StatusBar barStyle="light-content" />
               <SafeAreaView style={{ flex: 1 }}>
                 <View
@@ -214,34 +209,24 @@ class ListProfiles extends Component {
                       height: 48,
                       width: '100%',
                       paddingHorizontal: 10,
+                      backgroundColor: DARK_2
                     },
                   ]}>
-                  <Title style={{ color: 'white' }}>
-                    Selecciona tus intereses{' '}
-                  </Title>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <TouchableOpacity
-                      onPress={() => this.calculateCoinsForSuperLike()}>
-                      <IconCoin name="hearto" color="white" size={22} />
-                    </TouchableOpacity>
-                    <View style={{ marginRight: 8 }} />
-
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.setState({ modalFilterVisible: true })
-                      }>
-                      <Icon
-                        type="MaterialCommunityIcons"
-                        name="filter-variant"
-                        style={{ color: 'white' }}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  <TouchableOpacity
+                    onPress={() => this.calculateCoinsForSuperLike()}>
+                    <IconCoin name="hearto" color="white" size={22} />
+                  </TouchableOpacity>
+                  <Image source={require('../../../assets/image/logo3.png')} style={{ width: 300, height: 25, resizeMode: 'contain' }} />
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({ modalFilterVisible: true })
+                    }>
+                    <Icon
+                      type="MaterialCommunityIcons"
+                      name="filter-variant"
+                      style={{ color: 'white' }}
+                    />
+                  </TouchableOpacity>
                 </View>
 
                 <CardStack
@@ -262,58 +247,61 @@ class ListProfiles extends Component {
                   }}
                   key={listProfiles.length}>
                   {listProfiles.map(profile => (
-                    <Card
-                      key={profile.id}
-                      style={styles.card}
-                      onSwipedLeft={() => this.onNoLike(profile)}
-                      onSwipedRight={() => this.onLike(profile, 'like')}>
-                      <CardItem key={profile.id}>
-                        <Left>
-                          <Thumbnail
-                            small
-                            source={{ uri: profile.country.flag }}
-                          />
-                          <Body>
-                            <Text style={{ color: '#212121' }}>
-                              {profile.full_name}
-                            </Text>
-                            <Text note>{profile.age} Años</Text>
-                          </Body>
-                        </Left>
-                        <Right>
-                          <TouchableOpacity
-                            onPress={() => {
-                              this.onLike(profile, 'super-like'),
-                                this.swiper.swipeBottom();
-                            }}>
-                            <Icon
-                              type="FontAwesome"
-                              name="star"
-                              style={{ fontSize: 25, color: '#37D7DE' }}
-                            />
-                          </TouchableOpacity>
-                        </Right>
-                      </CardItem>
-                      <CardItem cardBody>
-                        <Image
-                          source={{ uri: profile.profile_picture }}
-                          style={styles.profile}
-                        />
-                      </CardItem>
-                      <CardItem>
-                        <Body>
-                          <Body>
-                            <Text
-                              style={{
-                                color: '#4B515D',
-                                fontSize: 20,
-                                fontWeight: '600',
-                              }}>
-                              Compatibilidad: {profile.compatibility}
-                            </Text>
-                          </Body>
-                        </Body>
-                      </CardItem>
+                    <Card key={profile.id} style={styles.item} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
+                      <ImageBackground
+                        source={{ uri: profile.profile_picture }}
+                        style={[styles.itemImage, { backgroundColor: DARK, borderRadius: 10 }]}
+                        imageStyle={{
+                          borderRadius: 10
+                        }}>
+                        <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.9)']} style={{ flex: 1, borderRadius: 10 }} />
+                        <View style={{ width: '100%' }} />
+                      </ImageBackground>
+                      <View
+                        style={{
+                          alignItems: 'flex-end',
+                          marginTop: 15,
+                          marginRight: 15}}>
+                        <TouchableOpacity 
+                          style={{
+                            backgroundColor: 'white', 
+                            width: 40, 
+                            height: 40, 
+                            borderRadius: 150,
+                            elevation: 10,
+                            shadowColor: 'rgba(0,0,0, .4)', // IOS
+                            shadowOffset: { height: 1, width: 1 }, // IOS
+                            shadowOpacity: 1, // IOS
+                            shadowRadius: 1, //IOS
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
+                          <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-end',
+                        marginLeft: 15,
+                        marginBottom: 15
+                      }}>
+                        <Text style={styles.name}>{profile.full_name}</Text>
+                        <View style={{
+                          flexDirection: 'row',
+                          alignItems: 'flex-end',
+                          justifyContent: 'flex-start'
+                        }}>
+                          <Text style={styles.age}>{profile.age} Años {' '}</Text>
+                          <Thumbnail small source={{ uri: profile.country.flag }} style={styles.flag} />
+                        </View>
+                        <Text
+                          style={styles.compatibility}>
+                          Compatibilidad: {profile.compatibility}
+                        </Text>
+                      </View>
                     </Card>
                   ))}
                 </CardStack>
@@ -419,7 +407,6 @@ export default connect(
   mapDispatchToProps,
 )(ListProfiles);
 
-const win = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -428,22 +415,23 @@ const styles = StyleSheet.create({
   content: {
     flex: 5,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(158, 158, 158, 0.1)',
+    justifyContent: 'center'
   },
-  header: {
-    backgroundColor: '#F1F3F5',
-  },
-  card: {
-    width: 320,
+  item: {
     flex: 1,
-    borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.5,
+    margin: 2,
+    width: win.width / 1.05,
+    height: win.width / 1.05,
+    position: 'relative',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    elevation: 0
+  },
+  itemImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
   },
   buttonContainer: {
     width: '70%',
@@ -452,9 +440,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
+    marginBottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(158, 158, 158, 0.1)',
   },
   dislike: {
     width: 80,
@@ -469,20 +457,30 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
   },
-  profile: {
-    height: win.width / 1.5,
-    width: null,
-    flex: 1,
-  },
-  imageBackground: {
-    width: '100%',
-    height: '100%',
-  },
-
   buttonModal: {
     width: '48%',
     borderRadius: 10,
     justifyContent: 'center',
   },
-
+  name: {
+    fontSize: 28,
+    color: 'white',
+    fontWeight: "700"
+  },
+  flag: {
+    width: 30,
+    height: 20,
+    borderRadius: 4,
+    marginBottom: 2.5
+  },
+  age: {
+    fontSize: 18,
+    color: '#D7D7D7',
+    fontWeight: "500"
+  },
+  compatibility: {
+    color: '#80FF00',
+    fontSize: 20,
+    fontWeight: '600',
+  }
 });

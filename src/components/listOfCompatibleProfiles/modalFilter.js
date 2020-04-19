@@ -10,24 +10,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {
-  Card,
-  CardItem,
   Text,
   Button,
-  Thumbnail,
-  Left,
-  Body,
-  Item,
   Title,
-  Label,
-  Input,
-  Icon,
-  Header,
   H1,
 } from 'native-base';
 import {CheckBox} from 'react-native-elements';
 import SelectCountryComponent from '../../components/selectCountry';
 import {TextInput} from 'react-native-gesture-handler';
+import {DARK} from '../../constant/colors'; 
 
 class ModalMatch extends Component {
   constructor(props) {
@@ -83,7 +74,7 @@ class ModalMatch extends Component {
     return (
       <React.Fragment>
         {this.state.selectCountryModal ? (
-          <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+          <View style={{flex: 1, backgroundColor: DARK}}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{flex: 1}}>
               <View
@@ -137,7 +128,7 @@ class ModalMatch extends Component {
                       borderTopRightRadius: 20,
                       alignItems: 'center',
                       justifyContent: 'center',
-                      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                      backgroundColor: DARK,
                     }}>
                     <H1 style={[styles.title]}>Filtrar</H1>
                   </View>
@@ -237,7 +228,7 @@ class ModalMatch extends Component {
                     onPress={() => this.onFilter()}
                     style={[
                       styles.buttonModal,
-                      {backgroundColor: 'rgba(0, 0, 0, 0.9)'},
+                      {backgroundColor: DARK},
                       {
                         width: '45%',
                         justifyContent: 'center',

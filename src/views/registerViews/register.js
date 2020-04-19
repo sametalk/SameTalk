@@ -2,23 +2,14 @@ import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
-  SafeAreaView,
   StatusBar,
   ImageBackground,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-import {Avatar} from 'react-native-elements';
 import {
-  Container,
-  Footer,
-  FooterTab,
-  Card,
-  CardItem,
   Text,
   Button,
-  Icon,
-  Body,
 } from 'native-base';
 import {connect} from 'react-redux';
 
@@ -101,6 +92,7 @@ class register extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                   },
+                  {borderRadius: 10}
                 ]}>
                 <Text style={{fontSize: 20, fontWeight: 'bold'}}>
                   Continuar

@@ -16,6 +16,7 @@ import {
 } from 'native-base';
 import {connect} from 'react-redux';
 import {getListMatchs} from '../../actions';
+import {DARK, WHITE} from '../../constant/colors'; 
 
 class ListMatchs extends Component {
   async componentDidMount() {
@@ -29,7 +30,7 @@ class ListMatchs extends Component {
     return (
       <React.Fragment>
         {listMatchs.length == 0 ? (
-          <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+          <View style={{flex: 1, backgroundColor: DARK}}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{flex: 1}}>
               <View
@@ -58,7 +59,7 @@ class ListMatchs extends Component {
             </SafeAreaView>
           </View>
         ) : (
-          <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+          <View style={{flex: 1, backgroundColor: DARK}}>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={{flex: 1}}>
               <View
@@ -80,7 +81,7 @@ class ListMatchs extends Component {
                 <Title style={{color: 'white'}}>Mis matchs</Title>
                 <View />
               </View>
-              <Container>
+              <Container style={{backgroundColor: WHITE}}>
                 <Content>
                   <List>
                     {listMatchs.map((l, index) => (
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
   },
   text: {
     fontWeight: '700',

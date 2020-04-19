@@ -11,22 +11,13 @@ import {
 } from 'react-native';
 import {
   Text,
-  Button,
-  Card,
-  CardItem,
-  Thumbnail,
-  Left,
-  Body,
-  Header,
-  Icon,
-  Right,
-  Title,
 } from 'native-base';
 import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationActions, StackActions} from 'react-navigation';
 import IconLogout from 'react-native-vector-icons/Entypo';
 import IconSetting from 'react-native-vector-icons/AntDesign';
+import {DARK, DARK_2} from '../../constant/colors'; 
 
 class profile extends Component {
   resetTo(route) {
@@ -48,7 +39,7 @@ class profile extends Component {
     const {userData, listMatchs, selectedInterests, countTags} = this.props;
 
     return (
-      <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+      <View style={{flex: 1, backgroundColor: DARK}}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
           <View style={styles.content}>

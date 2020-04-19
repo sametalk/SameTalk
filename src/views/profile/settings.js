@@ -10,21 +10,17 @@ import {
 import {
   Button,
   Container,
-  Footer,
-  FooterTab,
   Icon,
-  Item,
   Title,
-  Input,
-  Label,
   Text,
-  Thumbnail,
   Content,
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import {connect} from 'react-redux';
 import {updateUser} from '../../actions';
 import CheckIcon from 'react-native-vector-icons/Entypo';
+import {DARK, WHITE} from '../../constant/colors'; 
+
 class Settings extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +49,7 @@ class Settings extends Component {
     const {userData} = this.props;
     return (
       <React.Fragment>
-        <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.95)'}}>
+        <View style={{flex: 1, backgroundColor: DARK}}>
           <StatusBar barStyle="light-content" />
           <SafeAreaView style={{flex: 1}}>
             <View
@@ -86,7 +82,7 @@ class Settings extends Component {
                 />
               </Button>
             </View>
-            <Container>
+            <Container style={{backgroundColor: WHITE}}>
               <Content style={{paddingHorizontal: 20, marginTop: 20}}>
                 <View style={{paddingLeft: 20}}>
                   <Text>Nombre de usuario</Text>

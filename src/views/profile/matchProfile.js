@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Image, View, ImageBackground, Linking, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Thumbnail, Text, Left, Body, Button, Icon, Right } from 'native-base';
+import {DARK} from '../../constant/colors'; 
 
 class MatchProfile extends Component {
   render() {
@@ -8,7 +9,6 @@ class MatchProfile extends Component {
     const profile = navigation.getParam('profile');
     return (
       <View style={{ flex: 1 }}>
-        <ImageBackground source={require('../../../assets/image/fondo.png')} style={styles.imageBackground} imageStyle={{ opacity: 0.3 }}>
           <View style={styles.content}>
             <Card style={styles.card}>
               <CardItem>
@@ -39,7 +39,6 @@ class MatchProfile extends Component {
               </CardItem>
             </Card>
           </View>
-        </ImageBackground>
       </View>
     );
   }
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: DARK
   },
   imageBackground: {
     width: '100%',

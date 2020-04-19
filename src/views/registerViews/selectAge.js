@@ -135,6 +135,7 @@ class selectAge extends Component {
                       justifyContent: 'center',
                       alignItems: 'center',
                     },
+                    {borderRadius: 10}
                   ]}>
                   <Text style={{fontSize: 20, fontWeight: 'bold'}}>
                     Continuar
