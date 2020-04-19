@@ -211,32 +211,21 @@ class ListProfiles extends Component {
                       backgroundColor: DARK_2
                     },
                   ]}>
-                  <Title style={{ color: 'white' }}>
-                    {' '}Perfiles compatibles
-                  </Title>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <TouchableOpacity
-                      onPress={() => this.calculateCoinsForSuperLike()}>
-                      <IconCoin name="hearto" color="white" size={22} />
-                    </TouchableOpacity>
-                    <View style={{ marginRight: 8 }} />
-
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.setState({ modalFilterVisible: true })
-                      }>
-                      <Icon
-                        type="MaterialCommunityIcons"
-                        name="filter-variant"
-                        style={{ color: 'white' }}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  <TouchableOpacity
+                    onPress={() => this.calculateCoinsForSuperLike()}>
+                    <IconCoin name="hearto" color="white" size={22} />
+                  </TouchableOpacity>
+                  <Image source={require('../../../assets/image/logo3.png')} style={{ width: 300, height: 25, resizeMode: 'contain' }} />
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({ modalFilterVisible: true })
+                    }>
+                    <Icon
+                      type="MaterialCommunityIcons"
+                      name="filter-variant"
+                      style={{ color: 'white' }}
+                    />
+                  </TouchableOpacity>
                 </View>
 
                 <CardStack
@@ -267,6 +256,29 @@ class ListProfiles extends Component {
                         <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.9)']} style={{ flex: 1, borderRadius: 10 }} />
                         <View style={{ width: '100%' }} />
                       </ImageBackground>
+                      <View
+                        style={{
+                          alignItems: 'flex-end',
+                          marginTop: 15,
+                          marginRight: 15}}>
+                        <TouchableOpacity 
+                          style={{
+                            backgroundColor: 'white', 
+                            width: 40, 
+                            height: 40, 
+                            borderRadius: 150,
+                            elevation: 10,
+                            shadowColor: 'rgba(0,0,0, .4)', // IOS
+                            shadowOffset: { height: 1, width: 1 }, // IOS
+                            shadowOpacity: 1, // IOS
+                            shadowRadius: 1, //IOS
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          onPress={() => { this.onLike(profile, 'super-like'), this.swiper.swipeBottom() }}>
+                          <Icon type="FontAwesome" name='star' style={{ fontSize: 25, color: '#37D7DE' }} />
+                        </TouchableOpacity>
+                      </View>
                       <View style={{
                         flex: 1,
                         flexDirection: 'column',
@@ -402,8 +414,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 5,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(158, 158, 158, 0.1)',
+    justifyContent: 'center'
   },
   item: {
     flex: 1,
@@ -424,9 +435,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
+    marginBottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(158, 158, 158, 0.1)',
   },
   dislike: {
     width: 80,
