@@ -18,6 +18,7 @@ import {
   Text,
   Icon,
   Thumbnail,
+  Card,
 } from 'native-base';
 import CardStack from 'react-native-card-stack-swiper';
 import { setLike, setSuperLike, setDontLike } from '../../api';
@@ -246,7 +247,7 @@ class ListProfiles extends Component {
                   }}
                   key={listProfiles.length}>
                   {listProfiles.map(profile => (
-                    <View style={styles.item}>
+                    <Card key={profile.id} style={styles.item} onSwipedLeft={() => this.onNoLike(profile)} onSwipedRight={() => this.onLike(profile, 'like')}>
                       <ImageBackground
                         source={{ uri: profile.profile_picture }}
                         style={[styles.itemImage, { backgroundColor: DARK, borderRadius: 10 }]}
@@ -301,7 +302,7 @@ class ListProfiles extends Component {
                           Compatibilidad: {profile.compatibility}
                         </Text>
                       </View>
-                    </View>
+                    </Card>
                   ))}
                 </CardStack>
                 <View style={styles.footer}>
@@ -421,7 +422,11 @@ const styles = StyleSheet.create({
     margin: 2,
     width: win.width / 1.05,
     height: win.width / 1.05,
-    position: 'relative'
+    position: 'relative',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    elevation: 0
   },
   itemImage: {
     width: '100%',
