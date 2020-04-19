@@ -5810,6 +5810,11 @@ react-native-screens@^1.0.0-alpha.23:
   dependencies:
     debounce "^1.2.0"
 
+react-native-skeleton-placeholder@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-skeleton-placeholder/-/react-native-skeleton-placeholder-2.0.7.tgz#a804358b6999a8ed05c35ef2e7ba1c53b50a9426"
+  integrity sha512-9O4lU1bOyhErvMYE3Lz7Cy/H8Mj1FEtb2yEfHVoeBql6HJPcoxBtSSb6nZCS3U1AbbH0RvMYAlB1QztZpLf0Og==
+
 react-native-status-bar-height@^2.2.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"
