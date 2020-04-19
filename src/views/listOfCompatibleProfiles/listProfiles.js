@@ -260,23 +260,30 @@ class ListProfiles extends Component {
                     <View style={styles.item}>
                       <ImageBackground
                         source={{ uri: profile.profile_picture }}
-                        style={styles.itemImage}
+                        style={[styles.itemImage, { backgroundColor: DARK, borderRadius: 10 }]}
                         imageStyle={{
-                          borderRadius: 3
+                          borderRadius: 10
                         }}>
-                        <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.8)']} style={{ flex: 1 }} />
+                        <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.9)']} style={{ flex: 1, borderRadius: 10 }} />
                         <View style={{ width: '100%' }} />
                       </ImageBackground>
-                      <View style={{ 
-                          flex: 1,
-                          flexDirection: 'column', 
-                          alignItems: 'flex-start',
-                          justifyContent: 'flex-end',
-                          marginLeft: 10,
-                          marginBottom: 10
-                        }}>
+                      <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-end',
+                        marginLeft: 15,
+                        marginBottom: 15
+                      }}>
                         <Text style={styles.name}>{profile.full_name}</Text>
-                        <Text style={styles.age}>{profile.age} Años</Text>
+                        <View style={{
+                          flexDirection: 'row',
+                          alignItems: 'flex-end',
+                          justifyContent: 'flex-start'
+                        }}>
+                          <Text style={styles.age}>{profile.age} Años {' '}</Text>
+                          <Thumbnail small source={{ uri: profile.country.flag }} style={styles.flag} />
+                        </View>
                         <Text
                           style={styles.compatibility}>
                           Compatibilidad: {profile.compatibility}
@@ -445,15 +452,18 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   flag: {
-
+    width: 30,
+    height: 20,
+    borderRadius: 4,
+    marginBottom: 2.5
   },
   age: {
     fontSize: 18,
-    color: 'grey',
+    color: '#D7D7D7',
     fontWeight: "500"
   },
   compatibility: {
-    color: 'green',
+    color: '#80FF00',
     fontSize: 20,
     fontWeight: '600',
   }
