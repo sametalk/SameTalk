@@ -13,6 +13,9 @@ const compatibleProfileStack = createStackNavigator(
   {
     ListProfiles: {
       screen: props => <ListProfiles navigation={props.navigation}/>,
+      navigationOptions: () => ({
+        header: null,
+      }),
     },
     SeeWhoLikeMee: {
       screen: SeeWhoLikeMee,

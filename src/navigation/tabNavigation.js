@@ -14,8 +14,7 @@ class ExtendStack extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Personas',
-      swipeEnabled: navigation.getParam('swipeAll', true),
-      header: null,
+      swipeEnabled: navigation.getParam('swipeAll', true)
     };
   };
   static router = CompatibleProfileStack.router;
