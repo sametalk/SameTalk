@@ -35,6 +35,7 @@
     "react-native-onesignal": "3.6.5",
     "react-native-reanimated": "^1.2.0",
     "react-native-screens": "^1.0.0-alpha.23",
+    "react-native-skeleton-placeholder": "^2.0.7",
     "react-native-ui-kitten": "^4.2.0",
     "react-native-webview": "^7.0.4",
     "react-navigation": "^4.2.1",

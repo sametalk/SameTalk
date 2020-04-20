@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Container, Icon, Button, Text, Spinner} from 'native-base';
+import React, { Component } from 'react';
+import { Container, Icon, Button, Text, Spinner } from 'native-base';
 import {
   StyleSheet,
   ImageBackground,
@@ -9,23 +9,23 @@ import {
   Platform,
 } from 'react-native';
 import InstagramLogin from 'react-native-instagram-login';
-import {connect} from 'react-redux';
-import {login, cleanStore} from '../actions';
+import { connect } from 'react-redux';
+import { login, cleanStore } from '../actions';
 import AsyncStorage from '@react-native-community/async-storage';
-import {NavigationActions, StackActions} from 'react-navigation';
-import {TouchableOpacity} from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
+import { TouchableOpacity } from 'react-native';
 
 class welcome extends Component {
   constructor(props) {
     super(props);
-    this.state = {loadingToken: true};
+    this.state = { loadingToken: true };
   }
 
   resetTo(route) {
     //Navego a una ruta reseteando el stack
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({routeName: route})],
+      actions: [NavigationActions.navigate({ routeName: route })],
     });
     this.props.navigation.dispatch(resetAction);
   }
@@ -48,12 +48,12 @@ class welcome extends Component {
           if (!this.props.fetchData.error) {
             this.resetTo('TabNavigation'); // Usuario ya logeado
           } else {
-            this.setState({loadingToken: false}); // Error al logear
+            this.setState({ loadingToken: false }); // Error al logear
           }
         } else {
-          this.setState({loadingToken: false}); // Usuario no logeado
+          this.setState({ loadingToken: false }); // Usuario no logeado
         }
-      } catch (e) {}
+      } catch (e) { }
     };
     getData();
   }
@@ -63,11 +63,11 @@ class welcome extends Component {
         Se llama a la funcion login definida en acción y se lo redirige segun el caso
     */
   async _onRegister(token) {
-    this.setState({loadingToken: true});
+    this.setState({ loadingToken: true });
     storeData = async () => {
       try {
         await AsyncStorage.setItem('@token', token);
-      } catch (e) {}
+      } catch (e) { }
     };
     storeData();
     await this.props.login(token);
@@ -76,7 +76,7 @@ class welcome extends Component {
     } else {
       this.props.navigation.navigate('Register'); // Usuario no registrado
     }
-    this.setState({loadingToken: false});
+    this.setState({ loadingToken: false });
   }
 
   render() {
@@ -84,7 +84,7 @@ class welcome extends Component {
       <Container style={styles.container}>
         <ImageBackground
           source={require('../../assets/image/fondoWelcome.png')}
-          style={{width: '100%', height: '100%'}}>
+          style={{ width: '100%', height: '100%' }}>
           {!this.state.loadingToken ? (
             <React.Fragment>
               <View style={styles.logo}>
@@ -95,10 +95,10 @@ class welcome extends Component {
                 />
               </View>
               <View style={styles.buttonZone}>
-                <View style={{alignItems: 'center'}}>
+                <View style={{ alignItems: 'center' }}>
                   <TouchableOpacity
                     style={{
-                      width: Platform.OS === 'ios' ? '65%' : '60%',
+                      paddingHorizontal: 10,
                       height: 50,
                       backgroundColor: '#d9534f',
                       flexDirection: 'row',
@@ -110,10 +110,10 @@ class welcome extends Component {
                     <Icon
                       type="AntDesign"
                       name="instagram"
-                      style={{color: 'white'}}
+                      style={{ color: 'white' }}
                     />
-                    <View style={{marginLeft: 5}} />
-                    <Text style={[styles.text, {color: 'white'}]}>
+                    <View style={{ marginLeft: 5 }} />
+                    <Text style={[styles.text, { color: 'white' }]}>
                       Conectarse con Instagram
                     </Text>
                   </TouchableOpacity>
@@ -124,7 +124,7 @@ class welcome extends Component {
                   redirectUrl="https://google.com"
                   scopes={['basic']}
                   onLoginSuccess={token => this._onRegister(token)}
-                  onLoginFailure={data => this.setState({failure: data})}
+                  onLoginFailure={data => this.setState({ failure: data })}
                   cacheEnabled={true}
                   incognito={true}
                   thirdPartyCookiesEnabled={true}
@@ -134,12 +134,12 @@ class welcome extends Component {
               </View>
             </React.Fragment>
           ) : (
-            <View style={styles.loading}>
-              <View style={styles.loadingItem}>
-                <Spinner color="white" style={{textAlign: 'center'}} />
+              <View style={styles.loading}>
+                <View style={styles.loadingItem}>
+                  <Spinner color="white" style={{ textAlign: 'center' }} />
+                </View>
               </View>
-            </View>
-          )}
+            )}
         </ImageBackground>
       </Container>
     );
@@ -174,8 +174,9 @@ const styles = StyleSheet.create({
     alignContent: 'flex-end',
   },
   buttonZone: {
-    flex: 1.2,
-    justifyContent: 'flex-start',
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: "15%"
   },
   button: {
     width: '60%',

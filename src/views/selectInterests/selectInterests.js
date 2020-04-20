@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -8,9 +8,10 @@ import {
   ImageBackground,
   BackHandler,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
-import {connect} from 'react-redux';
-import {getListInterests, setInterest, deleteInterest} from '../../actions';
+import { connect } from 'react-redux';
+import { getListInterests, setInterest, deleteInterest } from '../../actions';
 import {
   Text,
   Button,
@@ -18,10 +19,11 @@ import {
   Title,
 } from 'native-base';
 import ModalRecommended from '../../components/modalRecommended';
-import Toast, {DURATION} from 'react-native-easy-toast';
-import {SafeAreaView} from 'react-navigation';
+import Toast, { DURATION } from 'react-native-easy-toast';
+import { SafeAreaView } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
-import {DARK, DARK_2} from '../../constant/colors'; 
+import { DARK, DARK_2 } from '../../constant/colors';
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const numColumns = 2;
 
@@ -49,18 +51,22 @@ class selectInterests extends Component {
       );
     });
     console.disableYellowBox = true;
-    const {getListInterests, userData} = this.props;
-    await getListInterests(userData.token);
-    this.setState({
-      interests: this.props.interests,
-    });
+    const { getListInterests, userData } = this.props;
+    this.setState({ loading: true }, async () => {
+      await getListInterests(userData.token);
+      this.setState({
+        interests: this.props.interests,
+      });
+      this.setState({ loading: false })
+    })
+
   }
 
   onClickInterests = item => {
     if (this.state.level < 3) {
       this.setState({
         interests: item.children,
-        parent: {id:item.id, name:item.name},
+        parent: { id: item.id, name: item.name },
         backInterests: this.state.interests,
         level: this.state.level + 1,
       });
@@ -95,7 +101,7 @@ class selectInterests extends Component {
     return true;
   };
 
-  renderItem = ({item, index}) => {
+  renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
@@ -103,68 +109,100 @@ class selectInterests extends Component {
       <TouchableOpacity
         onPress={() => this.onClickInterests(item, index)}
         style={styles.item}>
-          <ImageBackground source={{uri: item.image}} 
+        <ImageBackground source={{ uri: item.image }}
           style={[item.selected ? styles.itemImageSelected : styles.itemImage]}>
-            <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.6)']} style={{flex:1}} />
-            <View style={{width:'100%'}} />
-          </ImageBackground>
-          <View style={{flexDirection:'row', justiftyContent:'bottom', alignItems:'flex-end', flex:1}}>
-            <Text style={styles.itemText}>{item.name}</Text>
-            {this.state.level == 3 &&
+          <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.6)']} style={{ flex: 1 }} />
+          <View style={{ width: '100%' }} />
+        </ImageBackground>
+        <View style={{ flexDirection: 'row', justiftyContent: 'bottom', alignItems: 'flex-end', flex: 1 }}>
+          <Text style={styles.itemText}>{item.name}</Text>
+          {this.state.level == 3 &&
             <Icon
               type='FontAwesome'
               name={[item.selected ? 'check-square-o' : 'square-o']}
-              style={{color:'white', fontSize:30, flex:0.25, textAlign:'right', 
-                paddingRight:item.selected ? 6 : 10, 
-                paddingBottom:5}}
+              style={{
+                color: 'white', fontSize: 30, flex: 0.25, textAlign: 'right',
+                paddingRight: item.selected ? 6 : 10,
+                paddingBottom: 5
+              }}
             />}
-          </View>
+        </View>
       </TouchableOpacity>
     );
   };
 
   render() {
+    const { loading } = this.state
     return (
-      <React.Fragment>
-        <View style={{flex: 1, backgroundColor: DARK}}>
-          <StatusBar barStyle="light-content" />
-          <SafeAreaView style={{flex: 1}}>
-            <View
-              style={[
-                styles.header,
-                {
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  height: 48,
-                  backgroundColor: DARK_2
-                },
-              ]}>
-              {this.state.level !== 1 ? (
-                <Button transparent onPress={() => this.handleBackButton()}>
-                  <Icon name="arrow-back" style={{color: 'white'}} />
-                </Button>
-              ) : (
+      loading ? <SafeAreaView style={{ flex: 1, backgroundColor: DARK }}>
+        <SkeletonPlaceholder style={{ flexDirection: 'row', backgroundColor: 'blue' }}>
+          <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 5 }}>
+            <View style={{
+              width: Dimensions.get('window').width / numColumns,
+              height: Dimensions.get('window').width / numColumns, borderRadius: 4, marginRight: 5
+            }} />
+            <View style={{
+              width: Dimensions.get('window').width / numColumns,
+              height: Dimensions.get('window').width / numColumns, borderRadius: 4
+            }} />
+
+          </View>
+
+          <View style={{ marginTop: 5 }} />
+          <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 5 }}>
+            <View style={{
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').width / numColumns, borderRadius: 4, marginRight: 5
+            }} />
+
+
+          </View>
+
+
+        </SkeletonPlaceholder>
+      </SafeAreaView> :
+
+        <React.Fragment>
+          <View style={{ flex: 1, backgroundColor: DARK }}>
+            <StatusBar barStyle="light-content" />
+            <SafeAreaView style={{ flex: 1 }}>
+              <View
+                style={[
+                  styles.header,
+                  {
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    height: 48,
+                    backgroundColor: DARK_2
+                  },
+                ]}>
+                {this.state.level !== 1 ? (
+                  <Button transparent onPress={() => this.handleBackButton()}>
+                    <Icon name="arrow-back" style={{ color: 'white' }} />
+                  </Button>
+                ) : (
+                    <View />
+                  )}
+                <Title style={{ color: 'white' }}>Selecciona tus intereses </Title>
                 <View />
-              )}
-              <Title style={{color: 'white'}}>Selecciona tus intereses </Title>
-              <View />
-            </View>
-            <FlatList
-              data={this.state.interests.map(obj => (
-                { ...obj, 
-                  selected: this.props.selectedInterests.some(int => int.category.id === obj.id) 
-                }
-              ))}
-              renderItem={this.renderItem}
-              numColumns={numColumns}
-              extraData={this.state}
-            />
-            <Toast ref="toast" style={{backgroundColor: 'grey'}} positionValue={180} />
-          </SafeAreaView>
-        </View>
-        <ModalRecommended />
-      </React.Fragment>
+              </View>
+              <FlatList
+                data={this.state.interests.map(obj => (
+                  {
+                    ...obj,
+                    selected: this.props.selectedInterests.some(int => int.category.id === obj.id)
+                  }
+                ))}
+                renderItem={this.renderItem}
+                numColumns={numColumns}
+                extraData={this.state}
+              />
+              <Toast ref="toast" style={{ backgroundColor: 'grey' }} positionValue={180} />
+            </SafeAreaView>
+          </View>
+          <ModalRecommended />
+        </React.Fragment>
     );
   }
 }
