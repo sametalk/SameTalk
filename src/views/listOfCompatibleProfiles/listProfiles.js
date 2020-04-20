@@ -530,7 +530,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    marginBottom: 30,
+    marginBottom: 35,
     justifyContent: 'center',
     alignItems: 'center',
   },
