@@ -64,6 +64,12 @@ class ModalMatch extends Component {
     this.props.selectCountry(false);
   }
 
+  closeCountry = () => {
+    this.setState({ selectCountryModal: false });
+    this.props.selectCountry(false);
+    return true;
+  }
+
   selectCountry() {
     this.props.selectCountry(true);
     this.setState({ selectCountryModal: true });
@@ -95,6 +101,8 @@ class ModalMatch extends Component {
 
               <SelectCountryComponent
                 handleSelect={country => this.setCountry(country)}
+                handleBack={this.closeCountry}
+                selected={this.state.selectCountryModal}
               />
             </SafeAreaView>
           </View>
@@ -108,7 +116,7 @@ class ModalMatch extends Component {
                   style={{
                     backgroundColor: 'white',
                     width: '80%',
-                    borderRadius: 20,
+                    borderRadius: 10,
                   }}>
                   <View
                     style={{
@@ -117,15 +125,15 @@ class ModalMatch extends Component {
                       height: 50,
                       backgroundColor: 'white',
                       alignItems: 'center',
-                      borderTopLeftRadius: 20,
-                      borderTopRightRadius: 20,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
                     }}>
                     <View
                       style={{
                         width: '100%',
                         height: 50,
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20,
+                        borderTopLeftRadius: 9,
+                        borderTopRightRadius: 9,
                         alignItems: 'center',
                         justifyContent: 'center',
                         backgroundColor: DARK,
@@ -133,18 +141,23 @@ class ModalMatch extends Component {
                       <H1 style={[styles.title]}>Filtrar</H1>
                     </View>
                   </View>
+                  <View style={{ marginTop: 25 }} />
+                  <View style={{ paddingLeft: 20 }}>
+                    <Text>Género</Text>
+                  </View>
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
                       width: '100%',
+                      marginLeft: 10
                     }}>
                     <CheckBox
                       center
                       title="Mujer"
                       checkedIcon="dot-circle-o"
                       uncheckedIcon="circle-o"
-                      checkedColor="rgba(0, 0, 0, 0.9)"
+                      checkedColor="#ff4584"
                       checked={this.state.women}
                       onPress={() => this._check('F')}
                     />
@@ -153,14 +166,15 @@ class ModalMatch extends Component {
                       title="Hombre"
                       checkedIcon="dot-circle-o"
                       uncheckedIcon="circle-o"
-                      checkedColor="rgba(0, 0, 0, 0.9)"
+                      checkedColor="#189af7"
                       checked={this.state.men}
                       onPress={() => this._check('M')}
                     />
                   </View>
+                  <View style={{ marginTop: 25 }} />
                   <View style={{ paddingLeft: 20 }}>
                     <Text>Edad superior a</Text>
-                    <View style={{ marginTop: Platform.OS === 'ios' ? 10 : -5 }} />
+                    <View style={{ marginTop: Platform.OS === 'ios' ? 10 : 0 }} />
 
                     <TextInput
                       underlineColorAndroid="black"
@@ -170,11 +184,13 @@ class ModalMatch extends Component {
                       returnKeyType="done"
                       style={{
                         width: '80%',
+                        marginLeft: -2,
+                        color: 'gray',
                         borderBottomWidth: Platform.OS === 'ios' ? 0.5 : 0,
                       }}
                     />
                   </View>
-                  <View style={{ marginTop: 30 }} />
+                  <View style={{ marginTop: 25 }} />
                   <TouchableOpacity
                     onPress={() => this.selectCountry()}
                     style={{ paddingLeft: 20 }}>
@@ -188,7 +204,7 @@ class ModalMatch extends Component {
                       style={{
                         width: '80%',
                         borderColor: 'black',
-                        borderBottomWidth: 0.5,
+                        borderBottomWidth: 1,
                       }}>
                       <Text
                         style={{
@@ -199,7 +215,7 @@ class ModalMatch extends Component {
                       </Text>
                     </View>
                   </TouchableOpacity>
-                  <View style={{ marginTop: 30 }} />
+                  <View style={{ marginTop: 25 }} />
                   <View
                     style={{
                       flexDirection: 'row',
@@ -216,10 +232,10 @@ class ModalMatch extends Component {
                         {
                           justifyContent: 'center',
                           alignItems: 'center',
-                          backgroundColor: '#b32821',
+                          backgroundColor: '#da554c',
                         },
                       ]}>
-                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                      <Text style={{ fontSize: 20, textTransform: 'capitalize'}}>
                         Cerrar
                     </Text>
                     </Button>
@@ -235,7 +251,7 @@ class ModalMatch extends Component {
                           alignItems: 'center',
                         },
                       ]}>
-                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                      <Text style={{ fontSize: 20, textTransform: 'capitalize'}}>
                         Filtrar
                     </Text>
                     </Button>
@@ -275,7 +291,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 350,
     minHeight: 350,
-    borderRadius: 20,
+    borderRadius: 10,
   },
 
   iconButton: {
@@ -288,14 +304,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    borderRadius: 20,
+    borderRadius: 10,
   },
   cardFilterMatch: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     width: 350,
-    borderRadius: 20,
+    borderRadius: 10,
   },
 
   iconButtonMatch: {
@@ -326,5 +342,6 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 22,
+    textTransform: 'capitalize'
   },
 });
