@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {BackHandler, TouchableOpacity} from 'react-native';
 import {
   Container,
   Content,
@@ -13,8 +13,14 @@ import * as actions from '../actions';
 import {WHITE} from '../constant/colors'; 
 
 class selectCountry extends Component {
+  
   componentDidMount() {
     console.disableYellowBox = true;
+    BackHandler.addEventListener('hardwareBackPress', this.props.handleBack);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.props.handleBack);
   }
 
   render() {

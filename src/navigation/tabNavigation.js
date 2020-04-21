@@ -46,6 +46,8 @@ const TabNavigator = createMaterialTopTabNavigator(
 
     initialRouteName: 'CompatibleProfileStack',
 
+    backBehavior: 'history',
+    
     tabBarPosition: 'bottom',
   },
 );

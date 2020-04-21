@@ -18,6 +18,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import IconLogout from 'react-native-vector-icons/Entypo';
 import IconSetting from 'react-native-vector-icons/AntDesign';
 import IconCoins from 'react-native-vector-icons/FontAwesome5';
+import {CoinsIcon} from '../../assets/images';
 
 import { DARK, DARK_2 } from '../../constant/colors';
 
@@ -64,85 +65,61 @@ class profile extends Component {
               </Text>
               <View style={{ marginTop: 3 }} />
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('ListMatchs')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                <IconCoins name="coins" size={18} color="yellow" />
+                <Image style={{width:20, height:20}} source={CoinsIcon} />
                 <View style={{ marginRight: 5 }} />
-                <Text style={{ fontSize: 16, color: 'white' }}>{userData.coins}</Text>
+                <Text style={{ fontSize: 18, color: 'white' }}>{userData.coins}</Text>
               </TouchableOpacity>
             </View>
             <View
               style={{
-                marginTop: 50,
-                alignItems: 'flex-start',
+                marginTop: 25,
+                width: '100%',
+                alignItems: 'center',
               }}>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('ListMatchs')}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 15,
-                }}>
-                <IconSetting name="staro" size={25} color="white" />
-                <View style={{ marginRight: 3 }} />
-                <Text style={{ fontSize: 20, color: 'white' }}>Matchs</Text>
+                style={styles.profileButton}>
+                <IconSetting name="staro" size={25} style={styles.iconButton} />
+                <View style={styles.lineButton} />
+                <Text style={styles.textButton}>Matchs</Text>
+                <IconSetting name="arrowright" size={25} style={styles.iconButtonArrow} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('ListInterests')}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 15,
-                }}>
-                <IconSetting name="like2" size={25} color="white" />
-                <View style={{ marginRight: 3 }} />
-                <Text style={{ fontSize: 20, color: 'white' }}>Intereses</Text>
+                style={styles.profileButton}>
+                <IconSetting name="like2" size={25} style={styles.iconButton} />
+                <View style={styles.lineButton} />
+                <Text style={styles.textButton}>Intereses</Text>
+                <IconSetting name="arrowright" size={25} style={styles.iconButtonArrow} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('MyTags')}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 15,
-                }}>
-                <IconSetting name="tago" size={25} color="white" />
-                <View style={{ marginRight: 3 }} />
-                <Text style={{ fontSize: 20, color: 'white' }}>Etiquetas</Text>
+                style={styles.profileButton}>
+                <IconSetting name="tago" size={25} style={styles.iconButton} />
+                <View style={styles.lineButton} />
+                <Text style={styles.textButton}>Etiquetas</Text>
+                <IconSetting name="arrowright" size={25} style={styles.iconButtonArrow} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Settings')}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 15,
-                }}>
-                <IconSetting name="setting" size={25} color="white" />
-                <View style={{ marginRight: 3 }} />
-                <Text style={{ fontSize: 20, color: 'white' }}>
-                  Configuración
-                </Text>
+                style={styles.profileButton}>
+                <IconSetting name="setting" size={25} style={styles.iconButton} />
+                <View style={styles.lineButton} />
+                <Text style={styles.textButton}>Configuración</Text>
+                <IconSetting name="arrowright" size={25} style={styles.iconButtonArrow} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.logoutUser()}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <IconLogout name="log-out" size={22} color="white" />
-                <View style={{ marginRight: 3 }} />
-
-                <Text style={{ fontSize: 20, color: 'white' }}>
-                  Cerrar sesión
-                </Text>
+                style={styles.profileButton}>
+                <IconLogout name="log-out" size={25} style={styles.iconButton} />
+                <View style={styles.lineButton} />
+                <Text style={styles.textButton}>Cerrar sesión</Text>
+                <IconSetting name="arrowright" size={25} style={styles.iconButtonArrow} />
               </TouchableOpacity>
             </View>
           </View>
@@ -170,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: '20%',
+    paddingTop: '8%',
   },
 
   card: {
@@ -231,4 +208,34 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  profileButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderWidth: 0,
+    height: 45,
+    borderRadius: 10,
+    marginTop: 10,
+    width: '70%',
+  },
+  lineButton: {
+    backgroundColor: '#6878a0',
+    width: 1,
+    height: 25,
+    marginRight: 10
+  },
+  iconButton: {
+    padding: 10,
+    color: 'white',
+  },
+  iconButtonArrow: {
+    padding: 10,
+    color: '#6878a0',
+    position: 'absolute',
+    right:0
+  },
+  textButton: {
+    fontSize: 18,
+    color: 'white',
+  }
 });
