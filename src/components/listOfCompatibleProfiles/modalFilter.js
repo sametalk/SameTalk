@@ -102,7 +102,6 @@ class ModalMatch extends Component {
               <SelectCountryComponent
                 handleSelect={country => this.setCountry(country)}
                 handleBack={this.closeCountry}
-                selected={this.state.selectCountryModal}
               />
             </SafeAreaView>
           </View>
