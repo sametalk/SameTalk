@@ -14,7 +14,7 @@ class SelectCountry extends Component {
   handleSelect = country => {
     const {userSetCountry} = this.props;
     userSetCountry(country);
-    this.props.navigation.navigate('Settings');
+    this.props.navigation.goBack();
   };
 
   render() {

@@ -140,7 +140,7 @@ class selectAge extends Component {
                     title="Mujer"
                     checkedIcon="dot-circle-o"
                     uncheckedIcon="circle-o"
-                    checkedColor="rgba(0, 0, 0, 0.9)"
+                    checkedColor="#ff4584"
                     checked={this.state.women}
                     onPress={() => this._check('F')}
                   />
@@ -150,7 +150,7 @@ class selectAge extends Component {
                     title="Hombre"
                     checkedIcon="dot-circle-o"
                     uncheckedIcon="circle-o"
-                    checkedColor="rgba(0, 0, 0, 0.9)"
+                    checkedColor="#189af7"
                     checked={this.state.men}
                     onPress={() => this._check('M')}
                   />

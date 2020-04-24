@@ -68,7 +68,7 @@ class Settings extends Component {
                 <Icon name="arrow-back" style={{color: 'white'}} />
               </Button>
 
-              <Title style={{color: 'white'}}>Configuraciones</Title>
+              <Title style={{color: 'white'}}>Configuración</Title>
               <Button
                 transparent
                 onPress={() => {
@@ -84,20 +84,21 @@ class Settings extends Component {
             </View>
             <Container style={{backgroundColor: WHITE}}>
               <Content style={{paddingHorizontal: 20, marginTop: 20}}>
-                <View style={{paddingLeft: 20}}>
-                  <Text>Nombre de usuario</Text>
+                <View style={{paddingLeft: 17}}>
+                  <Text style={{marginLeft: 3}}>Nombre</Text>
                   <View style={{marginTop: Platform.OS === 'ios' ? 10 : -5}} />
 
                   <TextInput
-                    underlineColorAndroid="black"
-                    keyboardType="numeric"
+                    underlineColorAndroid="lightgray"
+                    keyboardType="text"
                     onChangeText={name => this.setState({name})}
                     value={this.state.name}
                     placeholder={this.state.namePlaceholder}
                     placeholderTextColor="gray"
                     returnKeyType="done"
                     style={{
-                      width: '80%',
+                      color: 'gray',
+                      width: '100%',
                       borderBottomWidth: Platform.OS === 'ios' ? 0.5 : 0,
                     }}
                   />
@@ -107,8 +108,9 @@ class Settings extends Component {
                   <Text>Fecha de nacimiento</Text>
                   <View
                     style={{
-                      width: '80%',
-                      borderBottomWidth: 0.5,
+                      width: '100%',
+                      borderBottomWidth: 1,
+                      borderColor: 'lightgray'
                     }}>
                     <DatePicker
                       date={this.state.date}
@@ -120,7 +122,7 @@ class Settings extends Component {
                       cancelBtnText="Cancelar"
                       showIcon={false}
                       style={{
-                        width: '80%',
+                        width: '100%',
                         height: 30,
                       }}
                       customStyles={{
@@ -131,6 +133,10 @@ class Settings extends Component {
                           borderWidth: 0,
                           alignItems: 'flex-start',
                         },
+                        dateText: {
+                          fontSize: 14,
+                          color: 'gray'
+                        }                        
                       }}
                       onDateChange={date => {
                         this.setState({date: date});
@@ -139,7 +145,7 @@ class Settings extends Component {
                   </View>
                 </View>
 
-                <View style={{marginTop: 20}} />
+                <View style={{marginTop: 30}} />
 
                 <TouchableOpacity
                   onPress={() =>
@@ -154,9 +160,9 @@ class Settings extends Component {
 
                   <View
                     style={{
-                      width: '80%',
-                      borderColor: 'black',
-                      borderBottomWidth: 0.5,
+                      width: '100%',
+                      borderColor: 'lightgray',
+                      borderBottomWidth: 1,
                     }}>
                     <Text
                       style={{
