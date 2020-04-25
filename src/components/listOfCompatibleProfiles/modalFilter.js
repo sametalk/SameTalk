@@ -109,7 +109,9 @@ class ModalMatch extends Component {
             <Modal
               animationType="slide"
               transparent={true}
-              visible={modalFilterVisible}>
+              visible={modalFilterVisible}
+              onRequestClose={() => {this.props.closeModal()}}
+              >
               <View style={styles.containerFilter}>
                 <View
                   style={{
