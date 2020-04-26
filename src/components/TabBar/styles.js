@@ -11,6 +11,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 60,
     justifyContent: 'space-around',
+    shadowColor: "#000",
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 3,
+      width: 3
+    },
+    elevation: 10,
   },
 });
 
