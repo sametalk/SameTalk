@@ -14,11 +14,15 @@ import { login, cleanStore } from '../actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { TouchableOpacity } from 'react-native';
+import OneSignal from 'react-native-onesignal';
 
 class welcome extends Component {
   constructor(props) {
     super(props);
-    this.state = { loadingToken: true };
+    this.state = { 
+      loadingToken: true,
+      redirectMatches: false
+    };
   }
 
   resetTo(route) {
@@ -35,7 +39,14 @@ class welcome extends Component {
     return true;
   };
 
+  onOpenNotification = () => {
+    this.setState({redirectMatches: true});
+  }
+
   componentDidMount() {
+    //Set action on notification open
+    OneSignal.init("05fc4295-e955-49d7-adc0-5921cc1357de", {kOSSettingsKeyAutoPrompt : true});
+    OneSignal.addEventListener('opened', this.onOpenNotification);
     //Add general backHandlerListener when screen focused
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     //Recuperar token del almacenamiento
@@ -47,6 +58,10 @@ class welcome extends Component {
           await this.props.login(token);
           if (!this.props.fetchData.error) {
             this.resetTo('TabNavigation'); // Usuario ya logeado
+            if (this.state.redirectMatches) {
+              this.props.navigation.navigate('ListMatchs');
+              this.setState({redirectMatches: false});
+            }
           } else {
             this.setState({ loadingToken: false }); // Error al logear
           }
