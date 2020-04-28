@@ -34,6 +34,7 @@ class profile extends Component {
   logoutUser = async () => {
     try {
       await AsyncStorage.removeItem('@token');
+      await AsyncStorage.removeItem('@userId');
     } catch (e) { }
     this.resetTo('Welcome');
   };

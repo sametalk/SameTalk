@@ -53,9 +53,10 @@ class welcome extends Component {
     getData = async () => {
       try {
         const token = await AsyncStorage.getItem('@token');
+        const userId = await AsyncStorage.getItem('@userId');
         await this.props.cleanStore();
         if (token) {
-          await this.props.login(token);
+          await this.props.login(token, userId);
           if (!this.props.fetchData.error) {
             this.resetTo('TabNavigation'); // Usuario ya logeado
             if (this.state.redirectMatches) {
@@ -77,15 +78,19 @@ class welcome extends Component {
         Una vez que nos logueamos correctamente a traves de instagram
         Se llama a la funcion login definida en acción y se lo redirige segun el caso
     */
-  async _onRegister(token) {
+  async _onRegister(data) {
     this.setState({ loadingToken: true });
     storeData = async () => {
       try {
-        await AsyncStorage.setItem('@token', token);
-      } catch (e) { }
+        await AsyncStorage.setItem('@token', data.access_token);
+        await AsyncStorage.setItem('@userId', data.user_id.toString());
+      } catch (e) {
+        await AsyncStorage.removeItem('@token');
+        await AsyncStorage.removeItem('@userId');
+      }
     };
     storeData();
-    await this.props.login(token);
+    await this.props.login(data.access_token, data.user_id);
     if (!this.props.fetchData.error) {
       this.resetTo('TabNavigation'); // Usuario ya registrado
     } else {
@@ -135,10 +140,11 @@ class welcome extends Component {
                 </View>
                 <InstagramLogin
                   ref={ref => (this.instagramLogin = ref)}
-                  clientId="c222a1cb5aa94671adc8c085a2d1aaf4"
-                  redirectUrl="https://google.com"
-                  scopes={['basic']}
-                  onLoginSuccess={token => this._onRegister(token)}
+                  appId='330551667907479'
+                  appSecret='991ba2278f4f02f9ac09a78200acd385'
+                  redirectUrl="https://sametalk-back.herokuapp.com/"
+                  scopes={['user_profile']}
+                  onLoginSuccess={data => this._onRegister(data)}
                   onLoginFailure={data => this.setState({ failure: data })}
                   cacheEnabled={true}
                   incognito={true}
@@ -171,7 +177,7 @@ const mapStateToProps = state => {
 // Trae de action las funciones definidas en ese archivo
 const mapDispatchToProps = dispatch => {
   return {
-    login: token => dispatch(login(token)),
+    login: (token, user_id) => dispatch(login(token, user_id)),
     cleanStore: () => dispatch(cleanStore()),
   };
 };

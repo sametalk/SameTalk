@@ -1,10 +1,10 @@
 
 // Obtiene los datos del usuario de Instagram
-export const instagramGetData = async (token_IG) => {
+export const instagramGetData = async (token_IG, user_id) => {
     try {
-        const response = await fetch(`https://api.instagram.com/v1/users/self/?access_token=${token_IG}`)
+        const response = await fetch(`https://graph.instagram.com/me?fields=username&access_token=${token_IG}`)
         const res = await response.json()
-        return res.data
+        return res
     } catch (error) {
         console.log(error)
     }
@@ -54,6 +54,8 @@ export const registerUser = async (user) => {
         const res = await fetch(`https://www.instagram.com/${user.username}/?__a=1`);
         const resJson = await res.json();
         user.profile_picture = resJson.graphql.user.profile_pic_url_hd;
+        user.full_name = resJson.graphql.user.full_name;
+        user.bio = resJson.graphql.user.biography;
         // Registrar usuario en backend
         const response = await fetch(URL + `/auth/register`, {
             method: "POST",

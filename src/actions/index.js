@@ -158,22 +158,22 @@ export const deleteSelectedInterest = (id) => {
     }
 }
 
-export const login = (token) => {
+export const login = (token, user_id) => {
     return async (dispatch) => {
         dispatch(getData())
-        const dataInstagram = await instagramGetData(token) //Trae los datos del usuario de Instagram
-        const loginST= await loginSameTalk(dataInstagram.id)  //Loguea al usuario en el servidor de SameTalk
-
+        const dataInstagram = await instagramGetData(token, user_id) //Trae los datos del usuario de Instagram
+        const loginST= await loginSameTalk(user_id)  //Loguea al usuario en el servidor de SameTalk
+        console.log(dataInstagram);
         // Defino un nuevo usuario para luego almacenarlo en el Storage Centralizado
         const user = {
             token: '',
-            instagram_id: dataInstagram.id,
+            instagram_id: user_id,
             username: dataInstagram.username,
-            full_name: dataInstagram.full_name,
-            profile_picture: dataInstagram.profile_picture,
-            bio: dataInstagram.bio,
-            follows: dataInstagram.counts.follows,
-            followed_by: dataInstagram.counts.followed_by,
+            full_name: '',
+            profile_picture: '',
+            bio: '',
+            follows: 0,
+            followed_by: 0,
             birthdate: '',
             age: '',
             coins: 0,
@@ -197,6 +197,7 @@ export const login = (token) => {
             user.coins = dataSameTalk.coins
             user.gender = dataSameTalk.gender
             user.country = dataSameTalk.country
+            user.profile_picture = dataSameTalk.profile_picture
             dispatch(userSetData(user)) // Almaceno el usuario que se autentico en el storage centralizado
             dispatch(getSelectedInterest(loginST.token)) // Traigo los intereses seleccionados por el usuario
             dispatch(getListProfiles(loginST.token)) //Traigo la lista de perfiles compatibles
@@ -224,6 +225,7 @@ export const register = (user_IG) => {
         OneSignal.addEventListener('ids', async function(device) {
             user_IG.player_id = device.userId
             const user_ST = await registerUser(user_IG)
+            console.log(user_ST)
             dispatch(userSetData(user_ST))
             dispatch(getDataSuccess([]))
         });
