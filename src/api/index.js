@@ -11,7 +11,7 @@ export const instagramGetData = async (token_IG) => {
 
 }
 
-const URL = "https://sametalk-back.herokuapp.com/api"
+const URL = 'https://web-production-e510.up.railway.app/api';
 
 // Realiza el login en el servidor de SameTalk
 export const loginSameTalk = async (instagram_id) => {

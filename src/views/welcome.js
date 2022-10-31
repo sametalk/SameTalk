@@ -63,6 +63,7 @@ class welcome extends Component {
         Se llama a la funcion login definida en acción y se lo redirige segun el caso
     */
   async _onRegister(token) {
+    let token = data.access_token;
     this.setState({ loadingToken: true });
     storeData = async () => {
       try {
@@ -120,11 +121,12 @@ class welcome extends Component {
                 </View>
                 <InstagramLogin
                   ref={ref => (this.instagramLogin = ref)}
-                  clientId="c222a1cb5aa94671adc8c085a2d1aaf4"
-                  redirectUrl="https://google.com"
-                  scopes={['basic']}
-                  onLoginSuccess={token => this._onRegister(token)}
-                  onLoginFailure={data => this.setState({ failure: data })}
+                  appId="866014444566052"
+                  appSecret="aad4d81c16f2a7fe017ba26c800b6d07"
+                  redirectUrl="https://github.com/"
+                  scopes={['user_profile', 'user_media']}
+                  onLoginSuccess={data => this._onRegister(data)}
+                  onLoginFailure={data => this.setState({failure: data})}
                   cacheEnabled={true}
                   incognito={true}
                   thirdPartyCookiesEnabled={true}
